@@ -4,7 +4,7 @@
   "description": "Upgrade roadmap web page for Percona Server for MongoDB and MongoDB Community, 3.0 to 9.0",
   "type": "module",
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/*.test.js",
     "build": "node scripts/build-web.js",
     "links": "python3 scripts/deep-links.py",
     "check-links": "python3 scripts/check-links.py",
