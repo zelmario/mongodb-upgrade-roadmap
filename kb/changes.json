@@ -1,0 +1,2649 @@
+{
+  "schema_version": 2,
+  "items": [
+    {
+      "id": "fcv-matches-current",
+      "hop_to": "*",
+      "when": {
+        "from_at_least": "3.4"
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "FCV must equal the current major on every replica set",
+      "action": "Confirm FCV is \"{from}\" on every shard and on the config server replica set. A previous upgrade that never ran setFeatureCompatibilityVersion blocks this hop.",
+      "check": "db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-sharded-cluster/#:~:text=The%207.0%20sharded%20cluster%20must%20have%20featureCompatibilityVersion%20set%20to",
+      "quote": "The 7.0 sharded cluster must have featureCompatibilityVersion set to \"7.0\"."
+    },
+    {
+      "id": "one-major-at-a-time",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "title": "One major version per hop, in place",
+      "action": "Do a rolling binary upgrade to {to} and set FCV before you start the next hop. We advise against jumping majors with mongodump and mongorestore.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-sharded-cluster/#:~:text=you%20must%20successively%20upgrade%20major%20releases%20until%20you%20have",
+      "quote": "you must successively upgrade major releases until you have upgraded to 7.0-series"
+    },
+    {
+      "id": "rs-health",
+      "hop_to": "*",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Every replica set member is healthy and caught up",
+      "action": "No member in ROLLBACK or RECOVERING state (documented requirement). Also check that no member lags and that the oplog window covers a member restart (practice).",
+      "check": "rs.status(); rs.printSecondaryReplicationInfo(); rs.printReplicationInfo()",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-sharded-cluster/#:~:text=For%20shards%20and%20config%20servers%2C%20ensure%20that%20no%20replica",
+      "quote": "For shards and config servers, ensure that no replica set member is in the ROLLBACK or RECOVERING state."
+    },
+    {
+      "id": "backup-before",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Take a full backup and test that you can restore it",
+      "action": "Take a full backup on {from} before you touch any binary, and test that it restores. Percona upgrade pages require it; for sharded clusters MongoDB also recommends a backup of the config database.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-70.html#:~:text=Make%20a%20full%20backup%20of%20your%20data%20and%20configuration",
+      "quote": "Make a full backup of your data and configuration files"
+    },
+    {
+      "id": "tls-cafile",
+      "hop_to": "*",
+      "when": {
+        "to_at_least": "4.4",
+        "platform": [
+          "packages"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "TLS needs a CA file from 4.4.29, 5.0.25, 6.0.14 and 7.0.6",
+      "action": "Fix for CVE-2024-1351: with net.tls.mode allowTLS, preferTLS or requireTLS, mongod refuses to start unless net.tls.CAFile is set or tlsUseSystemCA is true. Setting both is also rejected. Any {to} patch at or above those versions enforces it. Older configuration files use the net.ssl section (sslMode, CAFile) instead of net.tls; the check shows both.",
+      "check": "grep -n -A8 -E '^\\s*(tls|ssl):' /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://jira.mongodb.org/browse/SERVER-72839",
+      "quote": "A server in this invalid configuration will fail to start ... The use of TLS without specifying a chain of trust is no longer supported."
+    },
+    {
+      "id": "driver-compat-check",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Confirm the driver supports the target version",
+      "action": "Check every application driver against the driver compatibility table for {to}. Incompatible drivers can show undefined behaviour.",
+      "when": {
+        "to_at_least": "4.4"
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-sharded-cluster/#:~:text=Upgraded%20deployments%20that%20run%20on%20incompatible%20drivers%20might%20encounter",
+      "quote": "Upgraded deployments that run on incompatible drivers might encounter unexpected or undefined behavior.",
+      "basis": "docs"
+    },
+    {
+      "id": "sccc-removed",
+      "hop_to": "3.4",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Mirrored config servers (SCCC) are not supported",
+      "action": "Convert the config servers to a replica set (CSRS) on 3.2 before the 3.4 hop.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-sharded-cluster.txt#L44",
+      "quote": "Before you can upgrade your sharded clusters to 3.4, you must convert your config servers from SCCC to a replica set (CSRS)."
+    },
+    {
+      "id": "shardsvr-role-required",
+      "hop_to": "3.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Shard members must declare clusterRole: shardsvr",
+      "action": "Set sharding.clusterRole: shardsvr (or --shardsvr) on every shard mongod. The default port for that role is 27018, so set net.port explicitly.",
+      "check": "grep -n -A2 'sharding:' /etc/mongod.conf",
+      "when": {
+        "topology": [
+          "sharded"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-compatibility.txt#L24",
+      "quote": "mongod instances for the shards must explicitly specify its role as a shardsvr",
+      "basis": "docs"
+    },
+    {
+      "id": "mongos-chunksize-autosplit-removed",
+      "hop_to": "3.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "mongos options chunkSize and autoSplit are removed",
+      "action": "Remove sharding.chunkSize/--chunkSize and sharding.autoSplit/--noAutoSplit from every mongos configuration. Set chunk size in config.settings instead.",
+      "check": "grep -n -E 'chunkSize|autoSplit' /etc/mongos.conf",
+      "when": {
+        "topology": [
+          "sharded"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-compatibility.txt#L46",
+      "quote": "MongoDB 3.4 removes the following configuration options from the mongos: sharding.chunkSize ... sharding.autoSplit",
+      "basis": "docs"
+    },
+    {
+      "id": "mongos-34-last",
+      "hop_to": "3.4",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "A 3.4 mongos cannot talk to 3.2 mongod",
+      "action": "Upgrade mongos only after every config server and shard runs 3.4. The 3.2 mongo shell does not work against 3.4 clusters.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-sharded-cluster.txt",
+      "quote": "Version 3.4 mongos instances cannot connect to earlier versions of mongod instances.",
+      "basis": "docs"
+    },
+    {
+      "id": "index-spec-validation-34",
+      "hop_to": "3.4",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Stricter validation of new index specifications",
+      "action": "createIndex now rejects invalid key values ({x: 0}, NaN, unknown strings) and unknown options (uniques2, expireAfterSec). Existing indexes are kept. Test application index creation code.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-compatibility.txt#L150",
+      "quote": "MongoDB 3.4 enforces a stricter validation of index specification during createIndexes ... The enforcement does not apply to existing indexes.",
+      "basis": "docs"
+    },
+    {
+      "id": "initial-sync-rename-34",
+      "hop_to": "3.4",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Initial sync restarts on renameCollection",
+      "action": "Initial sync now fails and restarts when the source renames a collection ($out, mapReduce out, convertToCapped). Avoid those during initial syncs.",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-compatibility.txt#L96",
+      "quote": "when upgrading from 3.2.11 or earlier versions to 3.4, initial syncs may start failing if they encounter renameCollection operations",
+      "basis": "docs"
+    },
+    {
+      "id": "shards-must-be-replsets",
+      "hop_to": "3.6",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Shards must be replica sets",
+      "action": "Convert every standalone shard to a single or multi member replica set on 3.4 before the 3.6 hop.",
+      "check": "db.getSiblingDB(\"config\").shards.find({ host: { $not: /\\// } })",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-compatibility.txt#L23",
+      "quote": "Starting in 3.6, shards must be replica sets.",
+      "basis": "docs"
+    },
+    {
+      "id": "http-interface-removed",
+      "hop_to": "3.6",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "HTTP interface and REST API options are removed",
+      "action": "Remove net.http.* settings and --httpinterface, --rest, --jsonp from configuration and service files.",
+      "check": "grep -n -E 'http|rest|jsonp' /etc/mongod.conf",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-compatibility.txt#L34",
+      "quote": "MongoDB 3.6 removes the deprecated HTTP interface and REST API to MongoDB.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "diaglog-removed",
+      "hop_to": "3.6",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "diagLogging and --diaglog are removed",
+      "action": "Remove --diaglog from service files and stop calling diagLogging.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-compatibility.txt",
+      "quote": "MongoDB 3.6 removes the deprecated diagLogging command and mongod --diaglog option.",
+      "basis": "docs",
+      "check": "grep -rn -i diaglog /etc/mongod.conf /etc/systemd/system /usr/lib/systemd/system /etc/sysconfig /etc/default 2>/dev/null",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "bind-ip-localhost",
+      "hop_to": "3.6",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "mongod binds to localhost by default",
+      "action": "Set net.bindIp explicitly in mongod.conf, otherwise remote clients and members cannot connect.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/includes/fact-default-bind-ip.rst",
+      "quote": "Starting in MongoDB 3.6, MongoDB binaries, mongod and mongos, bind to localhost (127.0.0.1) by default."
+    },
+    {
+      "id": "pushall-removed",
+      "hop_to": "3.6",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$pushAll update operator is removed",
+      "action": "Rewrite updates that use $pushAll to $push with $each.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-compatibility.txt#L391",
+      "quote": "MongoDB 3.6 removes the deprecated $pushAll operator.",
+      "basis": "docs"
+    },
+    {
+      "id": "aggregate-cursor-required",
+      "hop_to": "3.6",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "aggregate command must use a cursor",
+      "action": "Raw aggregate commands must pass cursor or explain. Old drivers that expect a single result document fail. Upgrade drivers.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-compatibility.txt",
+      "quote": "If you run the aggregate command, you must include either the cursor option or the explain option.",
+      "basis": "docs"
+    },
+    {
+      "id": "type-array-partial-index",
+      "hop_to": "3.6",
+      "section": "post",
+      "severity": "warning",
+      "title": "$type: \"array\" now matches any array",
+      "action": "Rebuild partial indexes whose partialFilterExpression uses $type: \"array\" or $type: 4, and review queries that rely on the old meaning.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-compatibility.txt#L105",
+      "quote": "you must rebuild these indexes after upgrading to avoid conflicting $type : 'array' semantics",
+      "basis": "docs"
+    },
+    {
+      "id": "mongodb-cr-removed",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "MONGODB-CR authentication is removed",
+      "action": "Upgrade every user to SCRAM on 3.6 before the 4.0 hop.",
+      "check": "db.getSiblingDB(\"admin\").system.users.find({ \"credentials.MONGODB-CR\": { $exists: true } }).count()",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/extracts-4.0-upgrade-prereq.yaml",
+      "quote": "you must upgrade to SCRAM before you upgrade to version 4.0"
+    },
+    {
+      "id": "pv0-removed",
+      "hop_to": "4.0",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Replica set protocolVersion 0 is removed",
+      "action": "Reconfigure every replica set to protocolVersion 1 before the 4.0 hop.",
+      "check": "rs.conf().protocolVersion",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/extracts-4.0-upgrade-prereq.yaml#L19",
+      "quote": "Before upgrading to MongoDB 4.0, you must upgrade to pv1."
+    },
+    {
+      "id": "master-slave-removed",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Master-slave replication is removed",
+      "action": "Convert master-slave deployments to a replica set before the 4.0 hop.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/extracts-4.0-upgrade-prereq.yaml#L42",
+      "quote": "Before you can upgrade to MongoDB 4.0, if your deployment uses master-slave replication, you must upgrade to a replica set."
+    },
+    {
+      "id": "nojournal-replset-wt-40",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Replica set members on WiredTiger cannot disable the journal",
+      "action": "Remove --nojournal and storage.journal.enabled: false from WiredTiger replica set members before the 4.0 hop.",
+      "check": "grep -n -E 'nojournal|journal' /etc/mongod.conf",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/wiredtiger-node-nojournal.rst",
+      "quote": "Starting in MongoDB 4.0, you cannot specify --nojournal option or storage.journal.enabled: false for replica set members that use the WiredTiger storage engine.",
+      "basis": "docs"
+    },
+    {
+      "id": "isolated-removed",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "$isolated operator is removed",
+      "action": "Recreate partial indexes and views whose definition contains $isolated without it before the 4.0 hop.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/extracts-4.0-upgrade-prereq.yaml#L8",
+      "quote": "If you have an existing partial index that includes the $isolated operator or a view that includes a $isolated operator, recreate the index or view without the operator in the definition before upgrading.",
+      "basis": "docs"
+    },
+    {
+      "id": "noindexbuildretry-replset",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "--noIndexBuildRetry is not allowed on replica set members",
+      "action": "Remove storage.indexBuildRetry and --noIndexBuildRetry from replica set members.",
+      "check": "grep -n -i indexBuildRetry /etc/mongod.conf",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/extracts-4.0-upgrade-prereq.yaml",
+      "quote": "Starting in MongoDB 4.0, you cannot use --noIndexBuildRetry storage.indexBuildRetry for a mongod instance that is part of a replica set.",
+      "basis": "docs"
+    },
+    {
+      "id": "tls10-disabled",
+      "hop_to": "4.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "TLS 1.0 is disabled where TLS 1.1+ is available",
+      "action": "Old clients that only speak TLS 1.0 fail to connect. Upgrade them, or set net.ssl.disabledProtocols: none as a temporary workaround.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-compatibility.txt",
+      "quote": "MongoDB binaries (mongod, mongos, and mongo) disables support for TLS 1.0 encryption on systems where TLS 1.1+ is available.",
+      "basis": "docs"
+    },
+    {
+      "id": "copydb-geonear-deprecated-40",
+      "hop_to": "4.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "copydb, clone, geoNear and maxScan are deprecated",
+      "action": "They are removed in 4.2. Move to mongodump/mongorestore, $geoNear and maxTimeMS now.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-compatibility.txt",
+      "quote": "MongoDB 4.0 deprecates the copydb and the clone commands ... MongoDB 4.0 deprecates the geoNear command.",
+      "basis": "docs"
+    },
+    {
+      "id": "mmapv1-removed",
+      "hop_to": "4.2",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "MMAPv1 storage engine is removed",
+      "action": "Migrate every member to WiredTiger on 4.0 (initial sync member by member) before the 4.2 hop.",
+      "check": "db.serverStatus().storageEngine.name",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt#L13",
+      "quote": "If your 4.0 deployment uses MMAPv1, you must change the deployment to WiredTiger before upgrading to MongoDB 4.2."
+    },
+    {
+      "id": "mmapv1-options-block-start",
+      "hop_to": "4.2",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "MMAPv1 options stop mongod from starting",
+      "action": "Remove storage.mmapv1.*, storage.repairPath, replication.secondaryIndexPrefetch and --smallfiles, --nssize, --noprealloc, --quota from configs, even on WiredTiger nodes.",
+      "check": "grep -n -E 'mmapv1|smallfiles|repairPath|secondaryIndexPrefetch' /etc/mongod.conf",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt#L33",
+      "quote": "Starting in version 4.2, MongoDB processes will not start with these options.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "removed-commands-42",
+      "hop_to": "4.2",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "group, eval, copydb, clone, geoNear, repairDatabase and maxScan are removed",
+      "action": "Find application and script calls to these commands and replace them ($group, $geoNear, mongodump/mongorestore, compact, maxTimeMS).",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt#L75",
+      "quote": "Starting in version 4.2, MongoDB removes the group command ... removes the eval command ... removes the geoNear command",
+      "basis": "docs"
+    },
+    {
+      "id": "fd-per-connection-42",
+      "hop_to": "4.2",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Each incoming connection needs two file descriptors",
+      "action": "Raise the open files ulimit (-n) before the 4.2 hop, especially on mongos and busy primaries.",
+      "check": "for p in $(pidof mongod); do grep 'open files' /proc/$p/limits; done",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/includes/4.2-changes/open-file-connection-increase.rst#L1",
+      "quote": "Starting in MongoDB 4.2, incoming connections to a mongod or mongos instance require two file descriptors.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "retrywrites-default-42",
+      "hop_to": "4.2",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "4.2 drivers enable retryable writes by default",
+      "action": "Applications that write to the local database fail with 4.2+ drivers unless retryWrites=false is set for that connection.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt#L447",
+      "quote": "Applications which write to the local database will encounter write errors upon upgrading to a 4.2-series driver unless retryable writes are explicitly disabled.",
+      "basis": "docs"
+    },
+    {
+      "id": "stepdown-keeps-connections",
+      "hop_to": "4.2",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Step down no longer closes all client connections",
+      "action": "replSetStepDown kills in-progress writes but keeps connections open. Review client failover tests that relied on connection drops.",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt#L428",
+      "quote": "Starting in MongoDB 4.2, replSetStepDown ... no longer closes all client connections. However, writes that were in progress are killed.",
+      "basis": "docs"
+    },
+    {
+      "id": "flush-router-config-dropdb-42",
+      "hop_to": "4.2",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "dropDatabase or movePrimary needs a refresh on mongos and shards",
+      "action": "After you drop and recreate a database with the same name, or move unsharded collections with movePrimary, run flushRouterConfig on every mongos and every shard mongod, or restart them.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt",
+      "quote": "Use the flushRouterConfig command on all mongos instances and mongod shard members before reading or writing to that database.",
+      "basis": "docs",
+      "fix": "db.adminCommand({ flushRouterConfig: 1 })"
+    },
+    {
+      "id": "balancer-autosplit-42",
+      "hop_to": "4.2",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Balancer start and stop also toggle auto-splitting",
+      "action": "sh.startBalancer() enables auto-splitting and sh.stopBalancer() disables it. Use sh.disableAutoSplit() if you want the balancer without splits.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/includes/extracts-4.2-changes.yaml",
+      "quote": "The balancerStart command and the mongo shell helper methods sh.startBalancer() and sh.setBalancerState(true) also enable auto-splitting",
+      "basis": "docs"
+    },
+    {
+      "id": "upgrade-441-30-metadata",
+      "hop_to": "4.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Deployments with 3.0 metadata must go to 4.4.1 or later",
+      "action": "If the data files were created on MongoDB 3.0, upgrade straight to 4.4.1+ (never 4.4.0).",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/includes/4.4.0-upgrade-warning.rst",
+      "quote": "you must upgrade to MongoDB 4.4.1 or later. You cannot successfully upgrade a deployment containing MongoDB 3.0 metadata to MongoDB 4.4.0 without serious risk of downtime.",
+      "basis": "docs"
+    },
+    {
+      "id": "failindexkeytoolong-removed",
+      "hop_to": "4.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "failIndexKeyTooLong stops mongod 4.4 from starting",
+      "action": "Remove setParameter failIndexKeyTooLong from configuration and startup scripts.",
+      "check": "grep -n failIndexKeyTooLong /etc/mongod.conf",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/includes/extracts-4.4-changes.yaml#L75",
+      "quote": "MongoDB 4.4 removes the failIndexKeyTooLong parameter.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "mirrored-reads",
+      "hop_to": "4.4",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Mirrored reads are on by default",
+      "action": "The primary mirrors 1% of supported reads (samplingRate 0.01) to electable secondaries to keep their cache warm. Expect a small extra read load on secondaries.",
+      "check": "db.adminCommand({ getParameter: 1, mirrorReads: 1 })",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/reference/parameters.txt#L2594",
+      "quote": "Default: { samplingRate: 0.01, maxTimeMS: 1000 }"
+    },
+    {
+      "id": "structured-logging-44",
+      "hop_to": "4.4",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Logs are structured JSON",
+      "action": "Every log line is JSON, including getLog output. Update log parsers, alerting rules and ingestion pipelines.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-compatibility.txt",
+      "quote": "Starting in MongoDB 4.4, mongod / mongos instances now output all log messages in structured JSON format",
+      "basis": "docs"
+    },
+    {
+      "id": "removed-commands-44",
+      "hop_to": "4.4",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "cloneCollection and planCacheListPlans are removed",
+      "action": "Replace cloneCollection with mongoexport/mongoimport or $out/$merge, and planCacheListPlans with $planCacheStats.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-compatibility.txt",
+      "quote": "MongoDB removes the following command(s) and mongo shell helper(s): cloneCollection ... planCacheListPlans",
+      "basis": "docs"
+    },
+    {
+      "id": "projection-path-collision-44",
+      "hop_to": "4.4",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Projection path collisions now raise errors",
+      "action": "Projections that include an embedded document and one of its fields, $-prefixed field paths, or empty field names fail on 4.4. Test application projections.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-compatibility.txt#L154",
+      "quote": "Path Collision Restrictions",
+      "basis": "docs"
+    },
+    {
+      "id": "getlasterrordefaults-deprecated-44",
+      "hop_to": "4.4",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Custom getLastErrorDefaults is deprecated",
+      "action": "Move to setDefaultRWConcern before 5.0, where custom values are no longer allowed.",
+      "check": "rs.conf().settings.getLastErrorDefaults",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-compatibility.txt#L84",
+      "quote": "Custom getLastErrorDefaults Values Deprecated",
+      "basis": "docs"
+    },
+    {
+      "id": "avx-required",
+      "hop_to": "5.0",
+      "when": {
+        "arch": [
+          "x86_64"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "x86_64 CPU must support AVX",
+      "action": "MongoDB and PSMDB 5.0+ builds for x86_64 need a CPU with AVX. Without it mongod does not start. Check every host, VMs included.",
+      "check": "grep -m1 -o -w avx /proc/cpuinfo",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/system-requirements.html#:~:text=MongoDB%205.0%20and%20above%20requires%20use%20of%20the%20AVX",
+      "quote": "MongoDB 5.0 and above requires use of the AVX instruction set"
+    },
+    {
+      "id": "emrc-not-configurable-50",
+      "hop_to": "5.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "enableMajorityReadConcern: false stops mongod 5.0 from starting",
+      "action": "Remove replication.enableMajorityReadConcern and --enableMajorityReadConcern before the 5.0 hop. In 5.0 and later the option cannot be changed and is always true, so a configuration that sets it to false stops mongod at startup.",
+      "check": "grep -n -i enableMajorityReadConcern /etc/mongod.conf",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/includes/fact-eMRC-always-true-in-5.0.rst",
+      "quote": "Starting in MongoDB 5.0, enableMajorityReadConcern and --enableMajorityReadConcern cannot be changed and are always set to true",
+      "basis": "docs"
+    },
+    {
+      "id": "getlasterrordefaults-removed-50",
+      "hop_to": "5.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Custom getLastErrorDefaults is not allowed",
+      "action": "5.0 ignores custom getLastErrorDefaults and rejects new custom values in replSetReconfig, so writes fall back to the implicit default write concern. Set the default you want with setDefaultRWConcern before the hop.",
+      "check": "rs.conf().settings.getLastErrorDefaults",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/includes/5.0-changes-getLastErrorDefaults-removed.rst#L1",
+      "quote": "Starting in MongoDB 5.0, you cannot specify a default write concern with settings.getLastErrorDefaults other than the default of { w: 1, wtimeout: 0 }.",
+      "basis": "docs"
+    },
+    {
+      "id": "serviceexecutor-removed-50",
+      "hop_to": "5.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "net.serviceExecutor is removed",
+      "action": "Remove net.serviceExecutor and --serviceExecutor from configs before starting 5.0.",
+      "check": "grep -n -i serviceExecutor /etc/mongod.conf /etc/mongos.conf",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-compatibility.txt#L445",
+      "quote": "MongoDB removes the --serviceExecutor command-line option and the corresponding net.serviceExecutor configuration option.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "ttl-nan-50",
+      "hop_to": "5.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "TTL indexes with expireAfterSeconds NaN expire documents immediately",
+      "action": "Find TTL indexes with expireAfterSeconds: NaN and fix them with collMod before the hop, initial sync or mongorestore.",
+      "check": "db.getMongo().getDBNames().forEach(d => db.getSiblingDB(d).getCollectionInfos({type:'collection'}).forEach(c => db.getSiblingDB(d)[c.name].getIndexes().filter(i => i.expireAfterSeconds !== undefined && isNaN(i.expireAfterSeconds)).forEach(i => print(d, c.name, i.name))))",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-compatibility.txt#L170",
+      "quote": "causes an expireAfterSeconds value of NaN to be treated as an expireAfterSeconds of 0. As a result, documents may expire immediately.",
+      "basis": "docs"
+    },
+    {
+      "id": "arm-v82-required-50",
+      "hop_to": "5.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "ARM64 hosts need ARMv8.2-A",
+      "action": "5.0+ mongod and mongos do not run on older ARM64 CPUs (Raspberry Pi 4 included). Graviton2 or newer is fine.",
+      "when": {
+        "arch": [
+          "aarch64"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/administration/production-notes.txt#L84",
+      "quote": "MongoDB on arm64 requires the ARMv8.2-A or later microarchitecture.",
+      "basis": "docs"
+    },
+    {
+      "id": "legacy-opcodes-deprecated",
+      "hop_to": "5.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Legacy opcodes are deprecated",
+      "action": "OP_QUERY (except the handshake), OP_INSERT, OP_UPDATE, OP_DELETE, OP_GET_MORE and OP_KILL_CURSORS still work on 5.0 but are removed in 6.0. Start the driver audit now. The counters below only appear after a deprecated opcode was used.",
+      "check": "db.serverStatus().opcounters.deprecated",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/reference/command/serverStatus.txt#L3346",
+      "quote": "This section only appears in the db.serverStatus() output when a deprecated opcode has been used."
+    },
+    {
+      "id": "default-wc-majority-50",
+      "hop_to": "5.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Implicit default write concern is w: majority",
+      "action": "Writes without an explicit write concern now wait for a majority. In PSA sets with 2 data-bearing voters the default stays w: 1. Expect higher write latency and stalls when a secondary is down or lagging.",
+      "check": "db.adminCommand({ getDefaultRWConcern: 1 })",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/includes/5.0-default-wc.rst",
+      "quote": "Starting in MongoDB 5.0, the implicit default write concern is w: majority.",
+      "basis": "docs"
+    },
+    {
+      "id": "removed-commands-50",
+      "hop_to": "5.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Shell helpers and commands removed",
+      "action": "db.collection.save(), ensureIndex(), copyTo(), rs.secondaryOk(), geoSearch, resetError, shardConnPoolStats and unsetSharding are gone. Update scripts and applications.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-compatibility.txt#L63",
+      "quote": "Starting in MongoDB 5.0, these database commands and mongo shell helper methods are removed",
+      "basis": "docs"
+    },
+    {
+      "id": "unknown-params-rejected-50",
+      "hop_to": "5.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Commands reject unrecognized parameters",
+      "action": "find, aggregate, insert, update, delete and others now error on unknown fields that 4.4 silently ignored. Test applications and ORMs.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-compatibility.txt#L28",
+      "quote": "Starting in MongoDB 5.0, certain database commands raise an error if passed a parameter not explicitly accepted by the command.",
+      "basis": "docs"
+    },
+    {
+      "id": "geohaystack-removed-50",
+      "hop_to": "5.0",
+      "section": "post",
+      "severity": "warning",
+      "title": "geoHaystack indexes are deleted at FCV 5.0",
+      "action": "Replace geoHaystack indexes with 2d indexes before setFCV 5.0.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-compatibility.txt",
+      "quote": "setting featureCompatibilityVersion to 5.0 will delete any pre-existing geoHaystack indexes.",
+      "basis": "docs"
+    },
+    {
+      "id": "legacy-opcodes-removed",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Legacy opcodes are removed, old drivers fail",
+      "action": "Legacy opcodes and the getLastError command are removed. OP_QUERY is still accepted only for the hello, isMaster and auth handshake. Find every client that still uses them and upgrade its driver before the 6.0 hop.",
+      "check": "db.getMongo().setReadPref('primaryPreferred'); db.getSiblingDB(\"admin\").aggregate([{ $currentOp: { allUsers: true, idleConnections: true } }, { $group: { _id: \"$clientMetadata.driver\", n: { $sum: 1 } } }])",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt#L305",
+      "quote": "MongoDB 6.0 removes support for the following legacy opcodes and database commands: ... getLastError",
+      "run_on": "each mongod: drivers connect to every member",
+      "note": "setReadPref('primaryPreferred') lets the aggregation run on a secondary. Without it a secondary answers 'not master and slaveOk=false' (tested on a lab cluster)."
+    },
+    {
+      "id": "mongo-shell-removed",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "The legacy mongo shell is no longer shipped",
+      "action": "Install mongosh and update scripts and cron jobs that call `mongo`. Check mongodump and mongorestore versions too.",
+      "check": "which mongo mongosh mongodump",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt#L105",
+      "quote": "The mongo shell is removed from MongoDB 6.0. The replacement is mongosh."
+    },
+    {
+      "id": "cwwc-required-shards-60",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Cluster-wide write concern must be set for shards with default w: 1",
+      "action": "Set CWWC with setDefaultRWConcern on mongos before the hop if any shard is PSA, otherwise the shard fails to start.",
+      "check": "db.adminCommand({ getDefaultRWConcern: 1 })",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/includes/fact-5.1-fassert-shard-restart-add-CWWC.rst#L1",
+      "quote": "If the CWWC is not set and the shard is configured such that the default write concern is { w : 1 } the shard server will fail to start",
+      "basis": "docs"
+    },
+    {
+      "id": "cpu-option-removed-60",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "--cpu option is removed",
+      "action": "Remove --cpu from service files and startup scripts.",
+      "check": "grep -rn -- '--cpu' /etc/systemd/system /usr/lib/systemd/system /etc/sysconfig /etc/default 2>/dev/null",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt",
+      "quote": "MongoDB 6.0 removes the --cpu mongod option.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "ticket-params-renamed-60",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Ticket parameters renamed",
+      "action": "wiredTigerConcurrentReadTransactions and wiredTigerConcurrentWriteTransactions are now storageEngineConcurrentReadTransactions and storageEngineConcurrentWriteTransactions. Update setParameter blocks and tuning scripts.",
+      "check": "grep -n ConcurrentRead /etc/mongod.conf",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt",
+      "quote": "wiredTigerConcurrentReadTransactions is now storageEngineConcurrentReadTransactions",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "balancing-by-data-size-60",
+      "hop_to": "6.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Balancer distributes by data size and may start immediately",
+      "action": "From 6.0.3 the balancer evens out data size, not chunk count, and chunks no longer auto-split. Expect migrations right after the upgrade even if chunk counts are even. Plan a balancer window.",
+      "check": "sh.status()",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/includes/6.0-upgrade-warning.rst#L1",
+      "quote": "the balancer may start immediately after upgrade, even if the number of chunks stays the same.",
+      "basis": "docs"
+    },
+    {
+      "id": "legacy-query-operators-removed-60",
+      "hop_to": "6.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Legacy query modifiers are removed",
+      "action": "$query, $orderby, $hint, $explain, $maxTimeMS, $min, $max, $returnKey, $showDiskLoc and $comment wrappers no longer work. Use cursor methods.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt#L135",
+      "quote": "Starting in MongoDB 5.1, these legacy query operators are removed",
+      "basis": "docs"
+    },
+    {
+      "id": "allowdiskuse-default-60",
+      "hop_to": "6.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Large sorts and groups spill to disk by default",
+      "action": "Pipelines above 100 MB write temp files without allowDiskUse. Watch dbPath free space, or set allowDiskUseByDefault: false.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/includes/fact-allowDiskUseByDefault.rst#L1",
+      "quote": "pipeline stages that require more than 100 megabytes of memory to execute write temporary files to disk by default.",
+      "basis": "docs"
+    },
+    {
+      "id": "regex-invalid-options-60",
+      "hop_to": "6.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Invalid $regex options now raise errors",
+      "action": "Queries with invalid $regex options that 5.0 ignored now fail. Test application regex queries.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/includes/fact-5.1-regex-find-functionality.rst",
+      "quote": "Starting in MongoDB 5.1, invalid $regex options options are no longer ignored.",
+      "basis": "docs"
+    },
+    {
+      "id": "js-static-functions-removed-60",
+      "hop_to": "6.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Static Array and String functions removed from server-side JavaScript",
+      "action": "Array.concat(), String.trim() and similar static calls in $where, $function and $accumulator fail. Use prototype methods.",
+      "verified": false,
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt#L393",
+      "quote": "Array.concat(<array1>, <array2>) is a static function and no longer works in MongoDB 6.0.",
+      "basis": "docs"
+    },
+    {
+      "hop_to": "7.0",
+      "section": "preflight",
+      "check": "grep -n journal /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/",
+      "id": "journal-option-removed",
+      "severity": "blocker",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "title": "storage.journal.enabled is rejected",
+      "action": "MongoDB removed storage.journal.enabled and --journal/--nojournal in 6.1. MongoDB 7.0 refuses to start with an unrecognized option. Remove them from mongod.conf and service files first."
+    },
+    {
+      "hop_to": "7.0",
+      "section": "preflight",
+      "check": "grep -n journal /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/upgrade-from-60.html",
+      "id": "journal-option-ignored-psmdb",
+      "severity": "warning",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "title": "storage.journal.enabled is ignored",
+      "action": "Journaling is always on. PSMDB 7.0 and 8.0 log startup warning 29117 and keep running if the option is set. Remove it from mongod.conf to keep the config portable."
+    },
+    {
+      "id": "snmp-removed-70",
+      "hop_to": "7.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "SNMP options stop mongod from starting",
+      "action": "Remove every SNMP option from configs and command lines before the 7.0 hop.",
+      "check": "grep -n -i snmp /etc/mongod.conf",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=Starting%20in%20MongoDB%206.1%2C%20SNMP%20is%20removed.%20All%20related",
+      "quote": "Starting in MongoDB 6.1, SNMP is removed. All related command line options prevent mongod from starting.",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "views-on-buckets-70",
+      "hop_to": "7.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Views on system.buckets collections must be dropped",
+      "action": "Drop every view whose source is a system.buckets.* collection before the hop.",
+      "check": "db.getMongo().getDBNames().forEach(d => db.getSiblingDB(d).getCollectionInfos({type:'view','options.viewOn':/^system\\.buckets\\./}).forEach(v => print(d, v.name)))",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=If%20you%20are%20upgrading%20to%20MongoDB%206.1%20from%20a",
+      "quote": "If you are upgrading to MongoDB 6.1 from a prior version, you must drop all views which are created on system.buckets collections.",
+      "basis": "docs"
+    },
+    {
+      "id": "qe-preview-incompatible-70",
+      "hop_to": "7.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Queryable Encryption public preview is incompatible with 7.0",
+      "action": "Collections encrypted with the 6.x preview must be migrated with 7.0 drivers. 6.x drivers cannot talk to a 7.0 server for QE.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=You%20cannot%20use%20MongoDB%206.x%20compatible%20drivers%20with%20a",
+      "quote": "You cannot use MongoDB 6.x compatible drivers with a 7.0 server, or 7.0 compatible drivers with a 6.x server.",
+      "basis": "docs"
+    },
+    {
+      "id": "free-monitoring-removed-70",
+      "hop_to": "7.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Free monitoring options are removed",
+      "action": "Remove cloud.monitoring.free and --enableFreeMonitoring from configs.",
+      "check": "grep -n -i -E 'monitoring|FreeMonitoring' /etc/mongod.conf",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=Starting%20in%20MongoDB%207.0%2C%20free%20monitoring%20is%20decommissioned.%20The",
+      "quote": "Starting in MongoDB 7.0, free monitoring is decommissioned. The following aren't available: cloud.monitoring.free configuration option",
+      "basis": "docs",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "setfcv-confirm",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "setFeatureCompatibilityVersion needs confirm: true",
+      "action": "From 7.0 the command fails without confirm: true. Update runbooks and automation. The command is part of the last step of each hop.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v7.0/reference/command/setFeatureCompatibilityVersion/#:~:text=If%20you%20omit%20the%20confirm%20parameter%20or%20set%20confirm",
+      "quote": "If you omit the confirm parameter or set confirm to a value other than true, the command fails"
+    },
+    {
+      "id": "dynamic-tickets",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Concurrent transactions are adjusted dynamically",
+      "action": "7.0 adjusts the number of read and write tickets to optimize throughput during overload. The tuning parameters were renamed in 6.0 to storageEngineConcurrentReadTransactions and storageEngineConcurrentWriteTransactions. Review tuned values. After the upgrade you can see the algorithm with db.adminCommand({ getParameter: 1, storageEngineConcurrencyAdjustmentAlgorithm: 1 }).",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0/#:~:text=Starting%20in%20version%207.0%2C%20MongoDB%20uses%20a%20default%20algorithm",
+      "quote": "Starting in version 7.0, MongoDB uses a default algorithm to dynamically adjust the maximum number of concurrent storage engine transactions (including both read and write tickets)"
+    },
+    {
+      "id": "batched-deletes",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Multi-document deletes may be batched (6.1+)",
+      "action": "deleteMany is batched by default (batchUserMultiDeletes) once FCV allows it, except inside transactions and retryable writes. The oplog and locking pattern change. Watch replication lag on the first large deletes after setFCV.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0/#:~:text=Starting%20in%20MongoDB%206.1%3A%20To%20improve%20efficiency%2C%20MongoDB%20may",
+      "quote": "Starting in MongoDB 6.1: To improve efficiency, MongoDB may batch multiple document deletions together. The explain command results contain a new BATCHED_DELETE stage"
+    },
+    {
+      "id": "natural-values-70",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$natural accepts only 1 and -1",
+      "action": "Hints or sorts with $natural values like 0, NaN or strings now return an error.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=if%20you%20pass%20any%20value%20other%20than%201%20and",
+      "quote": "if you pass any value other than 1 and -1 to $natural, MongoDB returns an error.",
+      "basis": "docs"
+    },
+    {
+      "id": "add-float-rounding-70",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "$add no longer compensates floating point rounding",
+      "action": "$add: [0.1, 0.2, 0.3] returns 0.6000000000000001 instead of 0.6. Check financial and comparison logic.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=The%20%24add%20expression%20no%20longer%20accounts%20for%20floating-point%20rounding",
+      "quote": "The $add expression no longer accounts for floating-point rounding errors.",
+      "basis": "docs"
+    },
+    {
+      "id": "addshard-maxsize-removed-70",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "addShard maxSize is removed",
+      "action": "addShard with maxSize returns InvalidOptions. Update provisioning automation.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-compatibility/#:~:text=Running%20addShard%20with%20the%20maxSize%20field%20returns%20an%20InvalidOptions",
+      "quote": "Running addShard with the maxSize field returns an InvalidOptions error.",
+      "basis": "docs"
+    },
+    {
+      "id": "automerger-70",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "AutoMerger is on by default",
+      "action": "The balancer merges mergeable chunks on its own. Expect chunk counts to drop; use sh.stopAutoMerger() if needed.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0/#:~:text=Starting%20in%20MongoDB%207.0%2C%20the%20AutoMerger%20can%20automatically%20merge",
+      "quote": "Starting in MongoDB 7.0, the AutoMerger can automatically merge chunks that meet the mergeability requirements. The AutoMerger is enabled by default.",
+      "basis": "docs"
+    },
+    {
+      "id": "tickets-zero-not-overload-70",
+      "hop_to": "7.0",
+      "section": "post",
+      "severity": "warning",
+      "title": "Ticket availability 0 is not an overload signal",
+      "action": "Rewrite alerts that fire on zero available read or write tickets. Alert on queued operations instead.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0/#:~:text=A%20concurrent%20storage%20engine%20transaction%20%28ticket%29%20availability%20of%200",
+      "quote": "A concurrent storage engine transaction (ticket) availability of 0 for a prolonged period of time does not indicate an overload.",
+      "basis": "docs"
+    },
+    {
+      "id": "tcmalloc-thp",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "New tcmalloc: THP and glibc settings change in 8.0",
+      "action": "On x86_64 and ARM64, 8.0 uses a new tcmalloc with per-CPU caches. Set THP enabled=always, defrag=defer+madvise, khugepaged max_ptes_none=0, vm.overcommit_memory=1, and GLIBC_TUNABLES=glibc.pthread.rseq=0 in the mongod environment. Needs kernel 4.18+. PPC64LE and s390x keep the old tcmalloc and must keep THP disabled. After the upgrade, db.serverStatus().tcmalloc.usingPerCPUCaches must be true in mongosh.",
+      "check": "cat /sys/kernel/mm/transparent_hugepage/enabled /sys/kernel/mm/transparent_hugepage/defrag /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none /proc/sys/vm/overcommit_memory",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/administration/tcmalloc-performance/#:~:text=In%20MongoDB%208.0%20and%20later%2C%20ensure%20that%20THP%20is",
+      "quote": "In MongoDB 8.0 and later, ensure that THP is enabled before mongod starts ... GLIBC_TUNABLES=glibc.pthread.rseq=0",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "kernel-619-70013-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Linux kernel 6.19 to 7.0.13 blocks startup",
+      "action": "MongoDB 8.0 detects these kernels and stops during startup. Use a kernel outside that range, or 7.0.14+.",
+      "check": "uname -r",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0/#:~:text=MongoDB%20detects%20these%20kernel%20versions%20and%20stops%20during%20startup",
+      "quote": "MongoDB detects these kernel versions and stops during startup.",
+      "basis": "docs"
+    },
+    {
+      "id": "system-buckets-non-ts-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Non time series system.buckets collections",
+      "action": "For 8.0.0 to 8.0.4, drop or rename system.buckets collections that are not time series before the upgrade. From 8.0.5, do it right after. The check runs the query in every database and prints each match as <db> <collection>.",
+      "check": "db.getMongo().getDBNames().forEach(d => db.getSiblingDB(d).getCollectionInfos({ $and: [ { name: { $regex: /^system\\.buckets/ } }, { 'options.timeseries': { $exists: false } } ] }).forEach(c => print(d, c.name)))",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-sharded-cluster/#:~:text=You%20must%20drop%20or%20rename%20system.buckets%20collections%20that%20aren%27t",
+      "quote": "You must drop or rename system.buckets collections that aren't time-series collections before you upgrade.",
+      "basis": "docs"
+    },
+    {
+      "id": "rangepreview-removed-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Queryable Encryption rangePreview must be dropped",
+      "action": "Drop collections that use the rangePreview algorithm before the 8.0 hop and recreate them with Range.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=If%20your%20Queryable%20Encryption%20collection%20uses%20rangePreview%2C%20you%20must",
+      "quote": "If your Queryable Encryption collection uses rangePreview, you must drop the collection before you can upgrade to MongoDB 8.0.",
+      "basis": "docs"
+    },
+    {
+      "id": "null-undefined",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Equality to null no longer matches undefined",
+      "action": "Queries like { field: null } stop matching documents where field is undefined. $eq, $in and $lookup (null local field against undefined foreign field) change too. Find those documents and the queries that rely on them.",
+      "check": "db.coll.countDocuments({ field: { $type: \"undefined\" } })",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=Starting%20in%20MongoDB%208.0%2C%20comparisons%20to%20null%20in%20equality",
+      "quote": "Starting in MongoDB 8.0, comparisons to null in equality match expressions don't match undefined values."
+    },
+    {
+      "id": "direct-shard-ops-80",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "blocker",
+      "title": "Direct connections to shards reject most commands",
+      "action": "Monitoring agents, backup tools and scripts that connect straight to shard members need the directShardOperations role, or must go through mongos.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=You%20are%20connecting%20to%20a%20sharded%20cluster%20improperly%20by",
+      "quote": "You are connecting to a sharded cluster improperly by connecting directly to a shard. Please connect to the cluster via a router (mongos).",
+      "basis": "docs"
+    },
+    {
+      "id": "majority-ack-semantics-80",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "w: majority acknowledges after the oplog write",
+      "action": "Majority writes return once a majority has written the oplog entry, not applied it. Code that reads secondaries right after a majority write may see older data.",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=write%20operations%20that%20use%20the%20%22majority%22%20write%20concern%20return",
+      "quote": "write operations that use the \"majority\" write concern return an acknowledgment when the majority of replica set members have written the oplog entry",
+      "basis": "docs"
+    },
+    {
+      "id": "tcmalloc-release-rate-80",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "tcmallocReleaseRate meaning and default changed",
+      "action": "The value is now bytes per second with default 0, not 0-10. Remove old tuned values. tcmallocEnableBackgroundThread is on by default.",
+      "check": "db.adminCommand({ getParameter: 1, tcmallocReleaseRate: 1 })",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=the%20default%20value%20of%20tcmallocReleaseRate%20is%20reduced%20to%200",
+      "quote": "the default value of tcmallocReleaseRate is reduced to 0.",
+      "basis": "docs"
+    },
+    {
+      "id": "deprecations-80",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "hedged reads, index filters and server-side JavaScript are deprecated",
+      "action": "They still work in 8.0 but log warnings ($where, $function, $accumulator). Plan replacements; LDAP is removed in a later major.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=Starting%20in%20MongoDB%208.0%2C%20server-side%20JavaScript%20functions%20%28%24accumulator%2C%20%24function%2C",
+      "quote": "Starting in MongoDB 8.0, server-side JavaScript functions ($accumulator, $function, $where) are deprecated. MongoDB logs a warning when you run these functions.",
+      "basis": "docs"
+    },
+    {
+      "id": "concurrent-compact-80",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Concurrent compact on one collection returns an error",
+      "action": "Serialize compact jobs per collection in maintenance scripts.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=if%20you%20try%20to%20run%20multiple%20concurrent%20compact%20commands",
+      "quote": "if you try to run multiple concurrent compact commands on the same collection, MongoDB returns an error.",
+      "basis": "docs"
+    },
+    {
+      "id": "serverstatus-metrics-renamed-80",
+      "hop_to": "8.0",
+      "section": "post",
+      "severity": "warning",
+      "title": "serverStatus metrics renamed",
+      "action": "wiredTiger.concurrentTransactions moves to queues.execution, and metrics.repl.buffer splits into apply and write. Update dashboards, alerts and scripts that read the old names.",
+      "check": "db.serverStatus().queues",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=Starting%20in%20MongoDB%208.0%2C%20wiredTiger.concurrentTransactions%20is%20renamed%20to%20queues.execution",
+      "quote": "Starting in MongoDB 8.0, wiredTiger.concurrentTransactions is renamed to queues.execution.",
+      "basis": "docs"
+    },
+    {
+      "id": "upgrade-path-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "info",
+      "title": "8.2 accepts only 8.0 as the source",
+      "action": "Run the latest 8.0 patch with FCV \"8.0\" on every member, then upgrade binaries and set FCV \"8.2\". 8.2 is a minor release; after 8.3 ships MongoDB stops patching 8.2, and 8.2 cannot go straight to 9.0 (go 8.2 to 8.3 to 9.0).",
+      "check": "db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=To%20upgrade%20to%20MongoDB%208.2%20from%20a%208.0%20deployment%2C",
+      "quote": "To upgrade to MongoDB 8.2 from a 8.0 deployment, the 8.0 deployment must have featureCompatibilityVersion set to 8.0."
+    },
+    {
+      "id": "minor-no-downgrade-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "warning",
+      "title": "No way back from 8.2 on Community",
+      "action": "Binary downgrade 8.2 to 8.0 is not supported for Community. FCV cannot be downgraded from a minor. Test fully and keep a restorable 8.0 backup.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=Binary%20downgrades%20aren%27t%20supported%20for%20MongoDB%20Community%20Edition.%20You",
+      "quote": "Binary downgrades aren't supported for MongoDB Community Edition. You cannot downgrade your deployment's FCV (feature compatibility version) to or from a minor release version of MongoDB."
+    },
+    {
+      "id": "minor-no-mongosync-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "warning",
+      "title": "mongosync and Live Migration do not support minor releases",
+      "action": "If you use mongosync or Atlas Live Migration, stay on a major release (8.0) or plan the migration before moving to 8.2.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=Minor%20releases%20may%20not%20support%20some%20features%2C%20including%20Atlas",
+      "quote": "Minor releases may not support some features, including Atlas Live Migration or mongosync. If you require these features, use a Major release instead."
+    },
+    {
+      "id": "kernel-619-70013-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Linux kernel 6.19 to 7.0.13 blocks startup",
+      "action": "MongoDB detects these kernels and stops during startup. Use a kernel outside that range, or 7.0.14+.",
+      "check": "uname -r",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=running%20MongoDB%20with%20a%20Linux%20kernel%20version%20from%206.19",
+      "quote": "running MongoDB with a Linux kernel version from 6.19 through 7.0.13 can cause MongoDB to crash. To prevent this crash, MongoDB detects these kernel versions and stops during startup."
+    },
+    {
+      "id": "driver-buildinfo-preauth-81",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Drivers that run buildInfo before authenticating stop working",
+      "action": "Upgrade JVM drivers (Java, Kotlin, Scala) from v3.x and the .NET/C# driver from 2.14.1 or earlier before the hop. Any application that calls buildInfo before auth breaks.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Any%20application%20that%20runs%20the%20buildInfo%20command%20before%20authenticating",
+      "quote": "Any application that runs the buildInfo command before authenticating is incompatible with MongoDB 8.1."
+    },
+    {
+      "id": "skip-820",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Skip 8.2.0: change stream regression and spill crash",
+      "action": "Target 8.2.1 or later. 8.2.0 has a change stream regression up to 15%, a crash with more than 1000 concurrently spilling queries, and mongocryptd fails on Windows with --logpath NUL.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=v8.2.0%20introduces%20some%20change%20stream%20performance%20regressions.%20Applications%20relying",
+      "quote": "v8.2.0 introduces some change stream performance regressions. Applications relying on change streams for real-time data processing may experience up to a 15% performance degradation compared to v8.0."
+    },
+    {
+      "id": "max-incoming-conn-81",
+      "hop_to": "*",
+      "when": {
+        "to_at_least": "7.0",
+        "platform": [
+          "packages"
+        ]
+      },
+      "section": "preflight",
+      "severity": "warning",
+      "title": "net.maxIncomingConnections is capped by the open files limit (7.0.27+, 8.0.16+, 8.1+)",
+      "action": "On Linux the effective cap is (ulimit -n / 2) * 0.8. A larger configured value silently falls back to the default. Raise LimitNOFILE in the systemd unit first.",
+      "check": "for p in $(pidof mongod); do grep 'open files' /proc/$p/limits; done; grep -n maxIncomingConnections /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=If%20you%20specify%20a%20larger%20value%2C%20MongoDB%20uses%20the",
+      "quote": "If you specify a larger value, MongoDB uses the default value."
+    },
+    {
+      "id": "catalogcache-param-removed-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "catalogCacheIndexMaxEntries is removed",
+      "action": "Remove catalogCacheIndexMaxEntries from mongod.conf and setParameter startup options. Unknown parameters are rejected at startup.",
+      "check": "grep -n catalogCacheIndexMaxEntries /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=MongoDB%208.2%20removes%20the%20catalogCacheIndexMaxEntries%20parameter",
+      "quote": "MongoDB 8.2 removes the catalogCacheIndexMaxEntries parameter."
+    },
+    {
+      "id": "cluster-time-standalone-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "topology": [
+          "standalone"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$$CLUSTER_TIME errors on a standalone",
+      "action": "Remove $$CLUSTER_TIME from aggregations that run against standalone servers, or run them on a replica set.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Starting%20in%20MongoDB%208.2%2C%20if%20you%20try%20to%20use",
+      "quote": "Starting in MongoDB 8.2, if you try to use the CLUSTER_TIME variable in a standalone deployment, the server returns an error."
+    },
+    {
+      "id": "convert-bindata-subtype-81",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$convert between binData subtypes now errors",
+      "action": "Find pipelines that $convert binData to another subtype. 8.0 returned the input unchanged; 8.1+ returns an error.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Starting%20in%20MongoDB%208.1%2C%20%24convert%20returns%20an%20error%20when",
+      "quote": "Starting in MongoDB 8.1, $convert returns an error when attempting to convert between different binData subtypes."
+    },
+    {
+      "id": "densify-partition-prefix-81",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$densify errors when field shares a prefix with partitionByFields",
+      "action": "Review $densify stages where field and partitionByFields overlap (for example timestamp and timestamp.hours).",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Starting%20in%20MongoDB%208.1%2C%20the%20%24densify%20stage%20errors%20if",
+      "quote": "Starting in MongoDB 8.1, the $densify stage errors if field shares its prefix with any field in the partitionByFields array."
+    },
+    {
+      "id": "hedged-reads-removed-81",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Hedged reads are removed",
+      "action": "Hedging options are ignored with a logged warning. Remove readHedgingMode, maxTimeMSForHedgedReads and opportunisticSecondaryTargeting, and drop hedgingMetrics from monitoring.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Starting%20in%20MongoDB%208.1%2C%20hedged%20reads%20are%20removed.%20If",
+      "quote": "Starting in MongoDB 8.1, hedged reads are removed. If you specify hedged read options in a query, MongoDB executes the query but ignores the hedging options and logs a warning."
+    },
+    {
+      "id": "secondary-reads-orphan-cleanup-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Long secondary reads can be killed before orphan cleanup",
+      "action": "terminateSecondaryReadsOnOrphanCleanup defaults to true and orphanCleanupDelaySecs to 3600 (was 900). Expect terminated long-running secondary reads after chunk migrations; retry them in the application.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=If%20a%20read%20operation%20on%20a%20secondary%20node%20begins",
+      "quote": "If a read operation on a secondary node begins before the chunk migration commits, MongoDB automatically terminates the operation before deleting the orphaned documents."
+    },
+    {
+      "id": "change-stream-fields-820",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "8.2.0 adds collectionUUID and disambiguatedPaths to change events",
+      "action": "Only 8.2.0 emits these without showExpandedEvents; 8.2.1+ reverts. Do not rely on them or on commitTimestamp.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Applications%20should%20not%20rely%20on",
+      "quote": "Applications should not rely on commitTimestamp. It is exposed in MongoDB 8.2.0, but is not present by default in MongoDB 8.2.1 and later."
+    },
+    {
+      "id": "cpunanos-moved-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "cpuNanos moved to $queryStats",
+      "action": "Update monitoring that read cpuNanos from operationMetrics.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=Starting%20in%20MongoDB%208.2%2C%20cpuNanos%20is%20located%20in%20the",
+      "quote": "Starting in MongoDB 8.2, cpuNanos is located in the $queryStats aggregation stage metrics"
+    },
+    {
+      "id": "trim-chars-limit-828",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "$trim chars limited to 4096 characters (8.2.8+)",
+      "action": "Check pipelines that pass long chars strings to $trim, $ltrim or $rtrim.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=Starting%20in%20MongoDB%208.2.8%2C%20the%20length%20of%20the%20string",
+      "quote": "Starting in MongoDB 8.2.8, the length of the string you provide to chars is limited to 4096 characters."
+    },
+    {
+      "id": "geo-geojson-priority-82",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "post",
+      "severity": "warning",
+      "title": "Geospatial index keys prefer GeoJSON over legacy pairs",
+      "action": "If documents hold both legacy coordinate pairs and GeoJSON, rebuild the affected geospatial indexes and recheck geo query results.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/#:~:text=Starting%20in%20MongoDB%208.2%2C%20if%20a%20document%20contains%20both",
+      "quote": "Starting in MongoDB 8.2, if a document contains both GeoJSON and legacy numeric coordinate fields, geospatial index generation prioritizes GeoJSON coordinates."
+    },
+    {
+      "id": "errorandlog-blocks-downgrade-81",
+      "hop_to": "8.2",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "post",
+      "severity": "info",
+      "title": "validationAction errorAndLog blocks a later downgrade",
+      "action": "Avoid errorAndLog until you are sure you stay on 8.2+, or switch it back with collMod before any downgrade.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/#:~:text=If%20you%20use%20an%20errorAndLog%20validation%20action%20on%20a",
+      "quote": "If you use an errorAndLog validation action on a collection, MongoDB cannot downgrade until you drop the collection"
+    },
+    {
+      "id": "upgrade-path-83",
+      "hop_to": "8.3",
+      "section": "preflight",
+      "severity": "info",
+      "title": "8.3 accepts 8.2 or 8.0 as the source",
+      "action": "FCV must equal the source series (\"8.2\" or \"8.0\"). PSMDB has no 8.2, so PSMDB always comes from 8.0. Finish with FCV \"8.3\": 9.0 requires an 8.3 deployment at FCV 8.3.",
+      "check": "db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0/#:~:text=To%20upgrade%20to%20MongoDB%208.3%20from%20a%208.0%20deployment%2C",
+      "quote": "To upgrade to MongoDB 8.3 from a 8.0 deployment, the 8.0 deployment must have featureCompatibilityVersion set to 8.0."
+    },
+    {
+      "id": "psmdb-83-tools-tarball",
+      "hop_to": "8.3",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ]
+      },
+      "section": "preflight",
+      "severity": "warning",
+      "title": "PSMDB 8.3.13-4 tarballs no longer include the Database Tools",
+      "action": "Tarball installs: download the MongoDB Database Tools tarball separately, or mongodump/mongorestore scripts break. RPM and DEB installs are unchanged.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.13-4.html#:~:text=Starting%20with%20this%20release%2C%20MongoDB%20Database%20Tools%20%28mongodump%2C%20mongorestore%2C",
+      "quote": "Starting with this release, MongoDB Database Tools (mongodump, mongorestore, mongoexport, mongoimport, and others) are no longer included in the Percona Server for MongoDB binary tarball."
+    },
+    {
+      "id": "psmdb-83-previews",
+      "hop_to": "8.3",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Use 8.3.13-4 or later; earlier PSMDB 8.3 builds are previews",
+      "action": "8.3.7-1, 8.3.8-2 and 8.3.11-3 are technical previews for testing only. Production upgrades start at 8.3.13-4 (GA 2026-10-27).",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.13-4.html#:~:text=Previous%208.3%20releases%20were%20available%20as%20a%20technical%20preview",
+      "quote": "Previous 8.3 releases were available as a technical preview and intended for testing only."
+    },
+    {
+      "id": "critical-advisory-131805-83",
+      "hop_to": "8.3",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Target 8.3.13+: SERVER-131805 affects 8.3.0 - 8.3.12",
+      "action": "A recovered cross-database renameCollection participant can drop the target after stepdown. Upgrade straight to 8.3.13 or later (PSMDB 8.3.13-4).",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions.",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. [table row] SERVER-131805: 8.3.0 - 8.3.12"
+    },
+    {
+      "id": "minor-no-mongosync-83",
+      "hop_to": "8.3",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ]
+      },
+      "section": "preflight",
+      "severity": "warning",
+      "title": "mongosync and Live Migration do not support minor releases",
+      "action": "If you use mongosync or Atlas Live Migration, stay on 8.0 or migrate before moving to 8.3.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Minor%20releases%20may%20not%20support%20some%20features%2C%20including%20Atlas",
+      "quote": "Minor releases may not support some features, including Atlas Live Migration or mongosync. If you require these features, use a Major release instead."
+    },
+    {
+      "id": "sha1-fips-83",
+      "hop_to": "8.3",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "SCRAM-SHA-1 with tlsFIPSMode stops the server",
+      "action": "With --tlsFIPSMode, remove SCRAM-SHA-1 from authenticationMechanisms and move users to SCRAM-SHA-256 before the hop.",
+      "check": "grep -n -i 'authenticationMechanisms\\|FIPSMode' /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=If%20you%20try%20to%20specify%20SCRAM-SHA-1%20for%20authenticationMechanisms%20while",
+      "quote": "If you try to specify SCRAM-SHA-1 for authenticationMechanisms while also specifying --tlsFIPSMode, the server throws an error and logs a message similar to the following: SCRAM-SHA-1 is not allowed in FIPS mode."
+    },
+    {
+      "id": "ddl-mongos-only-83",
+      "hop_to": "8.3",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "blocker",
+      "title": "DDL and applyOps run only through mongos",
+      "action": "Scripts that run createIndexes, drop, collMod, renameCollection or applyOps directly on shard members fail. Route them through mongos.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Starting%20in%20MongoDB%208.3%2C%20you%20can%20only%20run%20DDL",
+      "quote": "Starting in MongoDB 8.3, you can only run DDL operations and applyOps on a mongos for all sharded clusters."
+    },
+    {
+      "id": "ts-id-index-name-83",
+      "hop_to": "8.3",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Time series: index name or hint \"_id_\" errors",
+      "action": "Find code that creates an index named \"_id_\" or passes hint \"_id_\" on time series collections.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Starting%20in%20MongoDB%208.3%2C%20creating%20an%20index%20with%20the",
+      "quote": "Starting in MongoDB 8.3, creating an index with the name of \"_id_\" or specifying a hint of \"_id_\" on time series collections returns an error."
+    },
+    {
+      "id": "ts-timefield-dollar-83",
+      "hop_to": "8.3",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Time series: timeField cannot start with $",
+      "action": "Check collection-creation code for timeField names that start with $.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Starting%20in%20MongoDB%208.3%2C%20you%20cannot%20create%20a%20timeField",
+      "quote": "Starting in MongoDB 8.3, you cannot create a timeField that starts with a $ character."
+    },
+    {
+      "id": "ts-refine-shardkey-83",
+      "hop_to": "8.3",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "refineCollectionShardKey on time series needs logical field names",
+      "action": "Use the collection's meta and time field names, not the buckets format (meta, control.min.*).",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=refineCollectionShardKey%20for%20time-series%20collections%20only%20accepts%20shard%20keys%20specified",
+      "quote": "refineCollectionShardKey for time-series collections only accepts shard keys specified using the collection's logical meta and time fields."
+    },
+    {
+      "id": "pre-epoch-dates-83",
+      "hop_to": "8.3",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$dateAdd/$dateSubtract before 1970 return one second more",
+      "action": "Recheck results of $dateAdd, $dateSubtract, $setWindowFields and $densify on dates before 1970 when unit is not millisecond.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=the%20input%20date%20is%20before%20ISODate%28%221970-01-01T00%3A00%3A00Z%22%29%2C%20the%20result%20will",
+      "quote": "the input date is before ISODate(\"1970-01-01T00:00:00Z\"), the result will be one second greater than in previous versions of MongoDB."
+    },
+    {
+      "id": "facet-error-code-83",
+      "hop_to": "8.3",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "$facet over 100 MB returns ExceededMemoryLimit (146), not 4031700",
+      "action": "Update application error handling that matches code 4031700.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/#:~:text=If%20you%20have%20applications%2C%20drivers%2C%20or%20tools%20that%20explicitly",
+      "quote": "If you have applications, drivers, or tools that explicitly check for 4031700, you can adjust your code to recognize ExceededMemoryLimit instead."
+    },
+    {
+      "id": "removeshard-deprecated-83",
+      "hop_to": "8.3",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "removeShard is deprecated",
+      "action": "Move runbooks to startShardDraining, shardDrainingStatus and commitShardRemoval.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Starting%20in%20MongoDB%208.3%2C%20the%20removeShard%20command%20is%20deprecated",
+      "quote": "Starting in MongoDB 8.3, the removeShard command is deprecated."
+    },
+    {
+      "id": "sharded-reconvert-83",
+      "hop_to": "8.3",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "info",
+      "title": "A former sharded cluster cannot become sharded again",
+      "action": "Replica sets converted from a sharded cluster keep the shard identity document; converting back needs MongoDB support.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Starting%20in%20MongoDB%208.3%2C%20replica%20sets%20that%20were%20previously",
+      "quote": "Starting in MongoDB 8.3, replica sets that were previously sharded clusters cannot be converted back into sharded clusters."
+    },
+    {
+      "id": "fcbis-unclean-shutdown-83",
+      "hop_to": "8.3",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "File copy based initial sync can crash-loop after an unclean shutdown",
+      "action": "Open issue SERVER-136961 (8.3.0 and later, PSMDB 8.3.7-1 and later). Recover with initialSyncMethod: logical or by emptying dbPath.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=the%20node%20crashes%20each%20time%20it%20restarts%20and%20cannot",
+      "quote": "the node crashes each time it restarts and cannot complete initial sync without manual intervention."
+    },
+    {
+      "id": "wildcard-validation-83",
+      "hop_to": "8.3",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "Stricter wildcardProjection validation for new compound wildcard indexes",
+      "action": "Existing indexes keep working; index-creation scripts with invalid wildcardProjection now fail.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/#:~:text=Existing%20indexes%20that%20do%20not%20meet%20the%20new%20validation",
+      "quote": "Existing indexes that do not meet the new validation requirements continue to function, but you cannot create new indexes that don't meet these requirements."
+    },
+    {
+      "id": "psmdb-83-setfcv-80-docbug",
+      "hop_to": "8.3",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ]
+      },
+      "section": "post",
+      "severity": "blocker",
+      "title": "Percona's 8.3 page sets FCV \"8.0\", not \"8.3\"",
+      "action": "After all members run PSMDB 8.3, run db.adminCommand({ setFeatureCompatibilityVersion: \"8.3\", confirm: true }). The command on Percona's page leaves FCV at \"8.0\", so the 8.3 features stay disabled even though the page says it enables them. MongoDB's 9.0 upgrade page also requires FCV \"8.3\" when you upgrade from an 8.3 deployment.",
+      "check": "db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })",
+      "verified": true,
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/upgrade-from-80.html#:~:text=enable%208.3%20version%20features.%20Run%20the%20following%20command%20against",
+      "quote": "enable 8.3 version features. Run the following command against the admin database: db.adminCommand( { setFeatureCompatibilityVersion: \"8.0\", confirm: true } )",
+      "counter_source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade/",
+      "counter_quote": "To upgrade to MongoDB 9.0 from a 8.3 deployment, the 8.3 deployment must have featureCompatibilityVersion set to 8.3.",
+      "tested": "Reproduced on a 3-node replica set, PSMDB 8.0.32-14 to 8.3.13-4 with yum, following the Percona page: after setFeatureCompatibilityVersion \"8.0\", creating a 2dsphereIndexVersion 4 index fails with \"requires feature flag featureFlag2dsphereIndexVersion4 to be enabled\"; after setFeatureCompatibilityVersion \"8.3\" the same index is created. A PSMDB 9.0.4-1 (testing) binary still starts and joins with FCV \"8.0\"."
+    },
+    {
+      "id": "2dsphere-v4-83",
+      "hop_to": "8.3",
+      "section": "post",
+      "severity": "warning",
+      "title": "New 2dsphere indexes are version 4 and block FCV downgrade",
+      "action": "Indexes built at 8.3 use 2dsphereIndexVersion 4. Drop them before any FCV downgrade below 8.3.",
+      "verified": false,
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/#:~:text=If%20you%20need%20to%20downgrade%20the%20FCV%20to%20anything",
+      "quote": "If you need to downgrade the FCV to anything below 8.3, you must first drop the 2dsphere version 4 indexes."
+    },
+    {
+      "id": "upgrade-path-90",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "info",
+      "title": "9.0 accepts 8.0 or 8.3 as the source",
+      "action": "Upgrade from 8.0 (or 8.3) with FCV equal to that version. PSMDB 9.0 is not GA yet, so plan this hop on MongoDB Community packages or wait for Percona.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0-sharded-cluster/#:~:text=To%20upgrade%20an%20existing%20MongoDB%20deployment%20to%209.0%2C%20you",
+      "quote": "To upgrade an existing MongoDB deployment to 9.0, you must be running a 8.0 or 8.3 release.",
+      "basis": "docs"
+    },
+    {
+      "id": "config-conn-pool-90",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Config servers can run out of connections",
+      "action": "If ShardingTaskExecutorPoolMinSize is above 1, set ShardingTaskExecutorPoolMinSizeForConfigServers to 1 before the upgrade (dedicated config servers). Embedded config servers: ask MongoDB support. Open issue SERVER-136226.",
+      "check": "db.adminCommand({ getParameter: 1, ShardingTaskExecutorPoolMinSize: 1 })",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=Nodes%20in%20a%20sharded%20cluster%20open%20at%20least%20ShardingTaskExecutorPoolMinSize",
+      "quote": "Nodes in a sharded cluster open at least ShardingTaskExecutorPoolMinSize connections to each config server. This can exhaust the config servers' available connections",
+      "basis": "docs"
+    },
+    {
+      "id": "shard-stepup-hang-90",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Use 9.0.4 or later for sharded clusters",
+      "action": "9.0.0 to 9.0.2 can hang a shard during step-up (SERVER-133518). Target 9.0.4+.",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=A%20shard%20can%20hang%20during%20step-up",
+      "quote": "A shard can hang during step-up ... Fixed in MongoDB 9.0.4.",
+      "basis": "docs"
+    },
+    {
+      "id": "js-ppc64le-90",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "No server-side JavaScript on ppc64le",
+      "action": "$function, $accumulator, $where and mapReduce fail on ppc64le 9.0 binaries. Rewrite them before the hop.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=server-side%20JavaScript%20is%20not%20available%20on%20the%20ppc64le%20architecture",
+      "quote": "server-side JavaScript is not available on the ppc64le architecture.",
+      "basis": "docs",
+      "when": {
+        "arch": [
+          "ppc64le"
+        ]
+      }
+    },
+    {
+      "id": "qe-substring-preview-90",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Queryable Encryption prefix/suffix/substring preview is incompatible",
+      "action": "Collections using the 8.2 preview query types must be migrated with 9.0 drivers; prefixPreview, suffixPreview and substringPreview are removed.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=the%20prefixPreview%2C%20suffixPreview%2C%20and%20substringPreview%20query%20types%20using%20the",
+      "quote": "the prefixPreview, suffixPreview, and substringPreview query types using the text algorithm are deprecated and removed.",
+      "basis": "docs"
+    },
+    {
+      "id": "per-op-memory-limit-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Single query operations are capped at 1 GB or 20% of memory",
+      "action": "Large aggregations that used unbounded memory now fail with ExceededMemoryLimit. Test heavy pipelines; tune internalQueryMaxMemoryUsageBytesPerOperation if needed.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=By%20default%2C%20the%20limit%20is%201%20gigabyte%20or%2020%25",
+      "quote": "By default, the limit is 1 gigabyte or 20% of the memory available to the server process, whichever is greater.",
+      "basis": "docs"
+    },
+    {
+      "id": "max-open-txn-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Open multi-document transactions are capped at 10000",
+      "action": "New transactions beyond maxConcurrentMultiDocumentTransactions (default 10000) fail with TooManyOpenTransactions. Check peak open transactions on 8.0.",
+      "check": "db.serverStatus().transactions.currentOpen",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=the%20server%20rejects%20new%20multi-document%20transactions%20and%20returns%20a",
+      "quote": "the server rejects new multi-document transactions and returns a TooManyOpenTransactions error",
+      "basis": "docs"
+    },
+    {
+      "id": "js-dates-utc-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Server-side JavaScript Date runs in UTC",
+      "action": "Local Date methods (getHours, toString) in $function, $accumulator, $where and mapReduce ignore the host time zone. Queries can silently return different results. Use date operators with an explicit timezone.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=server-side%20JavaScript%20runs%20on%20a%20WebAssembly%20%28WASM%29-based%20engine%20that",
+      "quote": "server-side JavaScript runs on a WebAssembly (WASM)-based engine that evaluates local Date operations in UTC, regardless of the mongod host time zone.",
+      "basis": "docs"
+    },
+    {
+      "id": "change-stream-readpref-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Change streams error after an election that breaks read preference",
+      "action": "getMore returns InterruptedDueToReplStateChange (11602). Drivers resume on their own; hand-written getMore loops must resume with resumeAfter.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=returns%20the%20resumable%20error%20InterruptedDueToReplStateChange%20%28error%20code%2011602%29%20from",
+      "quote": "returns the resumable error InterruptedDueToReplStateChange (error code 11602) from getMore",
+      "basis": "docs"
+    },
+    {
+      "id": "group-empty-field-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "$group rejects empty accumulator field names",
+      "action": "Pipelines with an empty field name in a $group accumulator now error.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=the%20%24group%20stage%20returns%20an%20error%20if%20an%20accumulator",
+      "quote": "the $group stage returns an error if an accumulator expression has an empty field name.",
+      "basis": "docs"
+    },
+    {
+      "id": "fcbis-unclean-shutdown-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "File copy based initial sync can crash-loop after an unclean shutdown",
+      "action": "Open issue SERVER-136961. Recover with initialSyncMethod: logical or by emptying dbPath. Relevant when FCBIS is used (PSMDB offers FCBIS).",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      },
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=the%20node%20crashes%20each%20time%20it%20restarts%20and%20cannot",
+      "quote": "the node crashes each time it restarts and cannot complete initial sync without manual intervention.",
+      "basis": "docs"
+    },
+    {
+      "id": "odm-syncindexes-90",
+      "hop_to": "9.0",
+      "section": "post",
+      "severity": "blocker",
+      "title": "ODM syncIndexes() may drop and rebuild every index at FCV 9.0",
+      "action": "At FCV 9.0 listIndexes reports collation { locale: \"simple\" }. Mongoose syncIndexes(), Doctrine ODM and Beanie (allow_index_dropping) treat this as a change. Stop calling syncIndexes() at application startup before setFCV.",
+      "verified": false,
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=In%20Mongoose%2C%20this%20issue%20causes%20the%20syncIndexes%28%29%20method%20to",
+      "quote": "In Mongoose, this issue causes the syncIndexes() method to drop and rebuild otherwise unchanged indexes each time it runs.",
+      "basis": "docs"
+    },
+    {
+      "id": "pbm-new-backup-after-setfcv",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "warning",
+      "title": "If you use PBM, take a new full backup after setFCV",
+      "action": "A restore needs the same FCV in the backup and in the destination. After setFeatureCompatibilityVersion, take a new full backup (and a new base for incremental backups) so you have a restorable backup at the new FCV.",
+      "check": "pbm list",
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-backup-mongodb/usage/restore.html#:~:text=To%20make%20this%20happen%2C%20Feature%20Compatibility%20Version%20%28FCV%29%20values",
+      "quote": "To make this happen, Feature Compatibility Version (FCV) values in both backup and the destination environment must match.",
+      "verified": false,
+      "fix": "pbm backup"
+    },
+    {
+      "id": "pbm-upgrade-all-nodes",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "If you use PBM, upgrade it on every node",
+      "action": "Upgrade Percona Backup for MongoDB on all nodes where pbm-agent runs, not only some of them, so every agent runs the same version.",
+      "check": "pbm status",
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-backup-mongodb/manage/upgrading.html#:~:text=Upgrade%20Percona%20Backup%20for%20MongoDB%20on%20all%20nodes%20where",
+      "quote": "Upgrade Percona Backup for MongoDB on all nodes where it is installed.",
+      "verified": false
+    },
+    {
+      "id": "sbe-off-by-default-7017",
+      "hop_to": "7.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "The slot-based query engine changes between 7.0 patches",
+      "action": "7.0.0 to 7.0.16 run some $group and $lookup pipelines with the slot-based engine (SBE). From 7.0.17 it is no longer enabled by default for 7.0 patches. Query plans and CPU use can change between 7.0 patches; compare them before and after the upgrade.",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v7.0/reference/sbe/#:~:text=Starting%20in%20version%207.0.17%2C%20the%20slot-based%20query%20execution%20engine",
+      "quote": "Starting in version 7.0.17, the slot-based query execution engine is no longer enabled by default for patch versions of 7.0.",
+      "verified": false
+    },
+    {
+      "id": "max-map-count",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "title": "Check vm.max_map_count",
+      "action": "MongoDB recommends sizing the maximum number of memory map areas per process for your deployment. A low value shows up as a startup warning after the upgrade.",
+      "check": "sysctl vm.max_map_count",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/administration/production-checklist-operations/#:~:text=maximum%20number%20of%20memory%20map%20areas%20per%20process%20%28vm.max_map_count%29",
+      "quote": "maximum number of memory map areas per process (vm.max_map_count) for your deployment",
+      "verified": false,
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "server-68511-moveprimary",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "when": {
+        "topology": [
+          "sharded"
+        ],
+        "from": [
+          "5.0",
+          "6.0"
+        ]
+      },
+      "title": "Avoid movePrimary and shard removal on 5.0.0 to 5.0.10 and 6.0.0",
+      "action": "SERVER-68511 can leave config.databases inconsistent. Do not run movePrimary or remove shards until every member runs 5.0.11 or 6.0.1 or later.",
+      "basis": "docs",
+      "source_url": "https://jira.mongodb.org/browse/SERVER-68511",
+      "quote": "do not reduce shard count or run movePrimary until upgraded to MongoDB versions 5.0.11 or 6.0.1",
+      "verified": false
+    },
+    {
+      "id": "config-shard-needs-fcv80",
+      "hop_to": "8.0",
+      "section": "post",
+      "severity": "info",
+      "when": {
+        "topology": [
+          "sharded"
+        ]
+      },
+      "title": "A config shard needs FCV 8.0",
+      "action": "If you plan to turn the config server into a config shard (transitionFromDedicatedConfigServer), do it only after setFeatureCompatibilityVersion \"8.0\".",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/reference/command/transitionFromDedicatedConfigServer/#:~:text=The%20sharded%20cluster%20must%20have%20featureCompatibilityVersion%20set%20to%20at",
+      "quote": "The sharded cluster must have featureCompatibilityVersion set to at least 8.0.",
+      "verified": false
+    },
+    {
+      "id": "mirrored-reads-before-stepdown",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ],
+        "from_at_least": "4.4"
+      },
+      "title": "Warm the secondaries before the step-down",
+      "action": "Mirrored reads pre-warm the cache of electable secondaries, which reduces the slowdown after rs.stepDown(). Check the sampling rate before the upgrade.",
+      "check": "db.adminCommand({ getParameter: 1, mirrorReads: 1 })",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/replication/#:~:text=Mirrored%20reads%20reduce%20the%20impact%20of%20primary%20elections%20by",
+      "quote": "Mirrored reads reduce the impact of primary elections by pre-warming the caches of electable secondary replica set members before a failover occurs.",
+      "verified": false
+    },
+    {
+      "id": "database-tools-version",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "info",
+      "title": "Check the Database Tools version",
+      "action": "Make sure mongodump and mongorestore support the new server version. Current Database Tools do not support servers older than 4.2.",
+      "check": "mongodump --version",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/database-tools/mongodump/mongodump-compatibility-and-installation/#:~:text=mongodump%20does%20not%20support%20MongoDB%20Server%20versions%20earlier%20than",
+      "quote": "mongodump does not support MongoDB Server versions earlier than 4.2.",
+      "verified": false
+    },
+    {
+      "id": "tarball-per-os",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "title": "Tarball installs: use the tarball built for your OS",
+      "action": "If you install from tarballs (for example on hosts without internet access), download the tarball built for your exact OS version, or mongod fails on missing shared libraries.",
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/tarball.html#:~:text=If%20you%20are%20running%20a%20different%20operating%20system%2C%20you",
+      "quote": "If you are running a different operating system, you must download the tarball built for that OS version",
+      "verified": false
+    },
+    {
+      "id": "debug-packages-optional",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "info",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "title": "Debug symbol packages are optional",
+      "action": "percona-server-mongodb-dbg (debuginfo on RHEL) holds only debug symbols. mongod does not need it; install it only for crash analysis if disk space is tight.",
+      "basis": "docs",
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/apt.html#:~:text=percona-server-mongodb-dbg%3A%20Debug%20symbols%20for%20the%20server",
+      "quote": "percona-server-mongodb-dbg: Debug symbols for the server",
+      "verified": false
+    },
+    {
+      "id": "lab-tools-mongosh-not-upgraded",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "warning",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ],
+        "pm": [
+          "yum"
+        ],
+        "to_at_least": "7.0"
+      },
+      "title": "Upgrade mongosh too",
+      "action": "With yum, installing percona-server-mongodb upgrades the server and mongos but not percona-mongodb-mongosh, and not percona-server-mongodb-tools unless the install line names it (the plan's line does). Install both on every host. From 7.0.45-24, 8.0.34-15 and 8.3.13-4 the Database Tools use their own 100.x numbering, so install them without a version.",
+      "check": "rpm -q percona-server-mongodb-tools percona-mongodb-mongosh",
+      "fix": "sudo yum install -y percona-server-mongodb-tools percona-mongodb-mongosh",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node replica set and sharded cluster, PSMDB 6.0.29-23 to 7.0.45-24 to 8.0.34-15 on Rocky Linux 8 with yum, following the plan. After both hops the nodes still had tools 6.0.29-23 and mongosh 1.6.0. The unversioned install moved them to tools 100.19.1-2 and mongosh 2.13.0."
+    },
+    {
+      "id": "lab-mongosh-not-upgraded-apt",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "warning",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ],
+        "pm": [
+          "apt"
+        ],
+        "to_at_least": "7.0"
+      },
+      "title": "Upgrade mongosh too",
+      "action": "With apt, installing the PSMDB packages upgrades the server, mongos and Database Tools but leaves percona-mongodb-mongosh on its old version. Install it on every host.",
+      "check": "dpkg -l percona-server-mongodb-tools percona-mongodb-mongosh",
+      "fix": "sudo apt install -y percona-mongodb-mongosh",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node replica set, PSMDB 6.0.29-23 to 7.0.45-24 to 8.0.34-15 on Ubuntu 22.04 with apt, following the plan. Tools moved to 100.19.1-2, mongosh stayed on 2.8.3 (candidate 2.13.0)."
+    },
+    {
+      "id": "lab-mongod-conf-rpmnew",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "info",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ],
+        "pm": [
+          "yum"
+        ]
+      },
+      "title": "Compare mongod.conf with the new mongod.conf.rpmnew",
+      "action": "The package upgrade keeps your /etc/mongod.conf and saves the new default as /etc/mongod.conf.rpmnew. Compare them to spot settings the new version no longer uses (for example fork or journal in 8.0), then delete the .rpmnew file.",
+      "check": "diff /etc/mongod.conf /etc/mongod.conf.rpmnew",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node replica set and sharded cluster, PSMDB 6.0.29-23 to 7.0.45-24 to 8.0.34-15 on Rocky Linux 8 with yum, following the plan. Every major install printed: warning: /etc/mongod.conf created as /etc/mongod.conf.rpmnew."
+    },
+    {
+      "id": "lab-mongod-conf-dpkg-dist",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "info",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ],
+        "pm": [
+          "apt"
+        ]
+      },
+      "title": "Compare mongod.conf with the new mongod.conf.dpkg-dist",
+      "action": "On a major upgrade the PSMDB package ships a new default /etc/mongod.conf. The plan's install command uses --force-confold, so apt keeps your file and saves the new default as /etc/mongod.conf.dpkg-dist. Without that option apt stops at a 'mongod.conf (Y/I/N/O/D/Z) [default=N]' prompt: answer N. Answering Y installs the default file, which has no replication or security settings and binds to 127.0.0.1, so the member comes back outside the replica set. Compare the files, then delete the .dpkg-dist file.",
+      "check": "diff /etc/mongod.conf /etc/mongod.conf.dpkg-dist",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node replica set, PSMDB 6.0.29-23 to 7.0.45-24 to 8.0.34-15 on Ubuntu 22.04 with apt. Both major installs asked about /etc/mongod.conf; without a terminal dpkg failed with 'end of file on stdin at conffile prompt' and left the packages half-configured. The 8.0.29-13 to 8.0.32-14 patch install did not ask."
+    },
+    {
+      "id": "lab-old-psmdb-repo-enabled",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "info",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "platform": [
+          "packages"
+        ]
+      },
+      "title": "Disable the previous PSMDB repository",
+      "action": "percona-release enable psmdb-{to_nodot} leaves the psmdb-{from_nodot} repository enabled. Disable it, so a later package install cannot mix versions.",
+      "check": "sudo percona-release show",
+      "fix": "sudo percona-release disable psmdb-{from_nodot}",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node replica set and sharded cluster, PSMDB 6.0.29-23 to 7.0.45-24 to 8.0.34-15 on Rocky Linux 8 with yum, following the plan. After the second hop psmdb-60, psmdb-70 and psmdb-80 were all enabled."
+    },
+    {
+      "id": "lab-mongodb-old-apt-repo",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "info",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "platform": [
+          "packages"
+        ],
+        "pm": [
+          "apt"
+        ]
+      },
+      "title": "Remove the previous MongoDB repository and check leftover packages",
+      "action": "The new repository is added next to the old one, so /etc/apt/sources.list.d/ keeps the list file of the version you upgraded from. Remove it. mongodb-org-shell and mongodb-org-database-tools-extra are not in the pinned install list, so they stay on the old version: install them at the new version too.",
+      "check": "ls /etc/apt/sources.list.d/ | grep mongodb-org\ndpkg -l 'mongodb-org*'",
+      "fix": "sudo rm /etc/apt/sources.list.d/mongodb-org-{from}.list\nsudo apt-get update\nsudo apt-get install -y mongodb-org-shell={to_full} mongodb-org-database-tools-extra={to_full}",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node MongoDB Community replica set, 7.0.45 to 8.0.34 on Ubuntu 22.04 with apt, following the plan. After the hop mongodb-org-7.0.list was still there, and mongodb-org-shell and mongodb-org-database-tools-extra stayed on 7.0.45 (candidate 8.0.34)."
+    },
+    {
+      "id": "dollar-db-names-34",
+      "hop_to": "3.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Drop databases with $ in the name",
+      "action": "Drop any database whose name contains $ before the 3.4 hop.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-compatibility.txt#L204",
+      "quote": "You must drop any databases that contain a ``$`` in its name before upgrading to MongoDB 3.4.",
+      "verified": false,
+      "check": "db.adminCommand({ listDatabases: 1, nameOnly: true }).databases.filter(d => d.name.includes('$'))"
+    },
+    {
+      "id": "transportlayer-legacy-removed-40",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "net.transportLayer: legacy is removed",
+      "action": "Remove transportLayer / net.transportLayer set to legacy from the mongod and mongos configuration before the 4.0 hop.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-compatibility.txt#L188",
+      "quote": "MongoDB 4.0 removes the ability to set ``transportLayer`` and ``net.transportLayer`` to ``legacy`` for mongod and mongos instances.",
+      "verified": false,
+      "check": "grep -n -i transportLayer /etc/mongod.conf /etc/mongos.conf",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "system-indexes-namespaces-removed-42",
+      "hop_to": "4.2",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "system.indexes and system.namespaces are removed",
+      "action": "Applications or scripts that read system.indexes or system.namespaces must use listIndexes and listCollections instead.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-compatibility.txt#L758",
+      "quote": "Starting in version 4.2, MongoDB removes the ``system.indexes`` and ``system.namespaces`` collections (deprecated since v3.0).",
+      "verified": false
+    },
+    {
+      "id": "ctime-timestamp-rejected-44",
+      "hop_to": "4.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "systemLog.timeStampFormat: ctime is no longer accepted",
+      "action": "Change systemLog.timeStampFormat to iso8601-local or iso8601-utc before the 4.4 hop.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-compatibility.txt#L314",
+      "quote": "the ``ctime`` timestamp format is no longer supported.",
+      "verified": false,
+      "check": "grep -n -i timeStampFormat /etc/mongod.conf /etc/mongos.conf",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "indexbuildretry-removed-44",
+      "hop_to": "4.4",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "storage.indexBuildRetry and --noIndexBuildRetry are removed",
+      "action": "Remove storage.indexBuildRetry and --noIndexBuildRetry from the configuration and service files before the 4.4 hop.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-compatibility.txt#L368",
+      "quote": "MongoDB 4.4 removes the ``--noIndexBuildRetry`` command-line option and the corresponding ``storage.indexBuildRetry`` option.",
+      "verified": false,
+      "check": "grep -rn -i indexBuildRetry /etc/mongod.conf /etc/systemd/system /usr/lib/systemd/system /etc/sysconfig /etc/default 2>/dev/null",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "removed-params-50",
+      "hop_to": "5.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Server parameters removed in 5.0",
+      "action": "Remove cachePressureThreshold, shouldMultiDocTxnCreateCollectionAndIndexes, connPoolMaxShardedConnsPerHost, connPoolMaxShardedInUseConnsPerHost and shardedConnPoolIdleTimeoutMinutes from the configuration before the 5.0 hop.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/includes/5.0-changes/removed-parameters.rst#L1",
+      "quote": "MongoDB 5.0 removes the following server parameters",
+      "verified": false,
+      "check": "grep -n -E 'cachePressureThreshold|shouldMultiDocTxnCreateCollectionAndIndexes|connPoolMaxSharded|shardedConnPoolIdleTimeoutMinutes' /etc/mongod.conf /etc/mongos.conf",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "slavedelay-renamed-50",
+      "hop_to": "5.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "slaveDelay is renamed to secondaryDelaySecs",
+      "action": "Scripts and tools that read or set members[n].slaveDelay in the replica set configuration must use secondaryDelaySecs.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-compatibility.txt",
+      "quote": "Starting in MongoDB 5.0, members[n].secondaryDelaySecs replaces ``slaveDelay``. This change is not backwards compatible.",
+      "verified": false,
+      "when": {
+        "topology": [
+          "replset",
+          "sharded"
+        ]
+      }
+    },
+    {
+      "id": "tlsfipsmode-community-removed-60",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "--tlsFIPSMode is removed from MongoDB Community",
+      "action": "Remove net.tls.FIPSMode / --tlsFIPSMode before the 6.0 hop. It is available only in MongoDB Enterprise.",
+      "basis": "docs",
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt#L187",
+      "quote": "This option is removed from the MongoDB Community Edition. It is available in MongoDB Enterprise edition.",
+      "verified": false,
+      "check": "grep -n -i FIPSMode /etc/mongod.conf",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "storefindandmodify-param-removed-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "storeFindAndModifyImagesInSideCollection is removed",
+      "action": "Remove the storeFindAndModifyImagesInSideCollection parameter from the configuration before the 8.0 hop.",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=MongoDB%208.0%20removes%20the%20storeFindAndModifyImagesInSideCollection%20parameter",
+      "quote": "MongoDB 8.0 removes the storeFindAndModifyImagesInSideCollection parameter.",
+      "verified": false,
+      "check": "grep -n storeFindAndModifyImagesInSideCollection /etc/mongod.conf",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "geo-malformed-input-80",
+      "hop_to": "8.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Geospatial queries with malformed input now fail",
+      "action": "Queries that 7.0 accepted with malformed geospatial input return an error in 8.0. Test the geospatial queries of your applications.",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-compatibility/#:~:text=Starting%20in%20MongoDB%208.0%2C%20you%20cannot%20use%20geospatial%20queries",
+      "quote": "Starting in MongoDB 8.0, you cannot use geospatial queries with malformed input.",
+      "verified": false
+    },
+    {
+      "id": "trim-chars-limit-83",
+      "hop_to": "8.3",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "$trim chars is limited to 4096 characters",
+      "action": "The chars string of $trim, $ltrim and $rtrim is limited to 4096 characters.",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Starting%20in%20MongoDB%208.3%2C%20the%20length%20of%20the%20string",
+      "quote": "Starting in MongoDB 8.3, the length of the string you provide to chars is limited to 4096 characters.",
+      "verified": false
+    },
+    {
+      "id": "multikey-query-killed-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "warning",
+      "title": "Queries can fail with QueryKilledError when a field becomes multikey",
+      "action": "If an indexed field becomes multikey while a query on it runs, the query can fail with QueryKilledError. Make sure applications retry such queries.",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=the%20query%20might%20fail%20with%20a%20QueryKilledError",
+      "quote": "the query might fail with a QueryKilledError.",
+      "verified": false
+    },
+    {
+      "id": "geo-error-codes-90",
+      "hop_to": "9.0",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "New error codes for invalid geospatial data",
+      "action": "Applications that match the old assertion codes 16755, 16756, 183934 or 183493 must match 510 and 511.",
+      "basis": "docs",
+      "source_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-compatibility/#:~:text=If%20your%20application%20matches%20on%20the%20previous%20codes%2C%20update",
+      "quote": "If your application matches on the previous codes, update it to match 510 and 511.",
+      "verified": false
+    },
+    {
+      "id": "legacy-mongo-shell-before-60",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "when": {
+        "platform": [
+          "packages"
+        ],
+        "from": [
+          "3.0",
+          "3.2",
+          "3.4",
+          "3.6",
+          "4.0",
+          "4.2",
+          "4.4",
+          "5.0"
+        ]
+      },
+      "title": "Use the legacy mongo shell where mongosh is not installed",
+      "action": "The PSMDB 4.4 and 5.0 packages ship the legacy mongo shell, not mongosh. Run the mongosh commands in this plan with mongo instead: they work the same, but the output uses the older style, for example \"featureCompatibilityVersion\" : { \"version\" : \"4.4\" }. MongoDB removed the legacy shell in 6.0.",
+      "check": "which mongosh mongo",
+      "basis": "lab",
+      "verified": true,
+      "tested": "Lab: 3-node PSMDB replica set, 4.4.29-28 to 5.0.29-25 to 6.0.29-23 on Rocky Linux 8 with yum. The 4.4 and 5.0 hosts had only /usr/bin/mongo, and the psmdb-44 repository has no percona-mongodb-mongosh. Every check and step worked with mongo.",
+      "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt",
+      "run_on": "each mongod host, in the OS shell"
+    }
+  ]
+}

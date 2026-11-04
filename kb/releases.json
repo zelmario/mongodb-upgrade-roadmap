@@ -1,0 +1,4233 @@
+{
+  "schema_version": 1,
+  "retrieved": "2026-11-03",
+  "sources": {
+    "mongodb_3.0-6.0": "https://downloads.mongodb.org/full.json",
+    "mongodb_7.0-9.0": "https://www.mongodb.com/docs/manual/release-notes/{7.0,8.0,9.0}/ (dates from release notes; full.json date kept as full_json_date when different)",
+    "psmdb_3.6-8.0": "https://docs.percona.com/percona-server-for-mongodb/{X}/release_notes/index.html",
+    "psmdb_3.0-3.4": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/ (no release-notes pages online; repo_file_date is the package file timestamp, not a release date)",
+    "psmdb_9.0": "https://repo.percona.com/psmdb-90/yum/{testing,experimental}/ (release repo is empty)"
+  },
+  "releases": {
+    "psmdb": {
+      "3.0": [
+        {
+          "version": "3.0.5-rel0.7rc",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2015-Sep-21",
+          "prerelease": "Release Candidate"
+        },
+        {
+          "version": "3.0.7-1.0",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2015-Dec-12"
+        },
+        {
+          "version": "3.0.7-1.1",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2015-Dec-19"
+        },
+        {
+          "version": "3.0.8-1.2",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2015-Dec-30"
+        },
+        {
+          "version": "3.0.8-1.3",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Feb-22"
+        },
+        {
+          "version": "3.0.9-1.4",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Mar-03"
+        },
+        {
+          "version": "3.0.10-1.5",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Mar-12"
+        },
+        {
+          "version": "3.0.11-1.6",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-May-12"
+        },
+        {
+          "version": "3.0.12-1.7",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Jun-24"
+        },
+        {
+          "version": "3.0.12-1.8",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Jul-06"
+        },
+        {
+          "version": "3.0.14-1.9",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Nov-23"
+        },
+        {
+          "version": "3.0.15-1.10",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-May-22"
+        }
+      ],
+      "3.2": [
+        {
+          "version": "3.2.4-1.0rc2",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Apr-16",
+          "prerelease": "Release Candidate"
+        },
+        {
+          "version": "3.2.6-1.0",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-May-26"
+        },
+        {
+          "version": "3.2.7-1.1",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Jun-28"
+        },
+        {
+          "version": "3.2.8-2.0",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Aug-10"
+        },
+        {
+          "version": "3.2.9-2.1",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Sep-14"
+        },
+        {
+          "version": "3.2.10-3.0",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Oct-30"
+        },
+        {
+          "version": "3.2.11-3.1",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2016-Dec-05"
+        },
+        {
+          "version": "3.2.12-3.2",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Mar-05"
+        },
+        {
+          "version": "3.2.13-3.3",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-May-11"
+        },
+        {
+          "version": "3.2.14-3.4",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Jul-12"
+        },
+        {
+          "version": "3.2.15-3.5",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Jul-19"
+        },
+        {
+          "version": "3.2.16-3.6",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Aug-04"
+        },
+        {
+          "version": "3.2.16-3.7",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Sep-21"
+        },
+        {
+          "version": "3.2.17-3.8",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Oct-26"
+        },
+        {
+          "version": "3.2.18-3.9",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Dec-04"
+        },
+        {
+          "version": "3.2.19-3.10",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Mar-12"
+        },
+        {
+          "version": "3.2.20-3.11",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-May-21"
+        },
+        {
+          "version": "3.2.21-3.12",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Sep-14"
+        },
+        {
+          "version": "3.2.22-3.13",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2019-Jan-11"
+        }
+      ],
+      "3.4": [
+        {
+          "version": "3.4.2-1.2",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Feb-20"
+        },
+        {
+          "version": "3.4.3-1.3",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Apr-04"
+        },
+        {
+          "version": "3.4.4-1.4",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-May-05"
+        },
+        {
+          "version": "3.4.5-1.5",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Jul-04"
+        },
+        {
+          "version": "3.4.6-1.6",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Jul-20"
+        },
+        {
+          "version": "3.4.6-1.7",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Aug-01"
+        },
+        {
+          "version": "3.4.7-1.8",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Sep-08"
+        },
+        {
+          "version": "3.4.9-2.9",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Oct-19"
+        },
+        {
+          "version": "3.4.10-2.10",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2017-Nov-23"
+        },
+        {
+          "version": "3.4.13-2.11",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Mar-01"
+        },
+        {
+          "version": "3.4.14-2.12",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Apr-10"
+        },
+        {
+          "version": "3.4.15-2.13",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Jun-14"
+        },
+        {
+          "version": "3.4.16-2.14",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Jul-13"
+        },
+        {
+          "version": "3.4.17-2.15",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Sep-20"
+        },
+        {
+          "version": "3.4.18-2.16",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2018-Nov-23"
+        },
+        {
+          "version": "3.4.19-2.17",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2019-Feb-15"
+        },
+        {
+          "version": "3.4.20-2.18",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2019-Mar-19"
+        },
+        {
+          "version": "3.4.21-2.19",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2019-Jun-18"
+        },
+        {
+          "version": "3.4.22-2.20",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2019-Aug-02"
+        },
+        {
+          "version": "3.4.23-2.21",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2019-Oct-15"
+        },
+        {
+          "version": "3.4.24-3.0",
+          "channel": "release",
+          "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+          "repo_file_date": "2020-Jan-28"
+        }
+      ],
+      "3.6": [
+        {
+          "version": "3.6.1-1.0beta",
+          "date": "2018-01-23",
+          "channel": "release",
+          "prerelease": "Beta",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.1-1.0beta.html"
+        },
+        {
+          "version": "3.6.3-1.1",
+          "date": "2018-04-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.3-1.1.html"
+        },
+        {
+          "version": "3.6.4-1.2",
+          "date": "2018-05-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.4-1.2.html"
+        },
+        {
+          "version": "3.6.5-1.3",
+          "date": "2018-07-11",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.5-1.3.html"
+        },
+        {
+          "version": "3.6.6-1.4",
+          "date": "2018-08-03",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.6-1.4.html"
+        },
+        {
+          "version": "3.6.7-1.5",
+          "date": "2018-09-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.7-1.5.html"
+        },
+        {
+          "version": "3.6.8-2.0",
+          "date": "2018-10-31",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.8-2.0.html"
+        },
+        {
+          "version": "3.6.10-3.0",
+          "date": "2019-02-06",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.10-3.0.html"
+        },
+        {
+          "version": "3.6.11-3.1",
+          "date": "2019-03-15",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.11-3.1.html"
+        },
+        {
+          "version": "3.6.12-3.2",
+          "date": "2019-05-03",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.12-3.2.html"
+        },
+        {
+          "version": "3.6.13-3.3",
+          "date": "2019-06-21",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.13-3.3.html"
+        },
+        {
+          "version": "3.6.14-3.4",
+          "date": "2019-10-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.14-3.4.html"
+        },
+        {
+          "version": "3.6.15-3.5",
+          "date": "2019-11-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.15-3.5.html"
+        },
+        {
+          "version": "3.6.16-3.6",
+          "date": "2019-12-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.16-3.6.html"
+        },
+        {
+          "version": "3.6.17-4.0",
+          "date": "2020-02-13",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.17-4.0.html"
+        },
+        {
+          "version": "3.6.18-5.0",
+          "date": "2020-05-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.18-5.0.html"
+        },
+        {
+          "version": "3.6.18-6.0",
+          "date": "2020-05-25",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.18-6.0.html"
+        },
+        {
+          "version": "3.6.19-7.0",
+          "date": "2020-08-13",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.19-7.0.html"
+        },
+        {
+          "version": "3.6.19-8.0",
+          "date": "2020-10-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.19-8.0.html"
+        },
+        {
+          "version": "3.6.20-9.0",
+          "date": "2020-10-22",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.20-9.0.html"
+        },
+        {
+          "version": "3.6.21-10.0",
+          "date": "2020-11-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.21-10.0.html"
+        },
+        {
+          "version": "3.6.21-11.0",
+          "date": "2020-12-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.21-11.0.html"
+        },
+        {
+          "version": "3.6.22-12.0",
+          "date": "2021-02-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.22-12.0.html"
+        },
+        {
+          "version": "3.6.23-13.0",
+          "date": "2021-03-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.23-13.0.html"
+        }
+      ],
+      "4.0": [
+        {
+          "version": "4.0.4-1",
+          "date": "2018-12-18",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.4-1.html"
+        },
+        {
+          "version": "4.0.5-2",
+          "date": "2019-02-18",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.5-2.html"
+        },
+        {
+          "version": "4.0.6-3",
+          "date": "2019-02-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.6-3.html"
+        },
+        {
+          "version": "4.0.9-4",
+          "date": "2019-04-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.9-4.html"
+        },
+        {
+          "version": "4.0.10-5",
+          "date": "2019-06-13",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.10-5.html"
+        },
+        {
+          "version": "4.0.12-6",
+          "date": "2019-09-12",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.12-6.html"
+        },
+        {
+          "version": "4.0.13-7",
+          "date": "2019-10-31",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.13-7.html"
+        },
+        {
+          "version": "4.0.14-8",
+          "date": "2020-01-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.14-8.html"
+        },
+        {
+          "version": "4.0.16-9",
+          "date": "2020-02-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.16-9.html"
+        },
+        {
+          "version": "4.0.17-10",
+          "date": "2020-03-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.17-10.html"
+        },
+        {
+          "version": "4.0.18-11",
+          "date": "2020-04-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.18-11.html"
+        },
+        {
+          "version": "4.0.19-12",
+          "date": "2020-06-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.19-12.html"
+        },
+        {
+          "version": "4.0.20-13",
+          "date": "2020-09-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.20-13.html"
+        },
+        {
+          "version": "4.0.20-14",
+          "date": "2020-10-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.20-14.html"
+        },
+        {
+          "version": "4.0.21-15",
+          "date": "2020-11-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.21-15.html"
+        },
+        {
+          "version": "4.0.21-16",
+          "date": "2020-12-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.21-16.html"
+        },
+        {
+          "version": "4.0.22-17",
+          "date": "2021-01-18",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.22-17.html"
+        },
+        {
+          "version": "4.0.23-18",
+          "date": "2021-03-04",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.23-18.html"
+        },
+        {
+          "version": "4.0.24-19",
+          "date": "2021-05-03",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.24-19.html"
+        },
+        {
+          "version": "4.0.25-20",
+          "date": "2021-06-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.25-20.html"
+        },
+        {
+          "version": "4.0.26-21",
+          "date": "2021-08-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.26-21.html"
+        },
+        {
+          "version": "4.0.27-22",
+          "date": "2021-09-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.27-22.html"
+        },
+        {
+          "version": "4.0.28-23",
+          "date": "2022-02-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.28-23.html"
+        }
+      ],
+      "4.2": [
+        {
+          "version": "4.2.0-1",
+          "date": "2019-09-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.0-1.html"
+        },
+        {
+          "version": "4.2.1-1",
+          "date": "2019-11-13",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.1-1.html"
+        },
+        {
+          "version": "4.2.2-3",
+          "date": "2019-12-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.2-3.html"
+        },
+        {
+          "version": "4.2.3-4",
+          "date": "2020-02-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.3-4.html"
+        },
+        {
+          "version": "4.2.5-5",
+          "date": "2020-04-02",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.5-5.html"
+        },
+        {
+          "version": "4.2.6-6",
+          "date": "2020-05-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.6-6.html"
+        },
+        {
+          "version": "4.2.7-7",
+          "date": "2020-06-04",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.7-7.html"
+        },
+        {
+          "version": "4.2.8-8",
+          "date": "2020-07-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.8-8.html"
+        },
+        {
+          "version": "4.2.9-9",
+          "date": "2020-09-03",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.9-9.html"
+        },
+        {
+          "version": "4.2.9-10",
+          "date": "2020-10-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.9-10.html"
+        },
+        {
+          "version": "4.2.10-11",
+          "date": "2020-11-02",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.10-11.html"
+        },
+        {
+          "version": "4.2.11-12",
+          "date": "2020-12-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.11-12.html"
+        },
+        {
+          "version": "4.2.12-13",
+          "date": "2021-02-03",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.12-13.html"
+        },
+        {
+          "version": "4.2.13-14",
+          "date": "2021-04-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.13-14.html"
+        },
+        {
+          "version": "4.2.14-15",
+          "date": "2021-05-13",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.14-15.html"
+        },
+        {
+          "version": "4.2.15-16",
+          "date": "2021-07-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.15-16.html"
+        },
+        {
+          "version": "4.2.17-17",
+          "date": "2021-10-11",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.17-17.html"
+        },
+        {
+          "version": "4.2.18-18",
+          "date": "2022-01-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.18-18.html"
+        },
+        {
+          "version": "4.2.19-19",
+          "date": "2022-03-29",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.19-19.html"
+        },
+        {
+          "version": "4.2.20-20",
+          "date": "2022-05-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.20-20.html"
+        },
+        {
+          "version": "4.2.21-21",
+          "date": "2022-06-29",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.21-21.html"
+        },
+        {
+          "version": "4.2.22-22",
+          "date": "2022-09-06",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.22-22.html"
+        },
+        {
+          "version": "4.2.23-23",
+          "date": "2022-11-08",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.23-23.html"
+        },
+        {
+          "version": "4.2.24-24",
+          "date": "2023-03-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.24-24.html"
+        },
+        {
+          "version": "4.2.25-25",
+          "date": "2024-02-08",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.25-25.html"
+        }
+      ],
+      "4.4": [
+        {
+          "version": "4.4.0-1",
+          "date": "2020-08-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.0-1.html"
+        },
+        {
+          "version": "4.4.1-2",
+          "date": "2020-09-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.1-2.html"
+        },
+        {
+          "version": "4.4.1-3",
+          "date": "2020-10-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.1-3.html"
+        },
+        {
+          "version": "4.4.2-4",
+          "date": "2020-12-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.2-4.html"
+        },
+        {
+          "version": "4.4.3-5",
+          "date": "2021-01-27",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.3-5.html"
+        },
+        {
+          "version": "4.4.4-6",
+          "date": "2021-02-25",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.4-6.html"
+        },
+        {
+          "version": "4.4.5-7",
+          "date": "2021-04-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.5-7.html"
+        },
+        {
+          "version": "4.4.6-8",
+          "date": "2021-08-16",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.6-8.html"
+        },
+        {
+          "version": "4.4.8-9",
+          "date": "2021-08-16",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.8-9.html"
+        },
+        {
+          "version": "4.4.9-10",
+          "date": "2021-10-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.9-10.html"
+        },
+        {
+          "version": "4.4.10-11",
+          "date": "2021-11-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.10-11.html"
+        },
+        {
+          "version": "4.4.12-12",
+          "date": "2022-02-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.12-12.html"
+        },
+        {
+          "version": "4.4.13-13",
+          "date": "2022-03-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.13-13.html"
+        },
+        {
+          "version": "4.4.14-14",
+          "date": "2022-05-25",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.14-14.html"
+        },
+        {
+          "version": "4.4.15-15",
+          "date": "2022-07-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.15-15.html"
+        },
+        {
+          "version": "4.4.16-16",
+          "date": "2022-08-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.16-16.html"
+        },
+        {
+          "version": "4.4.17-17",
+          "date": "2022-11-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.17-17.html"
+        },
+        {
+          "version": "4.4.18-18",
+          "date": "2022-12-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.18-18.html"
+        },
+        {
+          "version": "4.4.19-19",
+          "date": "2023-03-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.19-19.html"
+        },
+        {
+          "version": "4.4.21-20",
+          "date": "2023-05-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.21-20.html"
+        },
+        {
+          "version": "4.4.22-21",
+          "date": "2023-06-06",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.22-21.html"
+        },
+        {
+          "version": "4.4.23-22",
+          "date": "2023-08-14",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.23-22.html"
+        },
+        {
+          "version": "4.4.24-23",
+          "date": "2023-09-11",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.24-23.html"
+        },
+        {
+          "version": "4.4.25-24",
+          "date": "2023-10-16",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.25-24.html"
+        },
+        {
+          "version": "4.4.26-25",
+          "date": "2023-12-18",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.26-25.html"
+        },
+        {
+          "version": "4.4.27-26",
+          "date": "2024-01-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.27-26.html"
+        },
+        {
+          "version": "4.4.28-27",
+          "date": "2024-02-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.28-27.html"
+        },
+        {
+          "version": "4.4.29-28",
+          "date": "2024-04-02",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.29-28.html"
+        }
+      ],
+      "5.0": [
+        {
+          "version": "5.0.2-1",
+          "date": "2021-08-16",
+          "channel": "release",
+          "prerelease": "Release Candidate",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.2-1.html"
+        },
+        {
+          "version": "5.0.3-2",
+          "date": "2021-10-14",
+          "channel": "release",
+          "prerelease": "Release Candidate",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.3-2.html"
+        },
+        {
+          "version": "5.0.4-3",
+          "date": "2021-12-08",
+          "channel": "release",
+          "prerelease": "Release Candidate",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.4-3.html"
+        },
+        {
+          "version": "5.0.5-4",
+          "date": "2021-12-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.5-4.html"
+        },
+        {
+          "version": "5.0.6-5",
+          "date": "2022-02-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.6-5.html"
+        },
+        {
+          "version": "5.0.7-6",
+          "date": "2022-04-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.7-6.html"
+        },
+        {
+          "version": "5.0.8-7",
+          "date": "2022-05-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.8-7.html"
+        },
+        {
+          "version": "5.0.9-8",
+          "date": "2022-06-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.9-8.html"
+        },
+        {
+          "version": "5.0.10-9",
+          "date": "2022-08-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.10-9.html"
+        },
+        {
+          "version": "5.0.11-10",
+          "date": "2022-09-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.11-10.html"
+        },
+        {
+          "version": "5.0.13-11",
+          "date": "2022-10-12",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.13-11.html"
+        },
+        {
+          "version": "5.0.14-12",
+          "date": "2022-12-08",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.14-12.html"
+        },
+        {
+          "version": "5.0.15-13",
+          "date": "2023-03-16",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.15-13.html"
+        },
+        {
+          "version": "5.0.17-14",
+          "date": "2023-05-04",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.17-14.html"
+        },
+        {
+          "version": "5.0.18-15",
+          "date": "2023-06-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.18-15.html"
+        },
+        {
+          "version": "5.0.19-16",
+          "date": "2023-08-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.19-16.html"
+        },
+        {
+          "version": "5.0.20-17",
+          "date": "2023-09-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.20-17.html"
+        },
+        {
+          "version": "5.0.21-18",
+          "date": "2023-10-12",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.21-18.html"
+        },
+        {
+          "version": "5.0.22-19",
+          "date": "2023-11-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.22-19.html"
+        },
+        {
+          "version": "5.0.23-20",
+          "date": "2023-12-21",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.23-20.html"
+        },
+        {
+          "version": "5.0.24-21",
+          "date": "2024-02-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.24-21.html"
+        },
+        {
+          "version": "5.0.26-22",
+          "date": "2024-04-09",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.26-22.html"
+        },
+        {
+          "version": "5.0.27-23",
+          "date": "2024-06-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.27-23.html"
+        },
+        {
+          "version": "5.0.28-24",
+          "date": "2024-08-08",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.28-24.html"
+        },
+        {
+          "version": "5.0.29-25",
+          "date": "2024-09-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.29-25.html"
+        }
+      ],
+      "6.0": [
+        {
+          "version": "6.0.2-1",
+          "date": "2022-10-31",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.2-1.html"
+        },
+        {
+          "version": "6.0.3-2",
+          "date": "2022-12-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.3-2.html"
+        },
+        {
+          "version": "6.0.4-3",
+          "date": "2023-01-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.4-3.html"
+        },
+        {
+          "version": "6.0.5-4",
+          "date": "2023-03-29",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.5-4.html"
+        },
+        {
+          "version": "6.0.6-5",
+          "date": "2023-05-25",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.6-5.html"
+        },
+        {
+          "version": "6.0.8-6",
+          "date": "2023-08-08",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.8-6.html"
+        },
+        {
+          "version": "6.0.9-7",
+          "date": "2023-09-14",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.9-7.html"
+        },
+        {
+          "version": "6.0.11-8",
+          "date": "2023-10-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.11-8.html"
+        },
+        {
+          "version": "6.0.12-9",
+          "date": "2023-12-14",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.12-9.html"
+        },
+        {
+          "version": "6.0.13-10",
+          "date": "2024-02-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.13-10.html"
+        },
+        {
+          "version": "6.0.14-11",
+          "date": "2024-03-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.14-11.html"
+        },
+        {
+          "version": "6.0.15-12",
+          "date": "2024-04-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.15-12.html"
+        },
+        {
+          "version": "6.0.16-13",
+          "date": "2024-07-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.16-13.html"
+        },
+        {
+          "version": "6.0.17-14",
+          "date": "2024-09-18",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.17-14.html"
+        },
+        {
+          "version": "6.0.18-15",
+          "date": "2024-11-05",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.18-15.html"
+        },
+        {
+          "version": "6.0.19-16",
+          "date": "2024-11-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.19-16.html"
+        },
+        {
+          "version": "6.0.20-17",
+          "date": "2025-02-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.20-17.html"
+        },
+        {
+          "version": "6.0.21-18",
+          "date": "2025-04-22",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.21-18.html"
+        },
+        {
+          "version": "6.0.24-19",
+          "date": "2025-06-12",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.24-19.html"
+        },
+        {
+          "version": "6.0.25-20",
+          "date": "2025-07-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.25-20.html"
+        },
+        {
+          "version": "6.0.27-21",
+          "date": "2026-01-12",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.27-21.html"
+        },
+        {
+          "version": "6.0.28-22",
+          "date": "2026-05-26",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.28-22.html"
+        },
+        {
+          "version": "6.0.29-23",
+          "date": "2026-06-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.29-23.html"
+        }
+      ],
+      "7.0": [
+        {
+          "version": "7.0.2-1",
+          "date": "2023-10-05",
+          "channel": "release",
+          "prerelease": "Release Candidate",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.2-1.html"
+        },
+        {
+          "version": "7.0.4-2",
+          "date": "2023-12-11",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.4-2.html"
+        },
+        {
+          "version": "7.0.5-3",
+          "date": "2024-01-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.5-3.html"
+        },
+        {
+          "version": "7.0.7-4",
+          "date": "2024-04-04",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.7-4.html"
+        },
+        {
+          "version": "7.0.8-5",
+          "date": "2024-04-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.8-5.html"
+        },
+        {
+          "version": "7.0.11-6",
+          "date": "2024-06-03",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.11-6.html"
+        },
+        {
+          "version": "7.0.12-7",
+          "date": "2024-07-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.12-7.html"
+        },
+        {
+          "version": "7.0.14-8",
+          "date": "2024-09-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.14-8.html"
+        },
+        {
+          "version": "7.0.15-9",
+          "date": "2024-11-27",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.15-9.html"
+        },
+        {
+          "version": "7.0.16-10",
+          "date": "2025-02-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.16-10.html"
+        },
+        {
+          "version": "7.0.18-11",
+          "date": "2025-04-24",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.18-11.html"
+        },
+        {
+          "version": "7.0.22-12",
+          "date": "2025-07-28",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.22-12.html"
+        },
+        {
+          "version": "7.0.24-13",
+          "date": "2025-09-11",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.24-13.html"
+        },
+        {
+          "version": "7.0.26-14",
+          "date": "2025-11-25",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.26-14.html"
+        },
+        {
+          "version": "7.0.28-15",
+          "date": "2026-01-06",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.28-15.html"
+        },
+        {
+          "version": "7.0.30-16",
+          "date": "2026-02-18",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.30-16.html"
+        },
+        {
+          "version": "7.0.31-17",
+          "date": "2026-03-30",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.31-17.html"
+        },
+        {
+          "version": "7.0.32-18",
+          "date": "2026-05-07",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.32-18.html"
+        },
+        {
+          "version": "7.0.34-19",
+          "date": "2026-05-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.34-19.html"
+        },
+        {
+          "version": "7.0.37-20",
+          "date": "2026-06-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.37-20.html"
+        },
+        {
+          "version": "7.0.39-21",
+          "date": "2026-08-05",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.39-21.html"
+        },
+        {
+          "version": "7.0.40-22",
+          "date": "2026-08-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.40-22.html"
+        },
+        {
+          "version": "7.0.43-23",
+          "date": "2026-09-22",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.43-23.html"
+        },
+        {
+          "version": "7.0.45-24",
+          "date": "2026-10-21",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.45-24.html"
+        }
+      ],
+      "8.0": [
+        {
+          "version": "8.0.4-1",
+          "date": "2024-12-17",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.4-1.html"
+        },
+        {
+          "version": "8.0.4-2",
+          "date": "2025-02-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.4-2.html"
+        },
+        {
+          "version": "8.0.8-3",
+          "date": "2025-05-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.8-3.html"
+        },
+        {
+          "version": "8.0.12-4",
+          "date": "2025-08-21",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.12-4.html"
+        },
+        {
+          "version": "8.0.16-5",
+          "date": "2025-12-02",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.16-5.html"
+        },
+        {
+          "version": "8.0.17-6",
+          "date": "2026-01-06",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.17-6.html"
+        },
+        {
+          "version": "8.0.19-7",
+          "date": "2026-02-19",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.19-7.html"
+        },
+        {
+          "version": "8.0.20-8",
+          "date": "2026-04-01",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.20-8.html"
+        },
+        {
+          "version": "8.0.21-9",
+          "date": "2026-05-06",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.21-9.html"
+        },
+        {
+          "version": "8.0.23-10",
+          "date": "2026-05-21",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.23-10.html"
+        },
+        {
+          "version": "8.0.26-11",
+          "date": "2026-06-25",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.26-11.html"
+        },
+        {
+          "version": "8.0.28-12",
+          "date": "2026-08-10",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.28-12.html"
+        },
+        {
+          "version": "8.0.29-13",
+          "date": "2026-08-20",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.29-13.html"
+        },
+        {
+          "version": "8.0.32-14",
+          "date": "2026-09-23",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.32-14.html"
+        },
+        {
+          "version": "8.0.34-15",
+          "date": "2026-10-22",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.34-15.html"
+        }
+      ],
+      "9.0": [
+        {
+          "version": "9.0.0-1",
+          "channel": "experimental",
+          "url": "https://repo.percona.com/psmdb-90/yum/experimental/9/RPMS/x86_64/",
+          "repo_file_date": "2026-Oct-14"
+        },
+        {
+          "version": "9.0.2-0",
+          "channel": "testing",
+          "url": "https://repo.percona.com/psmdb-90/yum/testing/9/RPMS/x86_64/",
+          "repo_file_date": "2026-Oct-16"
+        },
+        {
+          "version": "9.0.4-1",
+          "channel": "testing",
+          "url": "https://repo.percona.com/psmdb-90/yum/testing/9/RPMS/x86_64/",
+          "repo_file_date": "2026-Oct-27"
+        }
+      ],
+      "8.3": [
+        {
+          "version": "8.3.0-0",
+          "channel": "testing",
+          "url": "https://repo.percona.com/psmdb-83/yum/testing/9/RPMS/x86_64/",
+          "repo_file_date": "2026-Mar-09",
+          "prerelease": true,
+          "note": "testing repo only; never in the release repo, no release notes"
+        },
+        {
+          "version": "8.3.0-1",
+          "channel": "testing",
+          "url": "https://repo.percona.com/psmdb-83/yum/testing/9/RPMS/x86_64/",
+          "repo_file_date": "2026-Apr-08",
+          "prerelease": true,
+          "note": "testing repo only; never in the release repo, no release notes"
+        },
+        {
+          "version": "8.3.4-1",
+          "channel": "testing",
+          "url": "https://repo.percona.com/psmdb-83/yum/testing/9/RPMS/x86_64/",
+          "repo_file_date": "2026-Jul-24",
+          "prerelease": true,
+          "note": "testing repo only; never in the release repo, no release notes"
+        },
+        {
+          "version": "8.3.7-1",
+          "date": "2026-07-30",
+          "channel": "preview",
+          "prerelease": "Technical Preview",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.7-1.html"
+        },
+        {
+          "version": "8.3.8-2",
+          "date": "2026-08-24",
+          "channel": "preview",
+          "prerelease": "Technical Preview",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.8-2.html"
+        },
+        {
+          "version": "8.3.11-3",
+          "date": "2026-09-28",
+          "channel": "preview",
+          "prerelease": "Technical Preview",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.11-3.html"
+        },
+        {
+          "version": "8.3.13-4",
+          "date": "2026-10-27",
+          "channel": "release",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.13-4.html"
+        }
+      ]
+    },
+    "mongodb": {
+      "3.0": [
+        {
+          "version": "3.0.0",
+          "date": "2015-03-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.1",
+          "date": "2015-03-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.2",
+          "date": "2015-04-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.3",
+          "date": "2015-05-12",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.4",
+          "date": "2015-06-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.5",
+          "date": "2015-07-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.6",
+          "date": "2015-08-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.7",
+          "date": "2015-10-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.8",
+          "date": "2015-12-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.9",
+          "date": "2016-01-26",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.10",
+          "date": "2016-03-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.11",
+          "date": "2016-03-31",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.12",
+          "date": "2016-05-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.13",
+          "date": "2016-10-31",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.14",
+          "date": "2016-11-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.0.15",
+          "date": "2017-05-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "3.2": [
+        {
+          "version": "3.2.0",
+          "date": "2015-12-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.1",
+          "date": "2016-01-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.2",
+          "date": "2016-02-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.3",
+          "date": "2016-02-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.4",
+          "date": "2016-03-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.5",
+          "date": "2016-04-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.6",
+          "date": "2016-04-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.7",
+          "date": "2016-06-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.8",
+          "date": "2016-07-12",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.9",
+          "date": "2016-08-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.10",
+          "date": "2016-09-30",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.11",
+          "date": "2016-11-18",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.12",
+          "date": "2017-02-01",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.13",
+          "date": "2017-05-01",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.14",
+          "date": "2017-06-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.15",
+          "date": "2017-07-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.16",
+          "date": "2017-07-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.17",
+          "date": "2017-09-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.18",
+          "date": "2017-11-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.19",
+          "date": "2018-02-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.20",
+          "date": "2018-05-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.21",
+          "date": "2018-09-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.2.22",
+          "date": "2018-12-26",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "3.4": [
+        {
+          "version": "3.4.0",
+          "date": "2016-11-29",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.1",
+          "date": "2016-12-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.2",
+          "date": "2017-02-01",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.3",
+          "date": "2017-03-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.4",
+          "date": "2017-04-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.5",
+          "date": "2017-06-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.6",
+          "date": "2017-07-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.7",
+          "date": "2017-08-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.9",
+          "date": "2017-09-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.10",
+          "date": "2017-10-31",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.11",
+          "date": "2018-01-29",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.12",
+          "date": "2018-02-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.13",
+          "date": "2018-02-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.14",
+          "date": "2018-03-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.15",
+          "date": "2018-05-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.16",
+          "date": "2018-07-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.17",
+          "date": "2018-09-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.18",
+          "date": "2018-11-02",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.19",
+          "date": "2019-01-22",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.20",
+          "date": "2019-03-12",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.21",
+          "date": "2019-06-12",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.22",
+          "date": "2019-07-31",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.23",
+          "date": "2019-09-12",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.4.24",
+          "date": "2020-01-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "3.6": [
+        {
+          "version": "3.6.0",
+          "date": "2017-12-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.1",
+          "date": "2017-12-26",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.2",
+          "date": "2018-01-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.3",
+          "date": "2018-02-22",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.4",
+          "date": "2018-04-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.5",
+          "date": "2018-05-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.6",
+          "date": "2018-07-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.7",
+          "date": "2018-08-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.8",
+          "date": "2018-09-18",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.9",
+          "date": "2018-11-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.10",
+          "date": "2019-01-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.11",
+          "date": "2019-03-01",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.12",
+          "date": "2019-04-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.13",
+          "date": "2019-06-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.14",
+          "date": "2019-08-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.15",
+          "date": "2019-11-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.16",
+          "date": "2019-12-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.17",
+          "date": "2020-01-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.18",
+          "date": "2020-04-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.19",
+          "date": "2020-07-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.20",
+          "date": "2020-09-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.21",
+          "date": "2020-11-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.22",
+          "date": "2021-02-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "3.6.23",
+          "date": "2021-03-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "4.0": [
+        {
+          "version": "4.0.0",
+          "date": "2018-06-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.1",
+          "date": "2018-08-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.2",
+          "date": "2018-08-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.3",
+          "date": "2018-10-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.4",
+          "date": "2018-11-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.5",
+          "date": "2018-12-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.6",
+          "date": "2019-02-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.7",
+          "date": "2019-03-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.8",
+          "date": "2019-03-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.9",
+          "date": "2019-04-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.10",
+          "date": "2019-05-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.11",
+          "date": "2019-07-25",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.12",
+          "date": "2019-08-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.13",
+          "date": "2019-10-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.14",
+          "date": "2019-12-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.15",
+          "date": "2020-01-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.16",
+          "date": "2020-01-31",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.17",
+          "date": "2020-03-18",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.18",
+          "date": "2020-04-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.19",
+          "date": "2020-06-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.20",
+          "date": "2020-08-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.21",
+          "date": "2020-10-29",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.22",
+          "date": "2020-12-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.23",
+          "date": "2021-02-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.24",
+          "date": "2021-04-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.25",
+          "date": "2021-06-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.26",
+          "date": "2021-07-22",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.27",
+          "date": "2021-09-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.0.28",
+          "date": "2022-01-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "4.2": [
+        {
+          "version": "4.2.0",
+          "date": "2019-08-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.1",
+          "date": "2019-10-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.2",
+          "date": "2019-12-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.3",
+          "date": "2020-01-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.5",
+          "date": "2020-03-24",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.6",
+          "date": "2020-04-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.7",
+          "date": "2020-05-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.8",
+          "date": "2020-06-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.9",
+          "date": "2020-08-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.10",
+          "date": "2020-09-30",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.11",
+          "date": "2020-11-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.12",
+          "date": "2021-01-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.13",
+          "date": "2021-03-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.14",
+          "date": "2021-05-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.15",
+          "date": "2021-07-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.16",
+          "date": "2021-09-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.17",
+          "date": "2021-09-22",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.18",
+          "date": "2022-01-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.19",
+          "date": "2022-03-02",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.20",
+          "date": "2022-05-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.21",
+          "date": "2022-06-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.22",
+          "date": "2022-08-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.23",
+          "date": "2022-09-29",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.24",
+          "date": "2023-02-23",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.2.25",
+          "date": "2023-10-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "4.4": [
+        {
+          "version": "4.4.0",
+          "date": "2020-07-25",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.1",
+          "date": "2020-09-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.2",
+          "date": "2020-11-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.3",
+          "date": "2020-12-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.4",
+          "date": "2021-02-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.5",
+          "date": "2021-04-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.6",
+          "date": "2021-05-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.7",
+          "date": "2021-07-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.8",
+          "date": "2021-08-01",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.9",
+          "date": "2021-09-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.10",
+          "date": "2021-10-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.11",
+          "date": "2021-12-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.12",
+          "date": "2022-01-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.13",
+          "date": "2022-03-02",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.14",
+          "date": "2022-05-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.15",
+          "date": "2022-06-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.16",
+          "date": "2022-08-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.17",
+          "date": "2022-09-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.18",
+          "date": "2022-11-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.19",
+          "date": "2023-02-23",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.20",
+          "date": "2023-04-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.21",
+          "date": "2023-04-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.22",
+          "date": "2023-05-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.23",
+          "date": "2023-07-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.24",
+          "date": "2023-08-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.25",
+          "date": "2023-09-26",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.26",
+          "date": "2023-11-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.27",
+          "date": "2023-12-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.28",
+          "date": "2024-01-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.29",
+          "date": "2024-02-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.30",
+          "date": "2025-12-18",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "4.4.31",
+          "date": "2026-06-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "5.0": [
+        {
+          "version": "5.0.0",
+          "date": "2021-07-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.1",
+          "date": "2021-07-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.2",
+          "date": "2021-08-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.3",
+          "date": "2021-09-19",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.4",
+          "date": "2021-11-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.5",
+          "date": "2021-12-02",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.6",
+          "date": "2022-01-27",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.7",
+          "date": "2022-04-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.8",
+          "date": "2022-04-21",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.9",
+          "date": "2022-05-25",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.10",
+          "date": "2022-07-26",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.11",
+          "date": "2022-08-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.12",
+          "date": "2022-09-02",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.13",
+          "date": "2022-09-29",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.14",
+          "date": "2022-11-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.15",
+          "date": "2023-02-23",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.16",
+          "date": "2023-04-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.17",
+          "date": "2023-04-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.18",
+          "date": "2023-05-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.19",
+          "date": "2023-07-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.20",
+          "date": "2023-08-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.21",
+          "date": "2023-09-07",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.22",
+          "date": "2023-10-25",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.23",
+          "date": "2023-11-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.24",
+          "date": "2024-01-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.25",
+          "date": "2024-02-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.26",
+          "date": "2024-03-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.27",
+          "date": "2024-06-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.28",
+          "date": "2024-07-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.29",
+          "date": "2024-08-26",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.30",
+          "date": "2024-10-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.31",
+          "date": "2025-01-23",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.32",
+          "date": "2025-12-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.33",
+          "date": "2026-05-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "5.0.34",
+          "date": "2026-06-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "6.0": [
+        {
+          "version": "6.0.0",
+          "date": "2022-07-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.1",
+          "date": "2022-08-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.2",
+          "date": "2022-09-29",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.3",
+          "date": "2022-11-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.4",
+          "date": "2023-01-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.5",
+          "date": "2023-03-08",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.6",
+          "date": "2023-05-04",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.7",
+          "date": "2023-06-22",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.8",
+          "date": "2023-07-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.9",
+          "date": "2023-08-09",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.10",
+          "date": "2023-09-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.11",
+          "date": "2023-10-05",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.12",
+          "date": "2023-11-16",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.13",
+          "date": "2024-01-11",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.14",
+          "date": "2024-02-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.15",
+          "date": "2024-04-15",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.16",
+          "date": "2024-06-25",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.17",
+          "date": "2024-08-13",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.18",
+          "date": "2024-09-12",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.19",
+          "date": "2024-10-17",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.20",
+          "date": "2024-12-20",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.21",
+          "date": "2025-03-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.22",
+          "date": "2025-04-03",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.23",
+          "date": "2025-04-25",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.24",
+          "date": "2025-05-28",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.25",
+          "date": "2025-07-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.26",
+          "date": "2025-08-14",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.27",
+          "date": "2025-12-18",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.28",
+          "date": "2026-05-06",
+          "url": "https://downloads.mongodb.org/full.json"
+        },
+        {
+          "version": "6.0.29",
+          "date": "2026-06-10",
+          "url": "https://downloads.mongodb.org/full.json"
+        }
+      ],
+      "7.0": [
+        {
+          "version": "7.0.0",
+          "date": "2023-08-15",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2023-08-01"
+        },
+        {
+          "version": "7.0.1",
+          "date": "2023-09-05",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2023-08-29"
+        },
+        {
+          "version": "7.0.2",
+          "date": "2023-09-29",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2023-09-26"
+        },
+        {
+          "version": "7.0.3",
+          "date": "2023-11-09",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2023-10-30"
+        },
+        {
+          "version": "7.0.4",
+          "date": "2023-11-27",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2023-11-15"
+        },
+        {
+          "version": "7.0.5",
+          "date": "2024-01-05",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2023-12-28"
+        },
+        {
+          "version": "7.0.6",
+          "date": "2024-02-28",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-02-20"
+        },
+        {
+          "version": "7.0.7",
+          "date": "2024-03-18",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-03-13"
+        },
+        {
+          "version": "7.0.8",
+          "date": "2024-04-03",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-03-29"
+        },
+        {
+          "version": "7.0.9",
+          "date": "2024-04-26",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-04-24"
+        },
+        {
+          "version": "7.0.11",
+          "date": "2024-05-23",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-05-21"
+        },
+        {
+          "version": "7.0.12",
+          "date": "2024-06-28",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-06-25"
+        },
+        {
+          "version": "7.0.14",
+          "date": "2024-08-26",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-08-20"
+        },
+        {
+          "version": "7.0.15",
+          "date": "2024-10-24",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-10-17"
+        },
+        {
+          "version": "7.0.16",
+          "date": "2024-12-20",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2024-12-11"
+        },
+        {
+          "version": "7.0.17",
+          "date": "2025-02-21",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-02-19"
+        },
+        {
+          "version": "7.0.18",
+          "date": "2025-03-19",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-03-18"
+        },
+        {
+          "version": "7.0.19",
+          "date": "2025-04-14",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-04-03"
+        },
+        {
+          "version": "7.0.20",
+          "date": "2025-04-29",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-04-25"
+        },
+        {
+          "version": "7.0.21",
+          "date": "2025-06-04",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-05-28"
+        },
+        {
+          "version": "7.0.22",
+          "date": "2025-07-18",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-07-14"
+        },
+        {
+          "version": "7.0.23",
+          "date": "2025-08-13",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-08-07"
+        },
+        {
+          "version": "7.0.24",
+          "date": "2025-09-10",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-09-04"
+        },
+        {
+          "version": "7.0.25",
+          "date": "2025-10-02",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-09-30"
+        },
+        {
+          "version": "7.0.26",
+          "date": "2025-11-21",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-10-30"
+        },
+        {
+          "version": "7.0.28",
+          "date": "2025-12-19",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2025-12-16"
+        },
+        {
+          "version": "7.0.29",
+          "date": "2026-01-27",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-01-15"
+        },
+        {
+          "version": "7.0.30",
+          "date": "2026-02-10",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-02-03"
+        },
+        {
+          "version": "7.0.31",
+          "date": "2026-03-17",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-02-25"
+        },
+        {
+          "version": "7.0.32",
+          "date": "2026-04-29",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-04-13"
+        },
+        {
+          "version": "7.0.34",
+          "date": "2026-05-12",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-05-06"
+        },
+        {
+          "version": "7.0.35",
+          "date": "2026-06-09",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-05-21"
+        },
+        {
+          "version": "7.0.36",
+          "date": "2026-06-10",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-06-05"
+        },
+        {
+          "version": "7.0.37",
+          "date": "2026-06-11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-06-10"
+        },
+        {
+          "version": "7.0.39",
+          "date": "2026-07-22",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-07-16"
+        },
+        {
+          "version": "7.0.40",
+          "date": "2026-08-11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-07-21"
+        },
+        {
+          "version": "7.0.41",
+          "date": "2026-09-08",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-08-18"
+        },
+        {
+          "version": "7.0.43",
+          "date": "2026-09-11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-09-03"
+        },
+        {
+          "version": "7.0.45",
+          "date": "2026-10-13",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+          "full_json_date": "2026-09-24"
+        }
+      ],
+      "8.0": [
+        {
+          "version": "8.0.0",
+          "date": "2024-10-02",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2024-09-11"
+        },
+        {
+          "version": "8.0.1",
+          "date": "2024-10-09",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2024-10-03"
+        },
+        {
+          "version": "8.0.3",
+          "date": "2024-10-24",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2024-10-17"
+        },
+        {
+          "version": "8.0.4",
+          "date": "2024-12-09",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2024-11-27"
+        },
+        {
+          "version": "8.0.5",
+          "date": "2025-02-20",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-02-18"
+        },
+        {
+          "version": "8.0.6",
+          "date": "2025-03-19",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-03-17"
+        },
+        {
+          "version": "8.0.7",
+          "date": "2025-04-14",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-04-03"
+        },
+        {
+          "version": "8.0.8",
+          "date": "2025-04-14",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-04-08"
+        },
+        {
+          "version": "8.0.9",
+          "date": "2025-05-01",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-04-25"
+        },
+        {
+          "version": "8.0.10",
+          "date": "2025-06-04",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-05-28"
+        },
+        {
+          "version": "8.0.11",
+          "date": "2025-06-30",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-06-25"
+        },
+        {
+          "version": "8.0.12",
+          "date": "2025-07-23",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-07-17"
+        },
+        {
+          "version": "8.0.13",
+          "date": "2025-08-21",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-08-14"
+        },
+        {
+          "version": "8.0.14",
+          "date": "2025-09-25",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-09-15"
+        },
+        {
+          "version": "8.0.15",
+          "date": "2025-10-02",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-09-30"
+        },
+        {
+          "version": "8.0.16",
+          "date": "2025-11-19",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-10-30"
+        },
+        {
+          "version": "8.0.17",
+          "date": "2025-12-19",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2025-12-16"
+        },
+        {
+          "version": "8.0.18",
+          "date": "2026-01-27",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-01-15"
+        },
+        {
+          "version": "8.0.19",
+          "date": "2026-02-10",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-02-03"
+        },
+        {
+          "version": "8.0.20",
+          "date": "2026-03-17",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-02-25"
+        },
+        {
+          "version": "8.0.21",
+          "date": "2026-04-29",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-04-08"
+        },
+        {
+          "version": "8.0.23",
+          "date": "2026-05-12",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-05-06"
+        },
+        {
+          "version": "8.0.24",
+          "date": "2026-06-09",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-05-21"
+        },
+        {
+          "version": "8.0.25",
+          "date": "2026-06-10",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-06-05"
+        },
+        {
+          "version": "8.0.26",
+          "date": "2026-06-11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-06-10"
+        },
+        {
+          "version": "8.0.28",
+          "date": "2026-07-22",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-07-16"
+        },
+        {
+          "version": "8.0.29",
+          "date": "2026-08-11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-07-21"
+        },
+        {
+          "version": "8.0.30",
+          "date": "2026-09-08",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-08-19"
+        },
+        {
+          "version": "8.0.32",
+          "date": "2026-09-11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-09-03"
+        },
+        {
+          "version": "8.0.34",
+          "date": "2026-10-13",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+          "full_json_date": "2026-09-24"
+        }
+      ],
+      "9.0": [
+        {
+          "version": "9.0.0",
+          "date": "2026-09-28",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/9.0/",
+          "note": "listed in release notes, absent from full.json"
+        },
+        {
+          "version": "9.0.1",
+          "date": "2026-09-28",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/9.0/",
+          "note": "listed in release notes, absent from full.json"
+        },
+        {
+          "version": "9.0.2",
+          "date": "2026-09-28",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/9.0/",
+          "full_json_date": "2026-09-17"
+        },
+        {
+          "version": "9.0.4",
+          "date": "2026-10-13",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/9.0/",
+          "full_json_date": "2026-09-30"
+        }
+      ],
+      "5.1": [
+        {
+          "version": "5.1.0",
+          "date": "2021-11-04",
+          "url": "https://github.com/mongodb/docs/blob/v5.1/source/release-notes/5.1.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "5.1.1",
+          "date": "2021-12-01",
+          "url": "https://github.com/mongodb/docs/blob/v5.1/source/release-notes/5.1.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "5.2": [
+        {
+          "version": "5.2.0",
+          "date": "2022-01-19",
+          "url": "https://github.com/mongodb/docs/blob/v5.2/source/release-notes/5.2.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "5.2.1",
+          "date": "2022-02-17",
+          "url": "https://github.com/mongodb/docs/blob/v5.2/source/release-notes/5.2.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "5.3": [
+        {
+          "version": "5.3.1",
+          "date": "2022-03-30",
+          "url": "https://github.com/mongodb/docs/blob/v5.3/source/release-notes/5.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "5.3.2",
+          "date": "2022-06-15",
+          "url": "https://github.com/mongodb/docs/blob/v5.3/source/release-notes/5.3.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "6.1": [
+        {
+          "version": "6.1.0",
+          "date": "2022-10-04",
+          "url": "https://github.com/mongodb/docs/blob/v6.1/source/release-notes/6.1.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "6.1.1",
+          "date": "2023-01-03",
+          "url": "https://github.com/mongodb/docs/blob/v6.1/source/release-notes/6.1.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "6.2": [
+        {
+          "version": "6.2.0",
+          "date": "2023-01-19",
+          "url": "https://github.com/mongodb/docs/blob/v6.2/source/release-notes/6.2.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "6.2.1",
+          "date": "2023-02-28",
+          "url": "https://github.com/mongodb/docs/blob/v6.2/source/release-notes/6.2.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "6.3": [
+        {
+          "version": "6.3.0",
+          "date": "2023-04-18",
+          "url": "https://github.com/mongodb/docs/blob/v6.3/source/release-notes/6.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "6.3.1",
+          "date": "2023-05-02",
+          "url": "https://github.com/mongodb/docs/blob/v6.3/source/release-notes/6.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "6.3.2",
+          "date": "2023-06-28",
+          "url": "https://github.com/mongodb/docs/blob/v6.3/source/release-notes/6.3.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "7.1": [
+        {
+          "version": "7.1.0",
+          "date": "2023-10-04",
+          "url": "https://github.com/mongodb/docs/blob/v7.1/source/release-notes/7.1.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.1.1",
+          "date": "2023-11-16",
+          "url": "https://github.com/mongodb/docs/blob/v7.1/source/release-notes/7.1.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "7.2": [
+        {
+          "version": "7.2.0",
+          "date": "2023-12-14",
+          "url": "https://github.com/mongodb/docs/blob/v7.2/source/release-notes/7.2.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.2.1",
+          "date": "2024-02-21",
+          "url": "https://github.com/mongodb/docs/blob/v7.2/source/release-notes/7.2.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.2.2",
+          "date": "2024-02-28",
+          "url": "https://github.com/mongodb/docs/blob/v7.2/source/release-notes/7.2.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "7.3": [
+        {
+          "version": "7.3.0",
+          "date": "2024-03-19",
+          "url": "https://github.com/mongodb/docs/blob/v7.3/source/release-notes/7.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.3.1",
+          "date": "2024-04-04",
+          "url": "https://github.com/mongodb/docs/blob/v7.3/source/release-notes/7.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.3.2",
+          "date": "2024-04-29",
+          "url": "https://github.com/mongodb/docs/blob/v7.3/source/release-notes/7.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.3.3",
+          "date": "2024-06-11",
+          "url": "https://github.com/mongodb/docs/blob/v7.3/source/release-notes/7.3.txt",
+          "date_source": "full.json"
+        },
+        {
+          "version": "7.3.4",
+          "date": "2024-08-14",
+          "url": "https://github.com/mongodb/docs/blob/v7.3/source/release-notes/7.3.txt",
+          "date_source": "full.json"
+        }
+      ],
+      "8.1": [
+        {
+          "version": "8.1.0",
+          "date": "2025-04-24",
+          "url": "https://downloads.mongodb.org/full.json",
+          "date_source": "full.json"
+        },
+        {
+          "version": "8.1.1",
+          "date": "2025-05-27",
+          "url": "https://downloads.mongodb.org/full.json",
+          "date_source": "full.json"
+        },
+        {
+          "version": "8.1.2",
+          "date": "2025-07-01",
+          "url": "https://downloads.mongodb.org/full.json",
+          "date_source": "full.json"
+        },
+        {
+          "version": "8.1.3",
+          "date": "2025-08-08",
+          "url": "https://downloads.mongodb.org/full.json",
+          "date_source": "full.json"
+        }
+      ],
+      "8.2": [
+        {
+          "version": "8.2.0",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2025-08-15",
+          "docs_date": "September 17, 2026",
+          "note": "Release notes heading says September 17, 2026, which is impossible before 8.2.1 (Oct 3, 2025); date from full.json."
+        },
+        {
+          "version": "8.2.1",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2025-10-03",
+          "full_json_date": "2025-09-30"
+        },
+        {
+          "version": "8.2.2",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2025-11-19",
+          "full_json_date": "2025-10-30"
+        },
+        {
+          "version": "8.2.3",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2025-12-19",
+          "full_json_date": "2025-12-15"
+        },
+        {
+          "version": "8.2.4",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-01-27",
+          "full_json_date": "2026-01-15"
+        },
+        {
+          "version": "8.2.5",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-02-10",
+          "full_json_date": "2026-02-03"
+        },
+        {
+          "version": "8.2.6",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-03-17",
+          "full_json_date": "2026-02-25"
+        },
+        {
+          "version": "8.2.7",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-04-16",
+          "full_json_date": "2026-03-30"
+        },
+        {
+          "version": "8.2.9",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-05-12",
+          "full_json_date": "2026-05-06"
+        },
+        {
+          "version": "8.2.10",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-06-09",
+          "full_json_date": "2026-05-21"
+        },
+        {
+          "version": "8.2.11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-06-11",
+          "full_json_date": "2026-06-10"
+        },
+        {
+          "version": "8.2.12",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+          "date": "2026-07-22",
+          "full_json_date": "2026-06-26"
+        }
+      ],
+      "8.3": [
+        {
+          "version": "8.3.0",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-05-04",
+          "full_json_date": "2026-04-08",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.1",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-05-04",
+          "full_json_date": "2026-04-24",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.2",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-05-12",
+          "full_json_date": "2026-05-05",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.3",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-06-09",
+          "full_json_date": "2026-05-21",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.4",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-06-11",
+          "full_json_date": "2026-06-10",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.7",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-07-22",
+          "full_json_date": "2026-07-17",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.8",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-08-11",
+          "full_json_date": "2026-07-21",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.9",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-09-08",
+          "full_json_date": "2026-08-18",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.11",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-09-11",
+          "full_json_date": "2026-09-03",
+          "avoid": "SERVER-131805 critical advisory (8.3.0 - 8.3.12)"
+        },
+        {
+          "version": "8.3.13",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+          "date": "2026-10-13",
+          "full_json_date": "2026-09-24"
+        }
+      ]
+    }
+  },
+  "avoid": [
+    {
+      "distribution": "all",
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.3"
+      ],
+      "range": "8.0.0 - 8.0.3",
+      "issue": "SERVER-95067",
+      "kind": "critical_advisory",
+      "reason": "Time series inserts can generate multiple batches referencing the same bucket",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-95067: 8.0.0 - 8.0.3",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.3"
+      ],
+      "range": "8.0.0 - 8.0.3",
+      "issue": "SERVER-94559",
+      "kind": "critical_advisory",
+      "reason": "Time series measurement deletes update the minTime of a bucket",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-94559: 8.0.0 - 8.0.3",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8",
+        "8.0.9",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.20",
+        "8.0.21",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.26",
+        "8.0.28",
+        "8.0.29",
+        "8.0.30",
+        "8.0.32"
+      ],
+      "range": "8.0.0 - 8.0.33",
+      "issue": "SERVER-131805",
+      "kind": "critical_advisory",
+      "reason": "Recovered cross-database renameCollection participant can drop the target after stepdown",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-131805: 8.0.0 - 8.0.33",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions.",
+      "topology": [
+        "sharded"
+      ]
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2"
+      ],
+      "range": "7.0.0 - 7.0.2",
+      "issue": "SERVER-77506",
+      "kind": "critical_advisory",
+      "reason": "Sharded multi-document transactions can mismatch data and ShardVersion",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-77506: 7.0.0 - 7.0.2",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2"
+      ],
+      "range": "7.0.0 - 7.0.2",
+      "issue": "SERVER-80203",
+      "kind": "critical_advisory",
+      "reason": "Critical Advisory (title not shown on page; Percona notes describe it as sharded time series routing / metadata inconsistency)",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-80203: 7.0.0 - 7.0.2",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5"
+      ],
+      "range": "7.0.0 - 7.0.5",
+      "issue": "SERVER-82353",
+      "kind": "critical_advisory",
+      "reason": "Multi-document transactions can miss documents when movePrimary runs concurrently",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-82353: 7.0.0 - 7.0.5",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5"
+      ],
+      "range": "7.0.0 - 7.0.5",
+      "issue": "SERVER-84723",
+      "kind": "critical_advisory",
+      "reason": "Sharded multi-document transactions can observe partial effects of concurrent DDL operations",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-84723: 7.0.0 - 7.0.5",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5",
+        "7.0.6"
+      ],
+      "range": "7.0.0 - 7.0.6",
+      "issue": "SERVER-87061",
+      "kind": "critical_advisory",
+      "reason": "Sharded multi-document transactions can observe partial effects of concurrent reshard operation",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-87061: 7.0.0 - 7.0.6",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5",
+        "7.0.6",
+        "7.0.7"
+      ],
+      "range": "7.0.0 - 7.0.7",
+      "issue": "SERVER-86622",
+      "kind": "critical_advisory",
+      "reason": "Critical Advisory (title not shown on page)",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-86622: 7.0.0 - 7.0.7",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5",
+        "7.0.6",
+        "7.0.7",
+        "7.0.8",
+        "7.0.9",
+        "7.0.11",
+        "7.0.12"
+      ],
+      "range": "7.0.0 - 7.0.12",
+      "issue": "SERVER-86669",
+      "kind": "critical_advisory",
+      "reason": "Critical Advisory (title not shown on page)",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-86669: 7.0.0 - 7.0.12",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5",
+        "7.0.6",
+        "7.0.7",
+        "7.0.8",
+        "7.0.9",
+        "7.0.11",
+        "7.0.12",
+        "7.0.14",
+        "7.0.15"
+      ],
+      "range": "7.0.0 - 7.0.15",
+      "issue": "SERVER-94559",
+      "kind": "critical_advisory",
+      "reason": "Time-series measurement deletes update the minTime of a bucket",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-94559: 7.0.0 - 7.0.15",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5",
+        "7.0.6",
+        "7.0.7",
+        "7.0.8",
+        "7.0.9",
+        "7.0.11",
+        "7.0.12",
+        "7.0.14",
+        "7.0.15"
+      ],
+      "range": "7.0.0 - 7.0.15",
+      "issue": "SERVER-95067",
+      "kind": "critical_advisory",
+      "reason": "Time-series inserts can generate multiple batches referencing the same bucket",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-95067: 7.0.0 - 7.0.15",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions."
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "7.0.0",
+        "7.0.1",
+        "7.0.2",
+        "7.0.3",
+        "7.0.4",
+        "7.0.5",
+        "7.0.6",
+        "7.0.7",
+        "7.0.8",
+        "7.0.9",
+        "7.0.11",
+        "7.0.12",
+        "7.0.14",
+        "7.0.15",
+        "7.0.16",
+        "7.0.17",
+        "7.0.18",
+        "7.0.19",
+        "7.0.20",
+        "7.0.21",
+        "7.0.22",
+        "7.0.23",
+        "7.0.24",
+        "7.0.25",
+        "7.0.26",
+        "7.0.28",
+        "7.0.29",
+        "7.0.30",
+        "7.0.31",
+        "7.0.32",
+        "7.0.34",
+        "7.0.35",
+        "7.0.36",
+        "7.0.37",
+        "7.0.39",
+        "7.0.40",
+        "7.0.41",
+        "7.0.43"
+      ],
+      "range": "7.0.0 - 7.0.44",
+      "issue": "SERVER-131805",
+      "kind": "critical_advisory",
+      "reason": "Recovered cross-database renameCollection participant can drop the target after stepdown",
+      "quote": "The Critical Advisories below affect some prior MongoDB versions. If your deployment depends on features impacted by a Critical Advisory, upgrade to the latest available patch release. [table row] SERVER-131805: 7.0.0 - 7.0.44",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=The%20Critical%20Advisories%20below%20affect%20some%20prior%20MongoDB%20versions.",
+      "topology": [
+        "sharded"
+      ]
+    },
+    {
+      "distribution": "mongodb",
+      "versions": [
+        "8.0.18",
+        "8.0.19",
+        "8.2.4",
+        "8.2.5"
+      ],
+      "issue": "SERVER-118428",
+      "kind": "known_issue",
+      "reason": "mongocryptd 16 KiB message limit (CSFLE/QE users only)",
+      "quote": "Known Issues: In Version 8.0.18, 8.0.19 SERVER-118428: Changes to mongocryptd limit the maximum size of messages that mongocryptd can receive to 16 KiB. Users may encounter this issue when they send commands larger than 16 KiB through automatic Client-Side Field Level Encryption (CSFLE) or Queryable Encryption. To avoid this bug, skip these versions when you upgrade mongocryptd or use the crypt_shared library.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/#:~:text=Known%20Issues%3A%20In"
+    },
+    {
+      "distribution": "mongodb",
+      "versions": [
+        "7.0.29",
+        "7.0.30",
+        "8.2.4",
+        "8.2.5"
+      ],
+      "issue": "SERVER-118428",
+      "kind": "known_issue",
+      "reason": "mongocryptd 16 KiB message limit (CSFLE/QE users only)",
+      "quote": "Known Issues: In Version 7.0.29, 7.0.30 SERVER-118428: Changes to mongocryptd limit the maximum size of messages that mongocryptd can receive to 16 KiB. Users may encounter this issue when they send commands larger than 16 KiB through automatic Client-Side Field Level Encryption (CSFLE) or Queryable Encryption. To avoid this bug, skip these versions when you upgrade mongocryptd or use the crypt_shared library.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/#:~:text=Known%20Issues%3A%20In"
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.2"
+      ],
+      "issue": "SERVER-133518",
+      "kind": "known_issue",
+      "reason": "Shard can hang during step-up (sharded clusters); fixed in 9.0.4",
+      "quote": "9.0.0, 9.0.1, 9.0.2 SERVER-133518: A shard can hang during step-up when a chunk operation that was interrupted during a prior step-down blocks recovery of a persisted migration recipient. If the hang occurs, the shard cannot become primary, and writes and reads using primary read preference become unavailable on the shard. [...] Fixed in MongoDB 9.0.4.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/9.0/#:~:text=9.0.0%2C%209.0.1%2C%209.0.2%20SERVER-133518%3A%20A%20shard%20can%20hang%20during"
+    },
+    {
+      "distribution": "psmdb",
+      "versions": [
+        "4.4.2-4",
+        "4.4.3-5",
+        "4.4.4-6",
+        "4.4.5-7",
+        "4.4.6-8",
+        "4.4.8-9"
+      ],
+      "issue": "WT-7984, WT-7995 (4.4.5-7 also WT-7426)",
+      "kind": "not_recommended",
+      "reason": "Checkpoint data corruption / inconsistency bugs; upgrade to 4.4.9-10+",
+      "quote": "This version is not recommended for production use due to the following critical issues: WT-7984 and WT-7995. They are fixed in MongoDB 4.4.9 Community Edition and Percona Server for MongoDB 4.4.9-10. We recommend you to upgrade to Percona Server for MongoDB 4.4.9-10 as soon as possible and run the validate command on every collection on every replica set node.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.2-4.html#:~:text=This%20version%20is%20not%20recommended%20for%20production%20use%20due",
+      "also_on": [
+        "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.3-5.html",
+        "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.4-6.html",
+        "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.5-7.html",
+        "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.6-8.html",
+        "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.8-9.html"
+      ]
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "4.4.2",
+        "4.4.3",
+        "4.4.4",
+        "4.4.5",
+        "4.4.6",
+        "4.4.7",
+        "4.4.8"
+      ],
+      "issue": "WT-7995, WT-8395",
+      "kind": "data_corruption",
+      "reason": "4.4.2-4.4.8 affected by WT-7995; 4.4.3/4.4.4 write bad checkpoint metadata (WT-8395). Go to 4.4.11+ (from 4.4.2-4.4.4 downgrade to 4.4.1 first)",
+      "quote": "Note that clusters running versions 4.4.2 - 4.4.8 are affected by the bug WT-7995. See WT-7995 for specific explanation and instructions on running the validate command to check for data inconsistencies. These data inconsistencies can lead to data loss if not identified and repaired at this point between versions 4.4.8 and 4.4.9.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.12-12.html#:~:text=Note%20that%20clusters%20running%20versions%204.4.2%20-%204.4.8%20are"
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "5.0.0",
+        "5.0.1",
+        "5.0.2"
+      ],
+      "issue": "WT-7984, WT-7995",
+      "kind": "data_corruption",
+      "reason": "Data impacting/corrupting bugs introduced in 5.0.1, fixed in 5.0.3",
+      "quote": "Beginning with MongoDB 5.0.1, several data impacting or corrupting bugs were introduced. Details are listed below. These bugs are fixed in MongoDB 5.0.3. Percona Server for MongoDB 5.0.3-2 includes the upstream fixes of these bugs.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.3-2.html#:~:text=Beginning%20with%20MongoDB%205.0.1%2C%20several%20data%20impacting%20or%20corrupting"
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "5.0.0",
+        "5.0.1",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.0.10",
+        "6.0.0"
+      ],
+      "issue": "SERVER-68511",
+      "kind": "not_recommended",
+      "reason": "Sharding metadata inconsistency with movePrimary at FCV 4.4 or earlier; fixed in 5.0.11",
+      "quote": "Another critical issue that affects the production use of this version is SERVER-68511. It causes inconsistency in sharding metadata when running the movePrimary command on the database that has the Feature Compatibility Version (FCV) set to 4.4 or earlier. Affects MongoDB versions 5.0.0 through 5.0.10 and MongoDB 6.0.0. Upgrade to the fixed version of MongoDB 5.0.11 / Percona Server for MongoDB 5.0.11-10 as soon as possible.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.6-5.html#:~:text=Another%20critical%20issue%20that%20affects%20the%20production%20use%20of"
+    },
+    {
+      "distribution": "psmdb",
+      "versions": [
+        "5.0.2-1",
+        "5.0.3-2",
+        "5.0.4-3",
+        "5.0.5-4",
+        "5.0.6-5",
+        "5.0.7-6",
+        "5.0.8-7",
+        "5.0.9-8",
+        "5.0.10-9"
+      ],
+      "issue": "SERVER-68511 (5.0.2-1 also WT-7984/WT-7995)",
+      "kind": "not_recommended",
+      "reason": "Percona marks these builds as not for production; upgrade to 5.0.11-10+",
+      "quote": "We don’t recommend this version for the production use due to the critical issue with sharding metadata inconsistency: SERVER-68511. [...] Upgrade to the fixed version of MongoDB 5.0.11 / Percona Server for MongoDB 5.0.11-10 as soon as possible.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.10-9.html#:~:text=We%20don%E2%80%99t%20recommend%20this%20version%20for%20the%20production%20use",
+      "also_on": [
+        "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.2-1.html",
+        "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.4-3.html",
+        "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.5-4.html",
+        "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.7-6.html",
+        "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.8-7.html",
+        "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.9-8.html"
+      ]
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "5.0.0",
+        "5.0.1",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "6.0.0",
+        "6.0.1"
+      ],
+      "issue": "SERVER-68477",
+      "kind": "data_loss",
+      "reason": "TTL indexes with expireAfterSeconds NaN expire documents immediately; fixed in 5.0.14 / 6.0.2",
+      "quote": "This bug involves TTL indexes with the expireAfterSeconds value of NaN (not-a-number). The TTL indexes are treated as 0 instead of NaN and that resulted in the sudden expiration of TTL-indexed documents in a collection. The bug affects MongoDB 5.0.0 through 5.0.13 and MongoDB 6.0.0 through 6.0.1.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.14-12.html#:~:text=This%20bug%20involves%20TTL%20indexes%20with%20the%20expireAfterSeconds%20value"
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.17",
+        "5.0.18",
+        "5.0.19",
+        "5.0.20",
+        "5.0.21",
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.0.3",
+        "6.0.4",
+        "6.0.5",
+        "6.0.6",
+        "6.0.7",
+        "6.0.8",
+        "6.0.9",
+        "6.0.10",
+        "6.0.11",
+        "7.0.0",
+        "7.0.1",
+        "7.0.2"
+      ],
+      "issue": "SERVER-80203",
+      "kind": "not_recommended",
+      "reason": "Sharded time series routing can cause metadata inconsistency; fixed in 5.0.22 / 6.0.12 / 7.0.4",
+      "quote": "The issue affects time series sharded collections starting in MongoDB version 5.0.6 through versions 5.0.21, 6.0.11 and 7.0.2. It is fixed upstream in versions 5.0.22, 6.0.12 and 7.0.4 and included in Percona Server for MongoDB 5.0.22-19, 6.0.12-9 and 7.0.4-2.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.11-8.html#:~:text=The%20issue%20affects%20time%20series%20sharded%20collections%20starting%20in"
+    },
+    {
+      "distribution": "psmdb",
+      "versions": [
+        "6.0.2-1",
+        "6.0.3-2",
+        "6.0.4-3",
+        "6.0.5-4",
+        "6.0.6-5",
+        "6.0.8-6",
+        "6.0.9-7",
+        "6.0.11-8",
+        "7.0.2-1"
+      ],
+      "issue": "SERVER-80203",
+      "kind": "not_recommended",
+      "reason": "Percona marks these builds as not for production (sharded time series routing)",
+      "quote": "We don’t recommend this version for production use due to the issue with routing sharding time series collections SERVER-80203 which could result in metadata inconsistency.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.2-1.html#:~:text=We%20don%E2%80%99t%20recommend%20this%20version%20for%20production%20use%20due",
+      "also_on": [
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.2-1.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.3-2.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.4-3.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.5-4.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.6-5.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.8-6.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.9-7.html",
+        "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.11-8.html"
+      ]
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "4.4.25",
+        "5.0.21",
+        "6.0.10",
+        "6.0.11",
+        "7.0.1",
+        "7.0.2"
+      ],
+      "issue": "SERVER-81966",
+      "kind": "data_loss",
+      "reason": "ChunkMap modification during chunk migration could lead to data loss",
+      "quote": "SERVER-81966 - Fixed the issue that caused the modification of the original ChunkMap vector during the chunk migration and that could lead to data loss. The issue affects MongoDB versions 4.4.25, 5.0.21, 6.0.10 through 6.0.11 and 7.0.1 through 7.0.2.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.4-2.html#:~:text=SERVER-81966%20-%20Fixed%20the%20issue%20that%20caused%20the%20modification"
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "8.3.0",
+        "8.3.1",
+        "8.3.2",
+        "8.3.3",
+        "8.3.4",
+        "8.3.7",
+        "8.3.8",
+        "8.3.9",
+        "8.3.11"
+      ],
+      "range": "8.3.0 - 8.3.12",
+      "issue": "SERVER-131805",
+      "kind": "critical_advisory",
+      "reason": "In sharded clusters, a cross-database renameCollection can permanently lose the source collection's data after a step-down",
+      "quote": "Issue Affected Versions SERVER-131805 8.3.0 - 8.3.12",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/#:~:text=Issue%20Affected%20Versions%20SERVER-131805%208.3.0%20-%208.3.12",
+      "topology": [
+        "sharded"
+      ]
+    },
+    {
+      "distribution": "all",
+      "versions": [
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.0.3",
+        "6.0.4",
+        "6.0.5",
+        "6.0.6",
+        "6.0.7",
+        "6.0.8",
+        "6.0.9",
+        "6.0.10",
+        "6.0.11",
+        "6.0.12",
+        "6.0.13",
+        "6.0.14",
+        "6.0.15",
+        "6.0.16",
+        "6.0.17",
+        "6.0.18",
+        "6.0.19",
+        "6.0.20",
+        "6.0.21",
+        "6.0.22",
+        "6.0.23",
+        "6.0.24",
+        "6.0.25",
+        "6.0.26",
+        "6.0.27",
+        "6.0.28",
+        "6.0.29",
+        "5.0.0",
+        "5.0.1",
+        "5.0.2",
+        "5.0.3",
+        "5.0.4",
+        "5.0.5",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.0.10",
+        "5.0.11",
+        "5.0.12",
+        "5.0.13",
+        "5.0.14",
+        "5.0.15",
+        "5.0.16",
+        "5.0.17",
+        "5.0.18",
+        "5.0.19",
+        "5.0.20",
+        "5.0.21",
+        "5.0.22",
+        "5.0.23",
+        "5.0.24",
+        "5.0.25",
+        "5.0.26",
+        "5.0.27",
+        "5.0.28",
+        "5.0.29",
+        "5.0.30",
+        "5.0.31",
+        "5.0.32",
+        "5.0.33",
+        "5.0.34"
+      ],
+      "range": "5.0.0 - 5.0.34, 6.0.0 - 6.0.29 (no fixed release)",
+      "issue": "SERVER-131805",
+      "kind": "data_loss",
+      "reason": "In sharded clusters, a cross-database renameCollection can permanently lose the source collection's data; 5.0 and 6.0 have no fixed release, upgrade to 7.0.45 or later",
+      "quote": "MONGODB VERSIONS AFFECTED: 5.0.0 - 5.0.34 6.0.0 - 6.0.29 7.0.0 - 7.0.43 8.0.0 - 8.0.32 8.3.0 - 8.3.11",
+      "url": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "topology": [
+        "sharded"
+      ]
+    }
+  ],
+  "upgrade_min_patch": [
+    {
+      "to": "9.0",
+      "from_min": "latest",
+      "from_series": "8.0",
+      "quote": "To upgrade a replica set from 7.0-series and earlier, first upgrade all members of the replica set to the latest 8.0-series release, and then follow the procedure to upgrade from MongoDB 8.0 to 9.0.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0-replica-set/#:~:text=To%20upgrade%20a%20replica%20set%20from%207.0-series%20and%20earlier%2C"
+    },
+    {
+      "to": "9.0",
+      "from_min": "8.0.5",
+      "from_series": "8.0",
+      "condition": "only if non-time-series system.buckets collections exist",
+      "quote": "MongoDB 8.0.5 and later: You do not need to drop system.buckets collections that aren't time-series collections before you upgrade. However, you must drop or rename them after you complete your upgrade. MongoDB 8.0.4 and earlier: You must drop or rename system.buckets collections that aren't time-series collections before you upgrade.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.0-upgrade-replica-set/#:~:text=MongoDB%208.0.5%20and%20later%3A%20You%20do%20not%20need%20to"
+    },
+    {
+      "to": "8.0",
+      "from_min": "latest",
+      "from_series": "7.0",
+      "quote": "To upgrade a replica set from 6.0-series and earlier, first upgrade all members of the replica set to the latest 7.0-series release, and then follow the procedure to upgrade from MongoDB 7.0 to 8.0.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/8.0-upgrade-replica-set/#:~:text=To%20upgrade%20a%20replica%20set%20from%206.0-series%20and%20earlier%2C"
+    },
+    {
+      "to": "7.0",
+      "from_min": "latest",
+      "from_series": "6.0",
+      "quote": "To upgrade a replica set from 5.0-series and earlier, first upgrade all members of the replica set to the latest 6.0-series release, and then follow the procedure to upgrade from MongoDB 6.0 to 7.0.",
+      "url": "https://www.mongodb.com/docs/manual/release-notes/7.0-upgrade-replica-set/#:~:text=To%20upgrade%20a%20replica%20set%20from%205.0-series%20and%20earlier%2C"
+    },
+    {
+      "to": "5.0",
+      "from_min": "4.4.11",
+      "from_series": "4.4",
+      "condition": "4.4.2-4.4.4 must downgrade to 4.4.1 first",
+      "quote": "Clusters on versions 4.4.0 and 4.4.1 are safe to upgrade to 4.4.8+ or 5.0.2+ but should upgrade to recommended versions 4.4.11+ or 5.0.5+. Clusters on versions 4.4.2, 4.4.3, or 4.4.4 should downgrade to 4.4.1 and then upgrade to versions 4.4.11+ or 5.0.5+. Clusters running versions 4.4.5 - 4.4.7 can and should upgrade to versions 4.4.11+ or 5.0.5+.",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.6-5.html#:~:text=Clusters%20on%20versions%204.4.0%20and%204.4.1%20are%20safe%20to"
+    }
+  ],
+  "psmdb_tools_unpinned_from": {
+    "_note": "From these releases the percona-server-mongodb metapackage depends on percona-server-mongodb-tools without a version (tools use the 100.x numbering). Earlier releases depend on tools of the exact same version, so an apt install of an older release must pin tools too. Source: the Depends field in the Percona apt repositories (repo.percona.com/psmdb-XX/apt), checked 2026-11-03.",
+    "7.0": "7.0.45-24",
+    "8.0": "8.0.34-15",
+    "8.3": "8.3.13-4",
+    "9.0": "9.0.0-1"
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "schema_version": 3,
+  "procedures": {
+    "standalone": [
+      {
+        "text": "Enable the {to} package repository on every host.",
+        "cmd": "{repo}",
+        "pkg": true
+      },
+      {
+        "text": "Shut down mongod cleanly.",
+        "cmd": "db.getSiblingDB(\"admin\").shutdownServer()"
+      },
+      {
+        "text": "Install the {to} packages and start mongod with the same configuration file.",
+        "cmd": "{install}"
+      },
+      {
+        "text": "Confirm the new binary version.",
+        "cmd": "db.version()"
+      },
+      {
+        "text": "Soak on {to} binaries with FCV still \"{from}\". This is your rollback window.",
+        "fcv": true
+      },
+      {
+        "text": "Set the feature compatibility version.",
+        "cmd": "{setfcv}",
+        "fcv": true
+      }
+    ],
+    "replset": [
+      {
+        "text": "Enable the {to} package repository on every host.",
+        "cmd": "{repo}",
+        "pkg": true
+      },
+      {
+        "text": "Upgrade one secondary at a time: shut it down, install the {to} packages and start it.",
+        "cmd": "{install}"
+      },
+      {
+        "text": "Wait until the member is SECONDARY with no lag before you move to the next one.",
+        "cmd": "rs.printSecondaryReplicationInfo()"
+      },
+      {
+        "text": "Step down the primary and wait for a new primary. Expect a cold cache on the new primary.",
+        "cmd": "rs.stepDown()"
+      },
+      {
+        "text": "Upgrade the former primary the same way you upgraded the secondaries."
+      },
+      {
+        "text": "Confirm the binary version on every member.",
+        "cmd": "db.version()"
+      },
+      {
+        "text": "Soak on {to} binaries with FCV still \"{from}\". This is your rollback window.",
+        "fcv": true
+      },
+      {
+        "text": "Set the feature compatibility version on the primary.",
+        "cmd": "{setfcv}",
+        "fcv": true
+      }
+    ],
+    "sharded": [
+      {
+        "text": "Enable the {to} package repository on every host.",
+        "cmd": "{repo}",
+        "pkg": true
+      },
+      {
+        "text": "Stop the balancer from a mongos and confirm it is stopped.",
+        "cmd": "sh.stopBalancer(); sh.getBalancerState()"
+      },
+      {
+        "text": "Upgrade the config server replica set: secondaries one at a time, step down the primary, then the former primary.",
+        "cmd": "{install}"
+      },
+      {
+        "text": "Upgrade each shard replica set with the same procedure, one shard at a time."
+      },
+      {
+        "text": "Upgrade every mongos, including the ones that run on application hosts."
+      },
+      {
+        "text": "Start the balancer again.",
+        "cmd": "sh.startBalancer()"
+      },
+      {
+        "text": "Soak on {to} binaries with FCV still \"{from}\". This is your rollback window.",
+        "fcv": true
+      },
+      {
+        "text": "Set the feature compatibility version from a mongos.",
+        "cmd": "{setfcv}",
+        "fcv": true
+      }
+    ]
+  },
+  "rollback": {
+    "by_target": {
+      "3.4": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch (3.2.8 or later) while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"{from}\" first and remove persisted {to} features, then reinstall the {from} binaries.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v3.4/source/release-notes/3.4-downgrade.txt"
+      },
+      "3.6": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"{from}\" first and remove persisted {to} features, then reinstall the {from} binaries.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v3.6/source/release-notes/3.6-downgrade-replica-set.txt"
+      },
+      "4.0": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"{from}\" first and remove persisted {to} features, then reinstall the {from} binaries.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v4.0/source/release-notes/4.0-downgrade-replica-set.txt"
+      },
+      "4.2": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch (4.0.7 or later on Linux) while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"4.0\" first and remove FCV 4.2 features (long index names, new unique index format, wildcard indexes, 4.2 operators in views and validators), then reinstall 4.0. Arbiters need their data directory cleared.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v4.2/source/release-notes/4.2-downgrade.txt"
+      },
+      "4.4": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch (4.2.6 or later) while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"{from}\" first and remove persisted {to} features, then reinstall the {from} binaries.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v4.4/source/release-notes/4.4-downgrade.txt"
+      },
+      "5.0": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"{from}\" first and remove persisted {to} features, then reinstall the {from} binaries.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v5.0/source/release-notes/5.0-downgrade.txt"
+      },
+      "6.0": {
+        "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch while FCV is still \"{from}\".",
+        "after_setfcv": "Set FCV back to \"5.0\" first (no initial sync in progress, no newlyAdded members) and remove 6.0 features such as clustered collections and cluster parameters, then reinstall 5.0.",
+        "url": "https://raw.githubusercontent.com/mongodb/docs/v6.0/source/release-notes/6.0-downgrade-replica-set.txt"
+      },
+      "7.0": {
+        "before_setfcv": "Binary downgrade from 7.0 is not supported for MongoDB Community, and PSMDB is built from Community. Use the soak period on FCV \"{from}\" as your test window and keep the pre-upgrade backup.",
+        "after_setfcv": "FCV can be lowered again (setFCV with confirm: true), but the binaries cannot go back. Restoring the pre-upgrade backup is the safe rollback.",
+        "url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-downgrade/"
+      },
+      "8.0": {
+        "before_setfcv": "Binary downgrade from 8.0 is not supported for MongoDB Community, and PSMDB is built from Community. Use the soak period on FCV \"{from}\" as your test window and keep the pre-upgrade backup.",
+        "after_setfcv": "FCV can be lowered again (with an embedded config server, run transitionToDedicatedConfigServer first), but the binaries cannot go back. Restoring the pre-upgrade backup is the safe rollback.",
+        "url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-downgrade/"
+      },
+      "9.0": {
+        "before_setfcv": "Binary downgrade is supported again from 9.0: reinstall the latest {from} patch while FCV is still \"{from}\". One adjacent version only.",
+        "after_setfcv": "Set FCV back to \"{from}\" with confirm: true, update or drop any views that use $convert from object to binData, then reinstall {from}.",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/9.0-downgrade/"
+      },
+      "8.2": {
+        "before_setfcv": "Binary downgrade from 8.2 to 8.0 is not supported for MongoDB Community.",
+        "after_setfcv": "FCV cannot be downgraded to or from a minor release. Restoring the pre-upgrade backup is the safe rollback.",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.2-downgrade/"
+      },
+      "8.3": {
+        "before_setfcv": "You can downgrade one step only, to the series you came from (8.2 or 8.0).",
+        "after_setfcv": "Set FCV back to \"{from}\" first, drop 2dsphere version 4 indexes and remove views, validators or validated collections that use 8.3 features, then reinstall {from}. Percona publishes no PSMDB 8.3 downgrade page.",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade/"
+      }
+    },
+    "default": {
+      "before_setfcv": "Binary rollback is supported: reinstall the latest {from} patch while FCV is still \"{from}\".",
+      "after_setfcv": "Set FCV back to \"{from}\" first and remove persisted {to} features, then reinstall the {from} binaries."
+    },
+    "percona_note": "Percona PSMDB docs give no downgrade procedure for 7.0 or 8.0; they ask for a full backup of data and configuration files before the upgrade.",
+    "rapid": {
+      "before_setfcv": "Rapid releases are supported only in MongoDB Atlas. There is no documented downgrade for a self-managed deployment.",
+      "after_setfcv": "From 7.0, FCV cannot be downgraded to or from a rapid release.",
+      "url": "https://github.com/mongodb/docs/blob/v7.0/source/reference/command/setFeatureCompatibilityVersion.txt"
+    }
+  }
+}

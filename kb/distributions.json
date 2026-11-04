@@ -1,0 +1,935 @@
+{
+  "schema_version": 1,
+  "generated": "2026-11-03",
+  "placeholders": {
+    "{major}": "e.g. 8.0",
+    "{major_nodot}": "e.g. 80",
+    "{from_nodot}": "e.g. 70 (kb/versions.json uses {fromnodot})",
+    "{key_name}": "MongoDB GPG key name, see gpg_key.key_name_by_major",
+    "{gpg_key_url}": "https://pgp.mongodb.com/server-{key_name}.asc",
+    "{version}": "full package version"
+  },
+  "distributions": {
+    "psmdb": {
+      "name": "Percona Server for MongoDB",
+      "majors_ga": [
+        "3.6",
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0",
+        "8.0",
+        "8.3"
+      ],
+      "majors_preview": {
+        "9.0": "Not GA. repo.percona.com psmdb-90 has packages only in testing (9.0.2-0, 9.0.4-1 on el9) and experimental; psmdb-90/yum/release is empty and there is no docs.percona.com/percona-server-for-mongodb/9.0/ (redirects to a 404). Checked 2026-11-03."
+      },
+      "majors_notes": {
+        "8.3": "GA since 8.3.13-4 (2026-10-27): 'Percona Server for MongoDB 8.3.13-4 marks the General Availability (GA) of the 8.3 release series.' 8.3.7-1, 8.3.8-2 and 8.3.11-3 were technical previews ('for testing purposes only'). PSMDB has no 8.1 or 8.2. The only documented upgrade path into 8.3 is from 8.0.",
+        "6.0": "End of life per the PSMDB 6.0.21-18 release notes (update from 2026-01-12).",
+        "3.6": "Oldest series on repo.percona.com (psmdb-36). 3.6 and 4.0 docs carry an end-of-life banner."
+      },
+      "packages": {
+        "server_meta": {
+          "default": "percona-server-mongodb",
+          "3.6": {
+            "apt": "percona-server-mongodb-36",
+            "yum": "Percona-Server-MongoDB-36"
+          },
+          "note": "Up to 3.6 the package names carry the major (percona-server-mongodb-36 on apt, Percona-Server-MongoDB-36 on yum). From 4.0 the names are unversioned and the repository selects the major."
+        },
+        "server": "percona-server-mongodb-server",
+        "mongos": "percona-server-mongodb-mongos",
+        "shell": "percona-server-mongodb-shell",
+        "shell_note": "Package contents tables: 'The mongo shell' in 4.4 and 5.0, 'The mongosh shell' in 6.0 and later. repo.percona.com psmdb-83 and psmdb-90 also carry a standalone percona-mongodb-mongosh package (2.13.0 at the time of checking); the 8.0 tarball page uses it.",
+        "tools": "percona-server-mongodb-tools",
+        "tools_note": "PSMDB ships the database tools (mongodump, mongorestore, ...) as percona-server-mongodb-tools, described as 'Mongo tools for high-performance MongoDB fork from Percona'. From 8.3.13-4 the tools are built independently of the server (base 100.19.1) and are no longer included in the binary tarball; RPM/DEB installs are unchanged.",
+        "debug": {
+          "apt": "percona-server-mongodb-dbg",
+          "yum": "percona-server-mongodb-debuginfo (repo file names); docs table lists percona-server-mongodb-dbg"
+        },
+        "ships_tools": true
+      },
+      "repo_setup": {
+        "apt": "wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb && sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb && sudo percona-release enable psmdb-{major_nodot} release && sudo apt update",
+        "yum": "sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm && sudo percona-release enable psmdb-{major_nodot} release",
+        "testing_channel": "sudo percona-release enable psmdb-{major_nodot} testing",
+        "note": "percona-release 'enable' adds a repository location and keeps the others; 'enable-only' and 'setup' disable all other Percona repositories first. Upgrade pages use the short form 'sudo percona-release enable psmdb-{major_nodot}'.",
+        "source_urls": [
+          "https://docs.percona.com/percona-server-for-mongodb/8.0/install/apt.html",
+          "https://docs.percona.com/percona-server-for-mongodb/8.0/install/yum.html",
+          "https://docs.percona.com/percona-software-repositories/percona-release.html"
+        ]
+      },
+      "upgrade_install": {
+        "apt": "sudo systemctl stop mongod && sudo percona-release enable psmdb-{major_nodot} && sudo apt update && sudo apt install percona-server-mongodb && sudo systemctl start mongod",
+        "yum": "sudo systemctl stop mongod && sudo percona-release enable psmdb-{major_nodot} && sudo yum install percona-server-mongodb && sudo systemctl start mongod",
+        "overrides": {
+          "3.6": {
+            "apt": "sudo service mongod stop && sudo apt-get remove percona-server-mongodb-34* && sudo apt-get install percona-server-mongodb-36 && sudo service mongod start",
+            "yum": "sudo service mongod stop && sudo yum remove Percona-Server-MongoDB-34* && sudo yum install Percona-Server-MongoDB-36 && sudo service mongod start"
+          }
+        },
+        "post": "db.adminCommand( { setFeatureCompatibilityVersion: \"{major}\", confirm: true } )",
+        "post_note": "Pages for 7.0, 8.0 and 8.3 include confirm: true; 4.0 to 6.0 pages omit it (confirm is required from 7.0). The 8.3 upgrade page prints setFeatureCompatibilityVersion: \"8.0\" in the final step; MongoDB's 9.0 upgrade page states an 8.3 deployment 'must have featureCompatibilityVersion set to 8.3', so use \"8.3\".",
+        "pin_version": {
+          "apt": "sudo apt install percona-server-mongodb={version}.$(lsb_release -sc) percona-server-mongodb-mongos={version}.$(lsb_release -sc) percona-server-mongodb-shell={version}.$(lsb_release -sc) percona-server-mongodb-server={version}.$(lsb_release -sc) percona-server-mongodb-tools={version}.$(lsb_release -sc)",
+          "yum": "sudo yum install percona-server-mongodb-{version}$(rpm -E %{dist})",
+          "list": {
+            "apt": "sudo apt-cache madison percona-server-mongodb",
+            "yum": "sudo yum list percona-server-mongodb --showduplicates"
+          },
+          "source": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/yum.html"
+        },
+        "source_urls": [
+          "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-70.html",
+          "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_34.html",
+          "https://docs.percona.com/percona-server-for-mongodb/8.0/install/apt.html"
+        ]
+      },
+      "docs": [
+        {
+          "label": "Percona: upgrade PSMDB {from} to {to}",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/install/upgrade-from-{from_nodot}.html",
+          "min_target": "4.0",
+          "max_target": "8.3",
+          "resolves_for": [
+            "4.0<-3.6",
+            "4.2<-4.0",
+            "4.4<-4.2",
+            "5.0<-4.4",
+            "6.0<-5.0",
+            "7.0<-6.0",
+            "8.0<-7.0",
+            "8.3<-8.0"
+          ],
+          "missing": [
+            "9.0 (404)",
+            "3.6 (uses underscore name, see next)"
+          ]
+        },
+        {
+          "label": "Percona: upgrade PSMDB 3.4 to 3.6",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_34.html",
+          "min_target": "3.6",
+          "max_target": "3.6"
+        },
+        {
+          "label": "Percona: minor upgrade within PSMDB {to}",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/install/minor-upgrade.html",
+          "min_target": "4.4",
+          "max_target": "8.3",
+          "missing": [
+            "3.6",
+            "4.0",
+            "4.2"
+          ]
+        },
+        {
+          "label": "Percona: upgrade from MongoDB Community to PSMDB {to}",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/install/upgrade-from-mongodb.html",
+          "min_target": "4.0",
+          "max_target": "8.3",
+          "missing": [
+            "9.0 (404)"
+          ],
+          "note": "3.6 uses https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_mongodb.html"
+        },
+        {
+          "label": "Percona: KMIP upgrade considerations ({to})",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/kmip.html#upgrade-considerations",
+          "min_target": "5.0",
+          "max_target": "8.3"
+        },
+        {
+          "label": "Percona: Vault upgrade considerations ({to})",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/vault.html#upgrade-considerations",
+          "min_target": "5.0",
+          "max_target": "8.0"
+        },
+        {
+          "label": "Percona: PSMDB {to} release notes",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/release_notes/index.html",
+          "min_target": "3.6",
+          "max_target": "8.3"
+        }
+      ],
+      "notes": "PSMDB follows MongoDB Community majors: 'an enhanced, fully compatible, source available, drop-in replacement for MongoDB {major} Community Edition'. Check for PSMDB with db.adminCommand({buildInfo:1}).psmdbVersion. Extras over Community (comparison page): Percona Memory Engine (storage.engine: inMemory), data-at-rest encryption with Vault/OpenBao/KMIP/keyfile, hot backup (createBackup), $backupCursor/$backupCursorExtend, LDAP authn/authz, Kerberos, AWS IAM (6.0.5-4+), OIDC (7.0.24-13+, 8.0.12-4+), audit logging, log redaction, FIPS, profiler rateLimit, ngram text search, FCBIS (7.0.22-12+, 8.0.12-4+). No SNMP. Pro builds: 'Update from 2025-12-02: We no longer release Percona Server for MongoDB Pro Builds. All features included in Pro Builds are accessible for everyone in our public regular builds.' FCBIS is in all packages from 7.0.26-14 and 8.0.16-5. No current page documents a Pro repository name. docs.percona.com/percona-server-for-mongodb/latest/ still redirects to 8.0 although the 8.3.13-4 notes call it 'the latest, default and recommended version'."
+    },
+    "mongodb-community": {
+      "name": "MongoDB Community Edition",
+      "majors_ga": [
+        "3.6",
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0",
+        "8.0",
+        "9.0"
+      ],
+      "minors_self_managed": [
+        "8.2",
+        "8.3"
+      ],
+      "majors_preview": {},
+      "majors_notes": {
+        "8.2/8.3": "'Starting in MongoDB 8.2, minor releases are available to Atlas clusters on Auto Upgrades. They are also available to Enterprise Advanced and Community self-managed deployments.' repo.mongodb.org has 8.2 and 8.3 repos. 8.3 can be reached from 8.0 or 8.2.",
+        "9.0": "Current stable release. Upgrade to 9.0 from 8.0 or 8.3: 'To upgrade an existing MongoDB deployment to 9.0, you must be running a 8.0 or 8.3 release.' From 9.0 on, self-managed deployments get only the annual x.5 Feature Update release between majors.",
+        "eol": "Docs at mongodb.com/docs cover 7.0, 8.0, 8.3, 9.0 (and 8.2 under /manual). 6.0 and older redirect to the release-notes index; EOL docs are at https://www.mongodb.com/docs/legacy/."
+      },
+      "packages": {
+        "server_meta": "mongodb-org",
+        "database_meta": "mongodb-org-database",
+        "server": "mongodb-org-server",
+        "mongos": "mongodb-org-mongos",
+        "shell": "mongodb-mongosh",
+        "shell_variants": [
+          "mongodb-mongosh-shared-openssl11",
+          "mongodb-mongosh-shared-openssl3"
+        ],
+        "tools": "mongodb-org-tools (metapackage for mongodb-database-tools and mongodb-org-database-tools-extra)",
+        "tools_package": "mongodb-database-tools",
+        "ships_tools": true
+      },
+      "repo_setup": {
+        "apt": "sudo apt-get install gnupg curl && curl -fsSL {gpg_key_url} | sudo gpg --yes -o /usr/share/keyrings/mongodb-server-{key_name}.gpg --dearmor && echo \"deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-{key_name}.gpg ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -sc)/mongodb-org/{major} multiverse\" | sudo tee /etc/apt/sources.list.d/mongodb-org-{major}.list && sudo apt-get update",
+        "apt_debian": "echo \"deb [ signed-by=/usr/share/keyrings/mongodb-server-{key_name}.gpg ] https://repo.mongodb.org/apt/debian $(lsb_release -sc)/mongodb-org/{major} main\" | sudo tee /etc/apt/sources.list.d/mongodb-org-{major}.list",
+        "yum": "printf '[mongodb-org-{major}]\\nname=MongoDB Repository\\nbaseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{major}/x86_64/\\ngpgcheck=1\\nenabled=1\\ngpgkey={gpg_key_url}\\n' | sudo tee /etc/yum.repos.d/mongodb-org-{major}.repo",
+        "gpg_key": {
+          "template": "https://pgp.mongodb.com/server-{key_name}.asc",
+          "key_name_by_major": {
+            "4.4": "4.4",
+            "5.0": "5.0",
+            "6.0": "6.0",
+            "7.0": "7.0",
+            "8.0": "8.0",
+            "8.2": "8.0",
+            "8.3": "8.0",
+            "9.0": "9"
+          },
+          "note": "Docs: 7.0 page uses https://www.mongodb.org/static/pgp/server-7.0.asc, 8.0 uses pgp.mongodb.com/server-8.0.asc, 9.0 uses pgp.mongodb.com/server-9.asc (server-9.0.asc is 404). server-8.2.asc and server-8.3.asc are 404; the 8.2 and 8.3 apt Release files are signed by key 41DE058A4E7DCA05, the server-8.0 key (checked with gpg on repo.mongodb.org, no docs page)."
+        },
+        "note": "Docs write the RHEL baseurl with the literal EL version (redhat/8, 9, 10) and x86_64; Amazon Linux 2023 uses repo.mongodb.org/yum/amazon/2023/mongodb-org/{major}/$basearch/.",
+        "source_urls": [
+          "https://www.mongodb.com/docs/manual/administration/install-community-linux/?linux-distro=ubuntu&linux-method=pkg",
+          "https://www.mongodb.com/docs/manual/administration/install-community-linux/?linux-distro=rhel&linux-method=pkg",
+          "https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-ubuntu/",
+          "https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-ubuntu/"
+        ]
+      },
+      "upgrade_install": {
+        "apt": "sudo apt-get update && sudo apt-get install -y mongodb-org",
+        "yum": "sudo yum install -y mongodb-org",
+        "pin_version": {
+          "apt": "sudo apt-get install -y mongodb-org={version} mongodb-org-database={version} mongodb-org-server={version} mongodb-mongosh mongodb-org-mongos={version} mongodb-org-tools={version}",
+          "yum": "sudo yum install -y mongodb-org-{version} mongodb-org-database-{version} mongodb-org-server-{version} mongodb-mongosh mongodb-org-mongos-{version} mongodb-org-tools-{version}"
+        },
+        "note": "Upgrade pages: 'If you installed MongoDB from the MongoDB apt, yum, dnf, or zypper repositories, you should upgrade ... using your package manager. ... This requires adding a repository for the new release, then performing the actual upgrade process.' Binaries are replaced one member at a time (rolling); restart is manual.",
+        "post": "db.adminCommand( { setFeatureCompatibilityVersion: \"{major}\", confirm: true } )"
+      },
+      "docs": [
+        {
+          "label": "MongoDB: upgrade a replica set to {to}",
+          "url": "https://www.mongodb.com/docs/v{to}/release-notes/{to}-upgrade-replica-set/",
+          "min_target": "7.0",
+          "max_target": "8.0",
+          "topology_variants": [
+            "standalone",
+            "replica-set",
+            "sharded-cluster"
+          ],
+          "note": "/v8.3/release-notes/8.3-upgrade-replica-set/ exists but covers 8.2 to 8.3."
+        },
+        {
+          "label": "MongoDB: upgrade a replica set to 8.2",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/8.2-upgrade-replica-set/",
+          "min_target": "8.2",
+          "max_target": "8.2",
+          "note": "/v8.2/ redirects to /manual/."
+        },
+        {
+          "label": "MongoDB: upgrade {from} replica set to {to}",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/{to}-upgrade-from-{from}-replica-set/",
+          "min_target": "8.3",
+          "max_target": "9.0",
+          "resolves_for": [
+            "8.3<-8.0",
+            "9.0<-8.0"
+          ],
+          "topology_variants": [
+            "standalone",
+            "replica-set",
+            "sharded-cluster"
+          ]
+        },
+        {
+          "label": "MongoDB: upgrade 8.3 replica set to 9.0",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-replica-set/",
+          "min_target": "9.0",
+          "max_target": "9.0",
+          "note": "Page title 'Upgrade 8.3 Replica Set to 9.0'. /v9.0/ redirects to /manual/."
+        },
+        {
+          "label": "MongoDB {to} compatibility changes",
+          "url": "https://www.mongodb.com/docs/manual/release-notes/{to}-compatibility/",
+          "min_target": "7.0",
+          "max_target": "9.0"
+        },
+        {
+          "label": "MongoDB legacy (EOL) documentation",
+          "url": "https://www.mongodb.com/docs/legacy/",
+          "min_target": "3.6",
+          "max_target": "6.0",
+          "note": "Versioned URLs for 6.0 and older redirect to the release-notes index or the manual home; treat as missing."
+        },
+        {
+          "label": "MongoDB versions and upgrade paths",
+          "url": "https://www.mongodb.com/docs/mongodb-versions/",
+          "min_target": "8.2",
+          "max_target": "9.0"
+        }
+      ],
+      "notes": "Community lacks the Enterprise features listed on the Upgrade to MongoDB Enterprise pages: In-Memory engine, auditing, Kerberos, LDAP, OIDC, encryption at rest. Configure Encryption: 'Outside Atlas, encryption is only available for enterprise installations that use the WiredTiger Storage Engine.'"
+    }
+  },
+  "items": [
+    {
+      "id": "psmdb-34-36-versioned-packages",
+      "hop_to": "3.6",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "PSMDB 3.6 packages carry the major in their name",
+      "action": "Remove the 3.4 packages before you install 3.6. On Debian/Ubuntu: sudo apt-get remove percona-server-mongodb-34* then sudo apt-get install percona-server-mongodb-36. On RHEL: sudo yum remove Percona-Server-MongoDB-34* then sudo yum install Percona-Server-MongoDB-36. On RHEL your edited config is saved as /etc/mongod.conf.rpmsave: restore it and re-check ownership of custom dbPath and log paths before you start mongod.",
+      "check": "dpkg -l | grep -i percona-server-mongodb || rpm -qa | grep -i Percona-Server-MongoDB",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_34.html#:~:text=When%20you%20remove%20old%20packages%20on%20Centos%20%2F%20RHEL%2C",
+      "quote": "When you remove old packages on Centos / RHEL, your modified configuration file is placed to /etc/mongod.conf.rpmsave.",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    },
+    {
+      "id": "psmdb-40-unversioned-packages",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "info",
+      "title": "From 4.0 the PSMDB package is percona-server-mongodb",
+      "action": "Enable psmdb-40 with percona-release and install percona-server-mongodb. The versioned 3.6 packages are replaced automatically.",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/4.0/install/upgrade-from-36.html#:~:text=Install%20new%20packages.%20Old%20packages%20are%20automatically%20considered%20obsolete",
+      "quote": "Install new packages. Old packages are automatically considered obsolete and removed"
+    },
+    {
+      "id": "psmdb-mongorocks-removed",
+      "hop_to": "4.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "MongoRocks storage engine is gone",
+      "action": "If any member runs MongoRocks, move it to WiredTiger (initial sync onto an empty WiredTiger dbPath) while still on 3.6. MongoRocks was deprecated in 3.6. The 4.2 upgrade page repeats that it has been removed.",
+      "check": "db.serverStatus().storageEngine.name",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/4.0/install/upgrade-from-36.html#:~:text=MongoRocks%20has%20been%20removed%20from%20Percona%20Server%20for%20MongoDB",
+      "quote": "MongoRocks has been removed from Percona Server for MongoDB 4.0"
+    },
+    {
+      "id": "psmdb-kmip-5011-reencrypt",
+      "hop_to": "6.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "KMIP on 5.0.10-9 or older: reaching the latest 5.0 patch needs re-encryption",
+      "action": "If you use KMIP encryption on PSMDB 5.0.10-9 or earlier, the step to the latest 5.0 patch is not a plain binary swap. Standalone: mongodump before, mongorestore after the binary update. Replica set: follow the 'encrypting existing data' steps and replace the binary between steps 1 and 2. From 5.0.13-11 the standard procedure works.",
+      "check": "db.serverStatus().encryptionAtRest",
+      "when": {
+        "from_at_least": "5.0"
+      },
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/5.0/kmip.html#:~:text=With%20the%20kmipKeyIdentifier%20option%20becoming%20optional%20in%20version%205.0.11-10%2C",
+      "quote": "With the kmipKeyIdentifier option becoming optional in version 5.0.11-10, the standard upgrade procedure doesn't work if you are upgrading from version 5.0.10-9 and earlier."
+    },
+    {
+      "id": "psmdb-kmip-preactive-key",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "KMIP: activate or rotate a Pre-Active master key",
+      "action": "From 5.0.28-24, 6.0.17-14 and 7.0.14-8 PSMDB activates new KMIP keys and polls their state. An existing Pre-Active key only produces a startup warning and disables polling. Rotate the master key or set it to Active on the KMIP server before the hop.",
+      "check": "db.serverStatus().encryptionAtRest",
+      "when": {
+        "to_at_least": "5.0"
+      },
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/7.0/kmip.html#:~:text=We%20recommend%20to%20either%20rotate%20a%20master%20encryption%20key",
+      "quote": "We recommend to either rotate a master encryption key or manually change the existing key to the Active state."
+    },
+    {
+      "id": "psmdb-kmip-rotate-on-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "KMIP: rotate the master key once after installing 8.0, before normal start",
+      "action": "On each member using KMIP: install the 8.0 packages, set security.kmip.rotateMasterKey: true (or --kmipRotateMasterKey), start mongod and wait for it to exit after the rotation, remove the option, then start mongod as usual. This is a one-time action.",
+      "check": "db.serverStatus().encryptionAtRest",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/kmip.html#:~:text=Therefore%2C%20rotate%20the%20master%20encryption%20key%20after%20installing%20the",
+      "quote": "Therefore, rotate the master encryption key after installing the new version but before starting the server as follows:"
+    },
+    {
+      "id": "psmdb-kmip-rotate-on-83",
+      "hop_to": "8.3",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "KMIP: rotate the master key once after installing 8.3, before normal start",
+      "action": "Same one-time procedure as on 8.0: set security.kmip.rotateMasterKey: true, start mongod and let it exit, remove the option, start normally. Skip it if you already did it on 8.0 ('further upgrades won't need that').",
+      "check": "db.serverStatus().encryptionAtRest",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/kmip.html#:~:text=This%20is%20the%20one-time%20action%3B%20further%20upgrades%20won%27t%20need",
+      "quote": "This is the one-time action; further upgrades won't need that."
+    },
+    {
+      "id": "psmdb-vault-checkmaxversions-policy",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Vault: grant read access for the secret version check",
+      "action": "PSMDB 5.0.29-25, 6.0.18-15, 7.0.15-9 and 8.0.1-1 added security.vault.checkMaxVersions (on by default). It reads the secret metadata and exits if max_versions is reached. Add read permission for PSMDB to the Vault access policy. Percona documents this as a post-upgrade step; doing it before the restart avoids a node that will not start.",
+      "check": "db.serverStatus().encryptionAtRest",
+      "when": {
+        "to_at_least": "5.0"
+      },
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/vault.html#:~:text=If%20you%20upgraded%20to%20Percona%20Server%20for%20MongoDB%208.0.x",
+      "quote": "If you upgraded to Percona Server for MongoDB 8.0.x from version 7.0.14-9 or earlier, where there is no check for the number of secrets versions on the Vault server, configure the read permissions for Percona Server for MongoDB within the access policy on the Vault server after the upgrade."
+    },
+    {
+      "id": "psmdb-amazon-linux-2023-pin",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Amazon Linux 2023: the PSMDB build must match the OS point release",
+      "action": "PSMDB works only on specific AL2023 versions. 6.0.20-17, 7.0.16-10 and 8.0.4-2 need 2023.6.x or older. 6.0.21-18, 7.0.18-11 and 8.0.8-3 need 2023.7.x or newer. 8.3.7-1 and later need 2023.11.x or newer. Update the OS first if needed.",
+      "check": "cat /etc/amazon-linux-release",
+      "when": {
+        "to_at_least": "6.0",
+        "platform": [
+          "packages"
+        ],
+        "os": [
+          "amzn2023"
+        ]
+      },
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-70.html#:~:text=Because%20of%20the%20way%20Amazon%20Linux%20updates%20their%20libraries%2C",
+      "quote": "Because of the way Amazon Linux updates their libraries, Percona Server for MongoDB works only on specific Amazon Linux versions."
+    },
+    {
+      "id": "psmdb-processmanagement-fork-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Remove the whole processManagement section from mongod.conf",
+      "action": "The 8.0 upgrade page tells you to remove 'processManagement: fork: true / pidFilePath: /var/run/mongod.pid' on both Debian/Ubuntu and RHEL before installing the 8.0 packages. Remove the processManagement: line too: an empty processManagement: key makes mongod exit at start with 'Unrecognized option: processManagement', while systemctl start prints nothing.",
+      "check": "grep -n -A3 processManagement /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-70.html#:~:text=Remove%20the%20following%20configuration%20from%20the%20configuration%20file%2C%20if",
+      "quote": "Remove the following configuration from the configuration file, if you have it:",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      },
+      "tested": "Lab: PSMDB 7.0.45-24 to 8.0.34-15 on Rocky Linux 8 and Ubuntu 22.04. With an empty processManagement: key, 8.0.34-15 exited with Unrecognized option: processManagement and systemctl start returned 0. With fork: true and pidFilePath left in place it started, because the packaged service sets MONGODB_CONFIG_OVERRIDE_NOFORK=1."
+    },
+    {
+      "id": "psmdb-processmanagement-fork-83",
+      "hop_to": "8.3",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Remove the whole processManagement section from mongod.conf",
+      "action": "Same instruction as the 8.0 page: remove the processManagement section with 'fork: true' and 'pidFilePath: /var/run/mongod.pid' before installing 8.3. Remove the processManagement: line too: an empty processManagement: key makes mongod exit at start with 'Unrecognized option: processManagement', while systemctl start prints nothing.",
+      "check": "grep -n -A3 processManagement /etc/mongod.conf",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/upgrade-from-80.html#:~:text=Remove%20the%20following%20configuration%20from%20the%20configuration%20file%2C%20if",
+      "quote": "Remove the following configuration from the configuration file, if you have it:",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      },
+      "tested": "Lab: PSMDB 7.0.45-24 to 8.0.34-15 on Rocky Linux 8 and Ubuntu 22.04. With an empty processManagement: key, 8.0.34-15 exited with Unrecognized option: processManagement and systemctl start returned 0. With fork: true and pidFilePath left in place it started, because the packaged service sets MONGODB_CONFIG_OVERRIDE_NOFORK=1."
+    },
+    {
+      "id": "psmdb-pro-builds-ended",
+      "hop_to": "*",
+      "section": "behaviour",
+      "severity": "info",
+      "title": "PSMDB Pro builds are discontinued",
+      "action": "If you ran a Pro build, move to the regular packages from psmdb-{to_nodot} release. Pro features (FCBIS, OIDC, debug symbols) ship in regular builds; FCBIS is in all packages from 7.0.26-14 and 8.0.16-5.",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "psmdb"
+      ],
+      "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.8-3.html#:~:text=Update%20from%202025-12-02%3A%20We%20no%20longer%20release%20Percona%20Server",
+      "quote": "Update from 2025-12-02: We no longer release Percona Server for MongoDB Pro Builds. All features included in Pro Builds are accessible for everyone in our public regular builds."
+    },
+    {
+      "id": "mongodb-gpg-key-9",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "The 9.0 repository is signed with a new key (server-9.asc)",
+      "action": "Import https://pgp.mongodb.com/server-9.asc into /usr/share/keyrings/mongodb-server-9.gpg and reference it in the 9.0 apt list file, or set gpgkey=https://pgp.mongodb.com/server-9.asc in the 9.0 .repo file. The 8.0 key (also used by the 8.2 and 8.3 repos) does not verify 9.0 packages.",
+      "check": "ls /usr/share/keyrings/ | grep mongodb-server",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "mongodb-community"
+      ],
+      "source_url": "https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/",
+      "quote": "curl -fsSL https://pgp.mongodb.com/server-9.asc"
+    },
+    {
+      "id": "mongodb-package-holds",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Release package pins before the upgrade",
+      "action": "The install guides suggest pinning with dpkg --set-selections (mongodb-org hold, mongodb-org-server hold, ...) or exclude=mongodb-org,... in /etc/yum.conf. A pinned package silently stays on the old major. Unhold or remove the exclude line before installing {to}, then re-apply it.",
+      "check": "dpkg --get-selections | grep -E 'mongodb.*hold' ; grep -n exclude /etc/yum.conf /etc/dnf/dnf.conf",
+      "verified": false,
+      "basis": "docs",
+      "distribution": [
+        "mongodb-community"
+      ],
+      "source_url": "https://www.mongodb.com/docs/manual/administration/install-community-linux/?linux-distro=ubuntu&linux-method=pkg",
+      "when": {
+        "platform": [
+          "packages"
+        ]
+      }
+    }
+  ],
+  "switches": [
+    {
+      "from": "mongodb-community",
+      "to": "psmdb",
+      "documented": true,
+      "same_major_required": true,
+      "same_major_basis": "Each PSMDB version has its own 'Upgrade from MongoDB Community' page and the sample output shows the same major (mongodb-org 8.0.1 replaced by PSMDB 8.0). The page does not state a cross-major rule; MongoDB's own edition switch page says not to change versions in the same step.",
+      "majors": [
+        "3.6",
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0",
+        "8.0",
+        "8.3"
+      ],
+      "steps": {
+        "apt": [
+          {
+            "text": "Take a full backup of data and configuration.",
+            "cmd": null
+          },
+          {
+            "text": "Save the current configuration file.",
+            "cmd": "sudo mv /etc/mongod.conf /etc/mongod.conf.bkp"
+          },
+          {
+            "text": "Stop mongod.",
+            "cmd": "sudo systemctl stop mongod"
+          },
+          {
+            "text": "List the installed MongoDB packages.",
+            "cmd": "sudo dpkg -l | grep mongod"
+          },
+          {
+            "text": "Remove the Community packages (Percona's list; also remove mongodb-org-database and mongodb-org-database-tools-extra if dpkg shows them).",
+            "cmd": "sudo apt remove mongodb-org mongodb-org-mongos mongodb-org-server mongodb-org-shell mongodb-org-tools"
+          },
+          {
+            "text": "Install PSMDB of the same major.",
+            "cmd": "sudo percona-release enable psmdb-{major_nodot} release && sudo apt update && sudo apt install percona-server-mongodb"
+          },
+          {
+            "text": "Copy dbPath, systemLog.path, security, replication and sharding settings from the backup into /etc/mongod.conf (the Percona page writes /etc/mongodb.conf, the PSMDB packages use /etc/mongod.conf).",
+            "cmd": null
+          },
+          {
+            "text": "Give the new mongod user access to custom paths.",
+            "cmd": "sudo chown -R mongod:mongod <custom-dbPath> <custom-systemLog.path>"
+          },
+          {
+            "text": "Remove the processManagement section (the processManagement: line with fork and pidFilePath under it) from the config if present.",
+            "cmd": null
+          },
+          {
+            "text": "Start mongod.",
+            "cmd": "sudo systemctl start mongod"
+          }
+        ],
+        "yum": [
+          {
+            "text": "Take a full backup of data and configuration.",
+            "cmd": null
+          },
+          {
+            "text": "Stop mongod.",
+            "cmd": "sudo systemctl stop mongod"
+          },
+          {
+            "text": "List the installed MongoDB packages.",
+            "cmd": "sudo rpm -qa | grep mongo"
+          },
+          {
+            "text": "Remove every listed mongodb-org* and mongodb-database-tools package. Your config is saved as /etc/mongod.conf.rpmsave.",
+            "cmd": "sudo yum remove mongodb-org mongodb-org-database mongodb-org-server mongodb-org-mongos mongodb-org-shell mongodb-org-tools mongodb-database-tools"
+          },
+          {
+            "text": "Install PSMDB of the same major.",
+            "cmd": "sudo percona-release enable psmdb-{major_nodot} release && sudo yum install percona-server-mongodb"
+          },
+          {
+            "text": "Copy custom options from /etc/mongod.conf.rpmsave into /etc/mongod.conf.",
+            "cmd": null
+          },
+          {
+            "text": "Give the new mongod user access to custom paths.",
+            "cmd": "sudo chown -R mongod:mongod <custom-dbPath> <custom-systemLog.path>"
+          },
+          {
+            "text": "On RHEL the Percona page requires processManagement.fork: true and pidFilePath: /var/run/mongod.pid, matching PIDFile in the systemd unit, or systemd kills mongod after a timeout.",
+            "cmd": null
+          },
+          {
+            "text": "Start mongod.",
+            "cmd": "sudo systemctl start mongod"
+          }
+        ],
+        "topology": {
+          "standalone": "Run the steps once; this is downtime.",
+          "replset": "Rolling: one secondary at a time, then step down the primary and switch it last. Percona: 'To upgrade a replica set or a sharded cluster, use the rolling restart method.'",
+          "sharded": "Rolling, in the MongoDB order: balancer off, config servers, shards, mongos, balancer on."
+        },
+        "rolling": [
+          {
+            "text": "Replica set: switch secondaries one at a time, wait for each to reach SECONDARY, then rs.stepDown() the primary and switch it last.",
+            "cmd": "rs.stepDown()"
+          },
+          {
+            "text": "Sharded cluster: stop the balancer, switch the config server replica set, then each shard replica set, then every mongos, then restart the balancer.",
+            "cmd": "sh.stopBalancer() ... sh.startBalancer()"
+          }
+        ]
+      },
+      "blockers": [
+        {
+          "id": "sw-ce-psmdb-encryption-needs-resync",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "warning",
+          "title": "Turning on PSMDB encryption during the switch needs an empty dbPath",
+          "action": "PSMDB cannot encrypt existing data files in place. To enable data-at-rest encryption while switching, start each PSMDB member with encryption on an empty dbPath and let it initial sync from the replica set.",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "psmdb"
+          ],
+          "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-mongodb.html#:~:text=mongod%20requires%20an%20empty%20dbPath%20data%20directory%20because%20it",
+          "quote": "mongod requires an empty dbPath data directory because it cannot encrypt data files in place."
+        },
+        {
+          "id": "sw-ce-psmdb-no-82",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "blocker",
+          "title": "No PSMDB build for MongoDB 8.2",
+          "action": "PSMDB ships 8.0 and 8.3, not 8.2. A Community 8.2 deployment cannot switch at the same version: either upgrade Community to 8.3 first (8.2 to 8.3 is a supported MongoDB path) or downgrade to 8.0 (MongoDB supports a one-step downgrade if FCV allows).",
+          "check": "db.version()",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "mongodb-community"
+          ],
+          "source_url": "https://www.mongodb.com/docs/mongodb-versions/"
+        },
+        {
+          "id": "sw-ce-psmdb-no-90",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "blocker",
+          "title": "No GA PSMDB 9.0",
+          "action": "PSMDB 9.0 is only in the testing repository. A Community 9.0 deployment has no production PSMDB target yet.",
+          "check": "db.version()",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "mongodb-community"
+          ],
+          "source_url": "https://repo.percona.com/psmdb-90/yum/"
+        },
+        {
+          "id": "sw-ce-psmdb-mongod-user",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "info",
+          "title": "PSMDB installs its own mongod user",
+          "action": "PSMDB creates a mongod user in the mongod group only; existing group membership is not changed. Check ownership of custom data and log paths.",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "psmdb"
+          ],
+          "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-mongodb.html#:~:text=a%20new%20mongod%20user%20is%20created%20during%20installation%2C%20and",
+          "quote": "a new mongod user is created during installation, and it belongs to the mongod group."
+        }
+      ],
+      "docs": [
+        {
+          "label": "Percona: Upgrade from MongoDB Community Edition to PSMDB ({major})",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/{major}/install/upgrade-from-mongodb.html"
+        },
+        {
+          "label": "Percona: same page for 3.6",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_mongodb.html"
+        },
+        {
+          "label": "PBM: physical backups in mixed Community/Enterprise and PSMDB deployments",
+          "url": "https://docs.percona.com/percona-backup-mongodb/features/physical.html"
+        }
+      ]
+    },
+    {
+      "from": "psmdb",
+      "to": "mongodb-community",
+      "documented": false,
+      "documented_note": "Neither docs.percona.com nor mongodb.com documents a PSMDB to Community switch.",
+      "same_major_required": true,
+      "same_major_basis": "Inferred; PSMDB 8.3 maps to Community 8.3.",
+      "majors": [
+        "3.6",
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0",
+        "8.0",
+        "8.3"
+      ],
+      "steps": {
+        "apt": [
+          {
+            "text": "Take a full backup of data and configuration.",
+            "cmd": null
+          },
+          {
+            "text": "Add the MongoDB Community repository for {major}. It needs no downtime, so run it before you stop the member.",
+            "cmd": "{repo_lines}"
+          },
+          {
+            "text": "Save the configuration file and stop mongod.",
+            "cmd": "sudo cp /etc/mongod.conf /etc/mongod.conf.bkp\nsudo systemctl stop mongod"
+          },
+          {
+            "text": "Remove the PSMDB packages, percona-mongodb-mongosh included. Tested on a lab cluster (PSMDB 7.0.45-24 to Community 7.0.45 and 8.0.34, apt): if it stays, dpkg stops because /usr/bin/mongosh belongs to it. apt remove keeps /etc/mongod.conf.",
+            "cmd": "sudo apt remove -y percona-server-mongodb percona-server-mongodb-server percona-server-mongodb-mongos percona-server-mongodb-tools percona-mongodb-mongosh"
+          },
+          {
+            "text": "Install MongoDB Community. --force-confold keeps your /etc/mongod.conf without a prompt and saves the Community default as /etc/mongod.conf.dpkg-dist.",
+            "cmd": "sudo apt-get install -y -o Dpkg::Options::=\"--force-confold\" mongodb-org"
+          },
+          {
+            "text": "Community runs mongod as the mongodb user, PSMDB as mongod. Give mongodb the data directory, the log directory and the keyfile (add any TLS files and custom paths from your config). Tested on a lab cluster (PSMDB 7.0.45-24 to Community 7.0.45 and 8.0.34, apt): without it mongod exits with FileNotOpen on /var/log/mongodb/mongod.log.",
+            "cmd": "sudo chown -R mongodb:mongodb /var/lib/mongodb /var/log/mongodb\nkf=$(awk '$1==\"keyFile:\" {gsub(/[\"\\047]/, \"\", $2); print $2}' /etc/mongod.conf); [ -n \"$kf\" ] && sudo chown mongodb:mongodb \"$kf\""
+          },
+          {
+            "text": "If the next command prints anything, remove the whole processManagement section (the processManagement: line and the fork and pidFilePath lines under it). Tested on a lab cluster (PSMDB 7.0.45-24 to Community 7.0.45 and 8.0.34, apt): the Community unit runs as mongodb and mongod fails with Permission denied on /var/run/mongod.pid.",
+            "cmd": "grep -n -A3 processManagement /etc/mongod.conf"
+          },
+          {
+            "text": "Start mongod. The last two lines confirm the service is active and runs Community.",
+            "cmd": "sudo systemctl start mongod\nsystemctl is-active mongod\nmongod --version | head -1"
+          },
+          {
+            "text": "In a replica set, wait for the member to reach SECONDARY before you switch the next one.",
+            "cmd": "rs.status()"
+          },
+          {
+            "text": "After the last member, remove what PSMDB left behind: the Percona repositories (the PSMDB one and the telemetry one) and the Percona telemetry agent.",
+            "cmd": "sudo percona-release disable psmdb-{major_nodot}\nsudo percona-release disable telemetry\nsudo apt remove -y percona-telemetry-agent"
+          }
+        ],
+        "yum": [
+          {
+            "text": "Take a full backup of data and configuration.",
+            "cmd": null
+          },
+          {
+            "text": "Add the MongoDB Community repository for {major}. It needs no downtime, so run it before you stop the member.",
+            "cmd": "{repo_lines}"
+          },
+          {
+            "text": "Stop mongod.",
+            "cmd": "sudo systemctl stop mongod"
+          },
+          {
+            "text": "Remove the PSMDB packages, percona-mongodb-mongosh included. If you changed /etc/mongod.conf, rpm saves it as /etc/mongod.conf.rpmsave, and /etc/sysconfig/mongod as /etc/sysconfig/mongod.rpmsave. The Community unit reads /etc/sysconfig/mongod too, so copy back only the settings you need. dnf also removes dependencies nothing else needs (tested on a lab cluster: percona-telemetry-agent, numactl, logrotate): reinstall any you still use.",
+            "cmd": "sudo yum remove -y 'percona-server-mongodb*' percona-mongodb-mongosh"
+          },
+          {
+            "text": "Install MongoDB Community.",
+            "cmd": "sudo yum install -y mongodb-org"
+          },
+          {
+            "text": "Put your configuration back. The first line keeps the Community default for comparison.",
+            "cmd": "sudo cp /etc/mongod.conf /etc/mongod.conf.community\n[ -f /etc/mongod.conf.rpmsave ] && sudo cp /etc/mongod.conf.rpmsave /etc/mongod.conf"
+          },
+          {
+            "text": "On RHEL both packages run mongod as the mongod user. Check that it still owns the data and log directories (and any custom paths from your config).",
+            "cmd": "ls -ld /var/lib/mongo /var/log/mongodb"
+          },
+          {
+            "text": "Make the processManagement section match the Community default: remove fork and pidFilePath and keep timeZoneInfo. Tested on a lab cluster (PSMDB 7.0.45-24 to Community 7.0.45, Rocky Linux 8): the Community default has only timeZoneInfo, and with pidFilePath: /var/run/mongod.pid left in place mongod fails with Permission denied on the pid file.",
+            "cmd": "grep -n -A3 processManagement /etc/mongod.conf.community /etc/mongod.conf"
+          },
+          {
+            "text": "Start mongod. The last two lines confirm the service is active and runs Community.",
+            "cmd": "sudo systemctl start mongod\nsystemctl is-active mongod\nmongod --version | head -1"
+          },
+          {
+            "text": "In a replica set, wait for the member to reach SECONDARY before you switch the next one.",
+            "cmd": "rs.status()"
+          },
+          {
+            "text": "After the last member, remove what PSMDB left behind: the Percona repositories (the PSMDB one and the telemetry one) and the Percona telemetry agent.",
+            "cmd": "sudo percona-release disable psmdb-{major_nodot}\nsudo percona-release disable telemetry\nsudo yum remove -y percona-telemetry-agent"
+          }
+        ],
+        "rolling": [
+          {
+            "text": "Replica set: switch secondaries one at a time, wait for each to reach SECONDARY, then rs.stepDown() the primary and switch it last.",
+            "cmd": "rs.stepDown()"
+          },
+          {
+            "text": "Sharded cluster: stop the balancer, switch the config server replica set, then each shard replica set, then every mongos, then restart the balancer. On mongos hosts, install mongodb-org-mongos instead and start mongos the way you run it: the MongoDB packages ship no mongos service.",
+            "cmd": "sh.stopBalancer() ... sh.startBalancer()"
+          }
+        ],
+        "steps_basis": "Mirror of the documented Community to PSMDB procedure; not vendor documented."
+      },
+      "blockers": [
+        {
+          "id": "sw-psmdb-ce-encryption",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "blocker",
+          "title": "Community has no encryption at rest",
+          "action": "Encrypted PSMDB data files cannot be opened by Community. Each member needs an empty dbPath and an initial sync, or a logical dump and restore.",
+          "check": "db.serverStatus().encryptionAtRest",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "psmdb"
+          ],
+          "source_url": "https://www.mongodb.com/docs/manual/tutorial/configure-encryption/#:~:text=Outside%20Atlas%2C%20encryption%20is%20only%20available%20for%20enterprise%20installations",
+          "quote": "Outside Atlas, encryption is only available for enterprise installations that use the WiredTiger Storage Engine."
+        },
+        {
+          "id": "sw-psmdb-ce-enterprise-features",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "blocker",
+          "title": "PSMDB features that Community lacks",
+          "action": "Community has no auditing, LDAP, Kerberos, In-Memory engine, log redaction or OIDC (Enterprise only per MongoDB), and no AWS IAM outside Atlas. Remove auditLog, security.ldap, security.kerberos-related settings, storage.engine: inMemory and redactClientLogData, and move users to SCRAM or x.509 first.",
+          "check": "db.adminCommand({ getCmdLineOpts: 1 }).parsed",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "psmdb"
+          ],
+          "source_url": "https://docs.percona.com/percona-server-for-mongodb/8.0/comparison.html",
+          "run_on": "each mongod"
+        },
+        {
+          "id": "sw-psmdb-ce-psmdb-only",
+          "hop_to": "*",
+          "section": "preflight",
+          "severity": "blocker",
+          "title": "PSMDB-only options and features",
+          "action": "Remove Percona options before Community starts: security.vault.*, operationProfiling.rateLimit / --rateLimit, and any telemetry settings. Hot backup (createBackup) and $backupCursor disappear, so PBM physical, incremental and snapshot backups stop working (they need PSMDB nodes). Text indexes with default_language: \"ngram\" are a PSMDB algorithm; rebuild them first.",
+          "verified": false,
+          "basis": "docs",
+          "distribution": [
+            "psmdb"
+          ],
+          "source_url": "https://docs.percona.com/percona-backup-mongodb/features/physical.html#:~:text=Physical%2C%20incremental%20and%20snapshot-based%20backups%20are%20only%20possible%20from",
+          "quote": "Physical, incremental and snapshot-based backups are only possible from PSMDB nodes since their implementation is based on the $backupCursorExtend functionality."
+        }
+      ],
+      "docs": [
+        {
+          "label": "Percona: feature comparison",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/comparison.html"
+        },
+        {
+          "label": "MongoDB Community install",
+          "url": "https://www.mongodb.com/docs/manual/administration/install-community-linux/"
+        }
+      ],
+      "steps_basis": "Mirror of the documented Community to PSMDB procedure; not vendor documented. The apt steps were tested on a lab cluster."
+    }
+  ]
+}

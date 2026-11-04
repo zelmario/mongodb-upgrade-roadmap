@@ -1,0 +1,860 @@
+{
+  "schema_version": 1,
+  "components": {
+    "pbm": {
+      "name": "Percona Backup for MongoDB",
+      "docs": "https://docs.percona.com/percona-backup-mongodb/",
+      "min_for_target": {
+        "6.0": {
+          "min": "2.1.0",
+          "source": "PBM compatibility matrix",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/details/versions.html",
+          "note": "PBM 2.11.0 drops 6.0.",
+          "verified": true
+        },
+        "7.0": {
+          "min": "2.3.1",
+          "recommended": "2.6.0",
+          "source": "PBM 2.3.1 release notes",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.3.1.html",
+          "note": "The compatibility matrix lists 7.0 from 2.6.0.",
+          "verified": true
+        },
+        "8.0": {
+          "min": "2.8.0",
+          "source": "PBM 2.8.0 release notes",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.8.0.html",
+          "verified": true
+        },
+        "8.3": {
+          "min": "2.16.0",
+          "source": "PBM 2.16.0 release notes",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.16.0.html",
+          "verified": true
+        }
+      },
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2019-09-19",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.0.0.html"
+        },
+        {
+          "version": "1.1.0",
+          "date": "2020-01-16",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.1.0.html"
+        },
+        {
+          "version": "1.1.1",
+          "date": "2020-01-31",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.1.1.html"
+        },
+        {
+          "version": "1.1.3",
+          "date": "2020-04-14",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.1.3.html"
+        },
+        {
+          "version": "1.2.0",
+          "date": "2020-05-13",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.2.0.html"
+        },
+        {
+          "version": "1.2.1",
+          "date": "2020-07-27",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.2.1.html"
+        },
+        {
+          "version": "1.3.0",
+          "date": "2020-08-26",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.3.0.html"
+        },
+        {
+          "version": "1.3.1",
+          "date": "2020-09-03",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.3.1.html"
+        },
+        {
+          "version": "1.3.2",
+          "date": "2020-10-14",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.3.2.html"
+        },
+        {
+          "version": "1.3.3",
+          "date": "2020-11-04",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.3.3.html"
+        },
+        {
+          "version": "1.3.4",
+          "date": "2020-11-19",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.3.4.html"
+        },
+        {
+          "version": "1.4.0",
+          "date": "2020-12-24",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.4.0.html"
+        },
+        {
+          "version": "1.4.1",
+          "date": "2021-01-28",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.4.1.html"
+        },
+        {
+          "version": "1.5.0",
+          "date": "2021-05-10",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.5.0.html"
+        },
+        {
+          "version": "1.6.0",
+          "date": "2021-08-16",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.6.0.html"
+        },
+        {
+          "version": "1.6.1",
+          "date": "2021-11-04",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.6.1.html"
+        },
+        {
+          "version": "1.7.0",
+          "date": "2022-04-18",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.7.0.html"
+        },
+        {
+          "version": "1.8.0",
+          "date": "2022-06-09",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.8.0.html"
+        },
+        {
+          "version": "1.8.1",
+          "date": "2022-07-12",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/1.8.1.html"
+        },
+        {
+          "version": "2.0.0",
+          "date": "2022-09-21",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.0.0.html"
+        },
+        {
+          "version": "2.0.1",
+          "date": "2022-10-12",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.0.1.html"
+        },
+        {
+          "version": "2.0.2",
+          "date": "2022-10-27",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.0.2.html"
+        },
+        {
+          "version": "2.0.3",
+          "date": "2023-01-11",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.0.3.html"
+        },
+        {
+          "version": "2.0.4",
+          "date": "2023-02-21",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.0.4.html"
+        },
+        {
+          "version": "2.0.5",
+          "date": "2023-03-23",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.0.5.html"
+        },
+        {
+          "version": "2.1.0",
+          "date": "2023-04-18",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.1.0.html"
+        },
+        {
+          "version": "2.2.0",
+          "date": "2023-07-13",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.2.0.html"
+        },
+        {
+          "version": "2.2.1",
+          "date": "2023-07-27",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.2.1.html"
+        },
+        {
+          "version": "2.3.0",
+          "date": "2023-09-25",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.3.0.html"
+        },
+        {
+          "version": "2.3.1",
+          "date": "2023-12-04",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.3.1.html"
+        },
+        {
+          "version": "2.4.0",
+          "date": "2024-03-05",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.4.0.html"
+        },
+        {
+          "version": "2.4.1",
+          "date": "2024-03-25",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.4.1.html"
+        },
+        {
+          "version": "2.5.0",
+          "date": "2024-05-16",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.5.0.html"
+        },
+        {
+          "version": "2.6.0",
+          "date": "2024-09-02",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.6.0.html"
+        },
+        {
+          "version": "2.7.0",
+          "date": "2024-10-09",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.7.0.html"
+        },
+        {
+          "version": "2.8.0",
+          "date": "2024-12-12",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.8.0.html"
+        },
+        {
+          "version": "2.9.0",
+          "date": "2025-02-19",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.9.0.html"
+        },
+        {
+          "version": "2.9.1",
+          "date": "2025-03-27",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.9.1.html"
+        },
+        {
+          "version": "2.10.0",
+          "date": "2025-06-26",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.10.0.html"
+        },
+        {
+          "version": "2.11.0",
+          "date": "2025-09-25",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.11.0.html"
+        },
+        {
+          "version": "2.12.0",
+          "date": "2025-11-04",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.12.0.html"
+        },
+        {
+          "version": "2.13.0",
+          "date": "2026-03-03",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.13.0.html"
+        },
+        {
+          "version": "2.14.0",
+          "date": "2026-04-29",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.14.0.html"
+        },
+        {
+          "version": "2.15.0",
+          "date": "2026-06-17",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.15.0.html"
+        },
+        {
+          "version": "2.16.0",
+          "date": "2026-09-24",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.16.0.html"
+        },
+        {
+          "version": "2.17.0",
+          "date": "2026-10-14",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.17.0.html"
+        }
+      ],
+      "max_for_target": {
+        "6.0": {
+          "max": "2.10.0",
+          "source": "PBM 2.11.0 release notes",
+          "url": "https://docs.percona.com/percona-backup-mongodb/latest/release-notes/2.11.0.html",
+          "quote": "Percona Backup for MongoDB drops support of MongoDB 6.0. Existing functionality in Percona Backup for MongoDB remains compatible with MongoDB 6.0 and Percona Server for MongoDB 6.0; however, further enhancements and bug fixes are no longer tested against this version."
+        }
+      }
+    },
+    "pmm": {
+      "name": "Percona Monitoring and Management",
+      "docs": "https://docs.percona.com/percona-monitoring-and-management/",
+      "releases": [
+        {
+          "version": "2.0.0",
+          "date": "2019-09-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.0.0.html"
+        },
+        {
+          "version": "2.0.1",
+          "date": "2019-10-09",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.0.1.html"
+        },
+        {
+          "version": "2.1.0",
+          "date": "2019-11-11",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.1.0.html"
+        },
+        {
+          "version": "2.2.0",
+          "date": "2019-12-24",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.2.0.html"
+        },
+        {
+          "version": "2.2.1",
+          "date": "2020-01-23",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.2.1.html"
+        },
+        {
+          "version": "2.2.2",
+          "date": "2020-02-04",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.2.2.html"
+        },
+        {
+          "version": "2.3.0",
+          "date": "2020-02-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.3.0.html"
+        },
+        {
+          "version": "2.4.0",
+          "date": "2020-03-18",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.4.0.html"
+        },
+        {
+          "version": "2.5.0",
+          "date": "2020-04-14",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.5.0.html"
+        },
+        {
+          "version": "2.6.0",
+          "date": "2020-05-11",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.6.0.html"
+        },
+        {
+          "version": "2.6.1",
+          "date": "2020-05-18",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.6.1.html"
+        },
+        {
+          "version": "2.7.0",
+          "date": "2020-06-09",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.7.0.html"
+        },
+        {
+          "version": "2.8.0",
+          "date": "2020-06-25",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.8.0.html"
+        },
+        {
+          "version": "2.9.0",
+          "date": "2020-07-14",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.9.0.html"
+        },
+        {
+          "version": "2.9.1",
+          "date": "2020-08-04",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.9.1.html"
+        },
+        {
+          "version": "2.10.0",
+          "date": "2020-09-15",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.10.0.html"
+        },
+        {
+          "version": "2.10.1",
+          "date": "2020-09-22",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.10.1.html"
+        },
+        {
+          "version": "2.11.0",
+          "date": "2020-09-15",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.11.0.html",
+          "note": "Docs heading gives 2020-09-15, the same date as 2.10.0; GitHub tag dates for 2.x are bulk-imported (2022-08-09) and cannot confirm it."
+        },
+        {
+          "version": "2.11.1",
+          "date": "2020-10-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.11.1.html"
+        },
+        {
+          "version": "2.12.0",
+          "date": "2020-12-01",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.12.0.html"
+        },
+        {
+          "version": "2.13.0",
+          "date": "2020-12-29",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.13.0.html"
+        },
+        {
+          "version": "2.14.0",
+          "date": "2021-01-28",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.14.0.html"
+        },
+        {
+          "version": "2.15.0",
+          "date": "2021-03-01",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.15.0.html"
+        },
+        {
+          "version": "2.15.1",
+          "date": "2021-03-18",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.15.1.html"
+        },
+        {
+          "version": "2.16.0",
+          "date": "2021-04-15",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.16.0.html"
+        },
+        {
+          "version": "2.17.0",
+          "date": "2021-05-11",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.17.0.html"
+        },
+        {
+          "version": "2.18.0",
+          "date": "2021-06-01",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.18.0.html"
+        },
+        {
+          "version": "2.19.0",
+          "date": "2021-06-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.19.0.html"
+        },
+        {
+          "version": "2.20.0",
+          "date": "2021-08-03",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.20.0.html"
+        },
+        {
+          "version": "2.21.0",
+          "date": "2021-08-16",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.21.0.html"
+        },
+        {
+          "version": "2.22.0",
+          "date": "2021-09-23",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.22.0.html"
+        },
+        {
+          "version": "2.23.0",
+          "date": "2021-10-21",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.23.0.html"
+        },
+        {
+          "version": "2.24.0",
+          "date": "2021-11-18",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.24.0.html"
+        },
+        {
+          "version": "2.25.0",
+          "date": "2021-12-14",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.25.0.html"
+        },
+        {
+          "version": "2.26.0",
+          "date": "2022-02-08",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.26.0.html"
+        },
+        {
+          "version": "2.27.0",
+          "date": "2022-04-14",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.27.0.html"
+        },
+        {
+          "version": "2.28.0",
+          "date": "2022-05-12",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.28.0.html"
+        },
+        {
+          "version": "2.29.0",
+          "date": "2022-07-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.29.0.html"
+        },
+        {
+          "version": "2.29.1",
+          "date": "2022-07-28",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.29.1.html"
+        },
+        {
+          "version": "2.30.0",
+          "date": "2022-08-24",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.30.0.html"
+        },
+        {
+          "version": "2.31.0",
+          "date": "2022-09-26",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.31.0.html"
+        },
+        {
+          "version": "2.32.0",
+          "date": "2022-11-08",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.32.0.html"
+        },
+        {
+          "version": "2.33.0",
+          "date": "2022-12-13",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.33.0.html"
+        },
+        {
+          "version": "2.34.0",
+          "date": "2023-01-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.34.0.html"
+        },
+        {
+          "version": "2.35.0",
+          "date": "2023-02-23",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.35.0.html"
+        },
+        {
+          "version": "2.36.0",
+          "date": "2023-03-23",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.36.0.html"
+        },
+        {
+          "version": "2.37.0",
+          "date": "2023-05-02",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.37.0.html"
+        },
+        {
+          "version": "2.37.1",
+          "date": "2023-06-05",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.37.1.html"
+        },
+        {
+          "version": "2.38.0",
+          "date": "2023-07-03",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.38.0.html"
+        },
+        {
+          "version": "2.38.1",
+          "date": "2023-07-13",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.38.1.html"
+        },
+        {
+          "version": "2.39.0",
+          "date": "2023-08-14",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.39.0.html"
+        },
+        {
+          "version": "2.40.0",
+          "date": "2023-10-05",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.40.0.html"
+        },
+        {
+          "version": "2.40.1",
+          "date": "2023-10-20",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.40.1.html"
+        },
+        {
+          "version": "2.41.0",
+          "date": "2023-12-12",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.41.0.html"
+        },
+        {
+          "version": "2.41.1",
+          "date": "2024-02-01",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.41.1.html"
+        },
+        {
+          "version": "2.41.2",
+          "date": "2024-03-20",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.41.2.html"
+        },
+        {
+          "version": "2.42.0",
+          "date": "2024-06-11",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.42.0.html"
+        },
+        {
+          "version": "2.43.0",
+          "date": "2024-09-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.43.0.html"
+        },
+        {
+          "version": "2.43.1",
+          "date": "2024-10-02",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.43.1.html"
+        },
+        {
+          "version": "2.43.2",
+          "date": "2024-10-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.43.2.html"
+        },
+        {
+          "version": "2.44.0",
+          "date": "2024-12-13",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.44.0.html"
+        },
+        {
+          "version": "2.44.1",
+          "date": "2025-04-24",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.44.1.html"
+        },
+        {
+          "version": "3.0.0",
+          "date": "2025-01-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.0.0.html"
+        },
+        {
+          "version": "3.1.0",
+          "date": "2025-03-31",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.1.0.html"
+        },
+        {
+          "version": "3.2.0",
+          "date": "2025-05-29",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.2.0.html"
+        },
+        {
+          "version": "3.3.0",
+          "date": "2025-07-09",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.3.0.html"
+        },
+        {
+          "version": "3.3.1",
+          "date": "2025-07-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.3.1.html"
+        },
+        {
+          "version": "3.4.0",
+          "date": "2025-09-16",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.4.0.html",
+          "date_source": "https://github.com/percona/pmm/releases/tag/v3.4.0",
+          "note": "The docs 3.4.0 page currently shows the 3.5.0 content; date taken from the GitHub release."
+        },
+        {
+          "version": "3.4.1",
+          "date": "2025-10-13",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.4.1.html"
+        },
+        {
+          "version": "3.5.0",
+          "date": "2025-11-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.5.0.html",
+          "note": "Docs say 19 November 2025; the GitHub release object is dated 2025-12-14."
+        },
+        {
+          "version": "3.6.0",
+          "date": "2026-02-05",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.6.0.html"
+        },
+        {
+          "version": "3.7.0",
+          "date": "2026-04-01",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.7.0.html"
+        },
+        {
+          "version": "3.7.1",
+          "date": "2026-04-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.7.1.html"
+        },
+        {
+          "version": "3.8.0",
+          "date": "2026-05-28",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.8.0.html"
+        },
+        {
+          "version": "3.8.1",
+          "date": "2026-06-16",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.8.1.html"
+        },
+        {
+          "version": "3.9.0",
+          "date": "2026-07-30",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.9.0.html"
+        },
+        {
+          "version": "3.9.1",
+          "date": "2026-08-19",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.9.1.html"
+        },
+        {
+          "version": "3.10.0",
+          "date": "2026-10-22",
+          "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.10.0.html"
+        }
+      ],
+      "lines": {
+        "pmm2": {
+          "label": "PMM 2",
+          "eol": "2025-10-31",
+          "min_for_target": {
+            "7.0": {
+              "min": "2.41.0",
+              "source": "PMM 2.41.0 release notes",
+              "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.41.0.html",
+              "verified": true
+            },
+            "8.0": {
+              "min": "2.44.0",
+              "source": "PMM 2.44.0 release notes",
+              "url": "https://docs.percona.com/percona-monitoring-and-management/2/release-notes/2.44.0.html",
+              "verified": true
+            }
+          },
+          "migration": {
+            "text": "Before moving to PMM 3, the PMM 2 server must run 2.44.1, then upgrade the clients.",
+            "url": "https://docs.percona.com/percona-monitoring-and-management/3/pmm-upgrade/migrating_from_pmm_2.html"
+          }
+        },
+        "pmm3": {
+          "label": "PMM 3",
+          "min_for_target": {
+            "6.0": {
+              "min": "3.0.0",
+              "source": "PMM 3 documentation",
+              "url": "https://docs.percona.com/percona-monitoring-and-management/3/install-pmm/install-pmm-client/connect-database/mongodb.html",
+              "verified": true,
+              "note": null
+            },
+            "7.0": {
+              "min": "3.0.0",
+              "source": "PMM 3 documentation",
+              "url": "https://docs.percona.com/percona-monitoring-and-management/3/install-pmm/install-pmm-client/connect-database/mongodb.html",
+              "verified": true,
+              "note": null
+            },
+            "8.0": {
+              "min": "3.0.0",
+              "source": "PMM 3 documentation",
+              "url": "https://docs.percona.com/percona-monitoring-and-management/3/release-notes/3.0.0.html",
+              "verified": true,
+              "note": "Tech Preview in 3.0.0"
+            }
+          }
+        }
+      }
+    },
+    "operator": {
+      "name": "Percona Operator for MongoDB",
+      "docs": "https://docs.percona.com/percona-operator-for-mongodb/System-Requirements.html",
+      "min_for_target": {
+        "6.0": {
+          "min": "1.14.0",
+          "source": "Operator 1.14.0 release notes",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/latest/RN/Kubernetes-Operator-for-PSMONGODB-RN1.14.0.html",
+          "note": "6.0 is deprecated in 1.22.0 and removed in 1.24.0.",
+          "verified": true
+        },
+        "7.0": {
+          "min": "1.16.0",
+          "source": "Operator 1.16.0 release notes",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/latest/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.0.html",
+          "verified": true
+        },
+        "8.0": {
+          "min": "1.19.0",
+          "source": "Operator 1.19.0 release notes",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/latest/RN/Kubernetes-Operator-for-PSMONGODB-RN1.19.0.html",
+          "verified": true
+        }
+      },
+      "releases": [
+        {
+          "version": "1.23.1",
+          "date": "2026-10-05",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.23.1.html"
+        },
+        {
+          "version": "1.23.0",
+          "date": "2026-07-23",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.23.0.html"
+        },
+        {
+          "version": "1.22.0",
+          "date": "2026-02-25",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.22.0.html"
+        },
+        {
+          "version": "1.21.2",
+          "date": "2026-01-12",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.21.2.html"
+        },
+        {
+          "version": "1.21.1",
+          "date": "2025-10-30",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.21.1.html"
+        },
+        {
+          "version": "1.21.0",
+          "date": "2025-10-20",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.21.0.html"
+        },
+        {
+          "version": "1.20.1",
+          "date": "2025-06-04",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.20.1.html"
+        },
+        {
+          "version": "1.20.0",
+          "date": "2025-05-19",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.20.0.html"
+        },
+        {
+          "version": "1.19.1",
+          "date": "2025-02-20",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.19.1.html"
+        },
+        {
+          "version": "1.19.0",
+          "date": "2025-01-21",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.19.0.html"
+        },
+        {
+          "version": "1.18.0",
+          "date": "2024-11-14",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.18.0.html"
+        },
+        {
+          "version": "1.17.0",
+          "date": "2024-09-09",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.17.0.html"
+        },
+        {
+          "version": "1.16.2",
+          "date": "2024-07-23",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.2.html"
+        },
+        {
+          "version": "1.16.1",
+          "date": "2024-06-24",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.1.html"
+        },
+        {
+          "version": "1.16.0",
+          "date": "2024-05-24",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.0.html"
+        },
+        {
+          "version": "1.15.0",
+          "date": "2023-10-09",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.15.0.html"
+        },
+        {
+          "version": "1.14.0",
+          "date": "2023-03-13",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.14.0.html"
+        },
+        {
+          "version": "1.13.0",
+          "date": "2022-09-08",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.13.0.html"
+        },
+        {
+          "version": "1.12.0",
+          "date": "2022-05-05",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.12.0.html"
+        },
+        {
+          "version": "1.11.0",
+          "date": "2021-12-21",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.11.0.html"
+        },
+        {
+          "version": "1.10.0",
+          "date": "2021-09-30",
+          "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.10.0.html"
+        }
+      ]
+    }
+  }
+}

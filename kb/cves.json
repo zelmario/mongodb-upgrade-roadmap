@@ -1,0 +1,2214 @@
+{
+  "schema_version": 1,
+  "cves": [
+    {
+      "id": "CVE-2026-13072",
+      "cvss": 9.2,
+      "severity": "critical",
+      "title": "MongoDB Improper Input Validation in Compute Mode External Data Processing Leading to Memory Corruption",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128494",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82067",
+      "cvss": 9.2,
+      "severity": "critical",
+      "title": "Improper Case Sensitivity Handling in MongoDB Server Configuration Validation May Cause Authorization to Remain Disabled at Startup",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-131229",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18691",
+      "cvss": 9.0,
+      "severity": "critical",
+      "title": "Improper Authentication in MongoDB Intra-Cluster Connections Allows Credential Exposure",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130264",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-14847",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "Zlib compressed protocol header length confusion may allow memory read",
+      "date": "2025-12-19",
+      "url": "https://jira.mongodb.org/browse/SERVER-115508",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.3"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.17"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.28"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.27"
+        },
+        {
+          "major": "5.0",
+          "fixed_in": "5.0.32"
+        },
+        {
+          "major": "4.4",
+          "fixed_in": "4.4.30"
+        },
+        {
+          "major": "4.2",
+          "fixed_in": null
+        },
+        {
+          "major": "4.0",
+          "fixed_in": null
+        },
+        {
+          "major": "3.6",
+          "fixed_in": null
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18697",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "Improper Input Validation in MongoDB Aggregation Framework Allows Unauthenticated Denial of Service on mongos",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130110",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-25611",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "Pre-Authentication Memory Exhaustion Denial of Service in MongoDB Server",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-116210",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.4"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-4148",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "ExpressionContext use-after-free in classic engine $lookup and $graphLookup aggregation operators",
+      "date": "2026-03-17",
+      "url": "https://jira.mongodb.org/browse/SERVER-119319",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.6"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.20"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.31"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-8053",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "FlatBSON Duplicate Field Index Drift",
+      "date": "2026-05-12",
+      "url": "https://jira.mongodb.org/browse/SERVER-126021",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "5.0",
+          "fixed_in": "5.0.33"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.28"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.34"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.23"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.9"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.2"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82064",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "Unauthenticated Denial of Service in MongoDB Server via Assertion Failure in Read Concern Processing on Replica Set Members",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130759",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82075",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "Uncontrolled Resource Consumption in MongoDB Sharded Cluster Router Allows Unauthenticated Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-132650",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9740",
+      "cvss": 8.7,
+      "severity": "high",
+      "title": "Unbounded recursion in BSONColumn interleaved-reference causes pre-auth stack overflow",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-125063",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13059",
+      "cvss": 8.6,
+      "severity": "high",
+      "title": "Improper Validation of Client-Supplied Command Parameters Allowing Role-Based Access Control Bypass",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128433",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-0755",
+      "cvss": 8.4,
+      "severity": "high",
+      "title": "MongoDB C Driver bson library may be susceptible to buffer overflow",
+      "date": "2025-03-18",
+      "url": "https://jira.mongodb.org/browse/SERVER-94461",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.1"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.16"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-2390",
+      "cvss": 8.2,
+      "severity": "high",
+      "title": "Code execution on Windows via OpenSSL engine injection",
+      "date": "2019-08-30",
+      "url": "https://jira.mongodb.org/browse/SERVER-42233",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "4.0",
+          "fixed_in": "4.0.11"
+        },
+        {
+          "major": "3.6",
+          "fixed_in": "3.6.14"
+        },
+        {
+          "major": "3.4",
+          "fixed_in": "3.4.22"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-1848",
+      "cvss": 8.2,
+      "severity": "high",
+      "title": "Connections received from the proxy port may not count towards total accepted connections",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-114695",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.4"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9742",
+      "cvss": 8.2,
+      "severity": "high",
+      "title": "Authenticate command with specific mechanism parameter can trigger server crash",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-124183",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-3085",
+      "cvss": 8.1,
+      "severity": "high",
+      "title": "MongoDB Server running on Linux may allow unexpected connections where intermediate certificates are revoked",
+      "date": "2025-04-01",
+      "url": "https://jira.mongodb.org/browse/SERVER-95445",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "5.0",
+          "fixed_in": "5.0.31"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.20"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.16"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-10491",
+      "cvss": 7.8,
+      "severity": "high",
+      "title": "MongoDB Windows installation MSI may leave ACLs unset on custom installation directories",
+      "date": "2025-09-15",
+      "url": "https://jira.mongodb.org/browse/SERVER-51366",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.25"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.21"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.5"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-6713",
+      "cvss": 7.7,
+      "severity": "high",
+      "title": "MongoDB Server may be susceptible to privilege escalation due to $mergeCursors stage",
+      "date": "2025-07-07",
+      "url": "https://jira.mongodb.org/browse/SERVER-106752",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.22"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.19"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18692",
+      "cvss": 7.7,
+      "severity": "high",
+      "title": "Use-After-Free in MongoDB Timeseries Bucket Handling Leads to Denial of Service and Potential Remote Code Execution",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-129887",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-8336",
+      "cvss": 7.7,
+      "severity": "high",
+      "title": "Post-authentication use-after-free error in $_internalJsEmit and mapreduce commands",
+      "date": "2026-05-13",
+      "url": "https://jira.mongodb.org/browse/SERVER-121610",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.9"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.2"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-89099",
+      "cvss": 7.7,
+      "severity": "high",
+      "title": "Race Condition in MongoDB Server Document Value Layer Leads to Memory Corruption",
+      "date": "2026-09-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-134063",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.11"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.32"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.43"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82053",
+      "cvss": 7.6,
+      "severity": "high",
+      "title": "Improper Session Handling in MongoDB Server LDAP Authorization Integration Leads to Incorrect Role Assignment",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130785",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-20925",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Denial of service via malformed network packet",
+      "date": "2020-11-24",
+      "url": "https://jira.mongodb.org/browse/SERVER-43751",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "4.2",
+          "fixed_in": "4.2.1"
+        },
+        {
+          "major": "4.0",
+          "fixed_in": "4.0.13"
+        },
+        {
+          "major": "3.6",
+          "fixed_in": "3.6.15"
+        },
+        {
+          "major": "3.4",
+          "fixed_in": "3.4.24"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2020-7925",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Denial of Service when processing malformed Role names",
+      "date": "2020-11-30",
+      "url": "https://jira.mongodb.org/browse/SERVER-49142",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "4.2",
+          "fixed_in": "4.2.9"
+        },
+        {
+          "major": "4.4",
+          "fixed_in": "4.4.0"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2024-3372",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "MongoDB Server may have unexpected application behaviour due to invalid BSON",
+      "date": "2024-05-14",
+      "url": "https://jira.mongodb.org/browse/SERVER-85263",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "5.0",
+          "fixed_in": "5.0.25"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.14"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.6"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-3083",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Malformed MongoDB wire protocol messages may cause mongos to crash",
+      "date": "2025-04-01",
+      "url": "https://jira.mongodb.org/browse/SERVER-103152",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "5.0",
+          "fixed_in": "5.0.31"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.20"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-6709",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Pre-Authentication Denial of Service Vulnerability in MongoDB Server's OIDC Authentication",
+      "date": "2025-06-26",
+      "url": "https://jira.mongodb.org/browse/SERVER-106748",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.17"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.5"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.21"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-6710",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Pre-authentication Denial of Service Stack Overflow Vulnerability in JSON Parsing via Excessive Recursion in MongoDB",
+      "date": "2025-06-26",
+      "url": "https://jira.mongodb.org/browse/SERVER-106749",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.21"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.17"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.5"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-6714",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Incorrect Handling of incomplete data may prevent mongoS from Accepting New Connections",
+      "date": "2025-07-07",
+      "url": "https://jira.mongodb.org/browse/SERVER-106753",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.23"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.20"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.9"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18706",
+      "cvss": 7.5,
+      "severity": "high",
+      "title": "Use-After-Free in MongoDB $graphLookup Aggregation Stage Leads to Denial of Service and Potential Remote Code Execution",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-128551",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2024-7553",
+      "cvss": 7.3,
+      "severity": "high",
+      "title": "Accessing Untrusted Directory May Allow Local Privilege Escalation",
+      "date": "2024-08-07",
+      "url": "https://jira.mongodb.org/browse/PHPC-2369",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "5.0",
+          "fixed_in": "5.0.27"
+        },
+        {
+          "major": "6.0",
+          "fixed_in": "6.0.16"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.12"
+        },
+        {
+          "major": "7.3",
+          "fixed_in": "7.3.3"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13067",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "tlsCATrusts Role Restriction Not Enforced via PROXY Protocol v2 on Unix Domain Socket",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128387",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18690",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "Improper Authorization in MongoDB Server Allows Unauthorized Actions on System Collections",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130481",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18693",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "Out-of-Bounds Read/Write in MongoDB Timeseries Bucket Handling Leads to Denial of Service and Potential Memory Disclosure",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-129994",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18712",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "Improper Authorization in MongoDB Queryable Encryption Maintenance Operations Allows Unauthorized Modification of Other Collections",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130633",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82061",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "Use-After-Free in MongoDB Server Query Execution Memory Tracking Subsystem Leads to Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130907",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82071",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "Insufficient Validation of Storage Engine Configuration Options in MongoDB Server Leads to Out-of-Bounds Write",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-131860",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9753",
+      "cvss": 7.2,
+      "severity": "high",
+      "title": "Server crash via malformed binary diff passed to $_internalApplyOplogUpdate.",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-124959",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-2386",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Authorization session conflation",
+      "date": "2019-08-06",
+      "url": "https://jira.mongodb.org/browse/SERVER-38984",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "4.0",
+          "fixed_in": "4.0.9"
+        },
+        {
+          "major": "3.6",
+          "fixed_in": "3.6.13"
+        },
+        {
+          "major": "3.4",
+          "fixed_in": "3.4.22"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-13507",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Time-series operations may cause internal BSON size limit to be exceed",
+      "date": "2025-11-25",
+      "url": "https://jira.mongodb.org/browse/SERVER-108565",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.26"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.16"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.1"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-104004",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Collection validators using collation-accepting expressions can crash MongoDB Server on insert",
+      "date": "2026-10-13",
+      "url": "https://jira.mongodb.org/browse/SERVER-131412",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.13"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.34"
+        },
+        {
+          "major": "9.0",
+          "fixed_in": "9.0.4"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-104005",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Incorrect authorization in MongoDB Server router for bulk writes to system namespaces",
+      "date": "2026-10-13",
+      "url": "https://jira.mongodb.org/browse/SERVER-131411",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.13"
+        },
+        {
+          "major": "9.0",
+          "fixed_in": "9.0.4"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13055",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Server crash via aggregation pipeline expression with compound wildcard index specification",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-123081",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13056",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "A user with read access can cause a DoS by executing a specifically crafted query to consume a large amount of RAM",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-124355",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13058",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Transaction Command Insufficient Input Validation Leading to Process Termination",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-127661",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13060",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "$graphLookup Aggregation Stage Authorization Check Inconsistency Allowing Unauthorized Collection Access",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-127357",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13062",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "MongoDB mongos Improper Validation of Internal Flags in Queryable Encryption Write Commands on Sharded Clusters",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-127831",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13064",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "MongoDB $jsonSchema Query Operator Excessive CPU Consumption Leading to Denial of Service",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-125872",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13065",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "MongoDB $linearFill Window Function Improper Input Validation Leading to Process Termination",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-127280",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13066",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Server-Side JavaScript DBPointer BSON Serialization Memory Disclosure",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-127694",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13069",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Queryable Encryption FLE2 Find Payload Missing Input Validation Leading to Resource Exhaustion",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-127566",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13071",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Server-Side JavaScript Aggregation Expression Memory Safety Issue Leading to Process Termination",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128473",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13075",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "$rankFusion and $scoreFusion Unbounded Memory Allocation During Error Suggestion Generation",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128316",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13076",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Aggregation Framework Memory Exhaustion Leading to Process Termination",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128584",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-13077",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Out-of-Bounds Heap Read in BSON CodeWScope Element Parsing via Malformed BSONColumn Data",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-129103",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-1847",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "MongoDB Server may crash when inserting large documents",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-113532",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-1849",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Mongod can run out of stack memory when expressions create deeply nested documents",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-102364",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.2"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-1850",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "An authorized user may disable the MongoDB server by issuing a certain type of complex query due to boolean expression simplification",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-114126",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.4"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18687",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Improper Validation in MongoDB Queryable Encryption Maintenance Operation Leads to Denial of Service and Index Corruption",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130628",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18688",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Out-of-Bounds Read in MongoDB Aggregation Framework Leads to Denial of Service and Potential Memory Disclosure",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-129617",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18694",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Out-of-Bounds Read in MongoDB Geospatial Query Processing Leads to Denial of Service and Potential Memory Disclosure",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130188",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18695",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Improper Input Validation in MongoDB Timeseries Query Processing Leads to Denial of Service",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-129460",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18701",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Type Confusion in MongoDB Query Subsystem Leads to Denial of Service",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130111",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18704",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Improper Authorization in MongoDB Aggregation Framework Allows Read-Only User to Perform Unauthorized Write Operations",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-129936",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18705",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Improper Authorization in MongoDB Atlas Vector Search Allows Unauthorized Access to Protected View Data",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-129618",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18711",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Use-After-Free in MongoDB Query Execution Engine Leads to Denial of Service and Potential Memory Disclosure",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130247",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-25610",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Invalid $geoNear index hint may cause server crash",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-99119",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.13"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-25612",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Internal ResourceId collision may affect unrelated collections",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-114838",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.4"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-25613",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "An unsafe cast in the MongoDB query planner can result in a segmentation fault.",
+      "date": "2026-02-10",
+      "url": "https://jira.mongodb.org/browse/SERVER-113685",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.29"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.18"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.4"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-4147",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Stack memory disclosure in filemd5 command",
+      "date": "2026-03-17",
+      "url": "https://jira.mongodb.org/browse/SERVER-119317",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.6"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.20"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.31"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-6914",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "MD5 checksum creation may cause availability loss",
+      "date": "2026-04-29",
+      "url": "https://jira.mongodb.org/browse/SERVER-119981",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.7"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.21"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.32"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-8063",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Post-auth null pointer dereference when aggregating against a view with empty search pipeline",
+      "date": "2026-05-07",
+      "url": "https://jira.mongodb.org/browse/SERVER-121851",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-8199",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Post-auth memory exhaustion via bitwise match expressions",
+      "date": "2026-05-13",
+      "url": "https://jira.mongodb.org/browse/SERVER-122449",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.34"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.23"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.9"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.2"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82052",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "$regexFindAll may crash mongod server when byte-matching multi-byte UTF-8 chars",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-124077",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82054",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Uncontrolled Resource Consumption in MongoDB Server JSON Pointer Parser Leads to Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130901",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82055",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Null Pointer Dereference in MongoDB Server 2dsphere Index Key Generation Leads to Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130202",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82057",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Type Confusion in MongoDB Server WiredTiger Storage Engine via Custom Collection Configuration Leads to Persistent Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130495",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82058",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Unhandled Exception in MongoDB Server JSON Schema Validation Error Generation Leads to Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-130926",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82065",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Insufficient Validation of Storage Configuration Options in MongoDB Server Leads to Persistent Denial of Service via Corrupted Metadata",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-131420",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82068",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Persistent Fatal Assertion Crash in MongoDB Server via Crafted Retryable Write Commands Leads to Denial of Service",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-131326",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82070",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Insufficiently Protected Credentials in MongoDB Server Diagnostic Reporting Interface",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-131423",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82073",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Improper Validation in MongoDB Server Aggregation Framework Allows Authorization Bypass and Unauthorized Collection Access with Atlas Search",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-132125",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82074",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Incorrect Authorization in MongoDB Server Aggregation Framework Allows Unauthorized Read Access to Collection Data",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-132275",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82076",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Integer Overflow in Query Planner Leads to Unbounded Memory Allocation and Denial of Service in MongoDB Server",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-128253",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.30"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.41"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-8843",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Calling createIndex with certain index types can crash mongod",
+      "date": "2026-05-18",
+      "url": "https://jira.mongodb.org/browse/SERVER-116327",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.32"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.21"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.6"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-96299",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Missing Authorization Check on Internal Aggregation Stage in MongoDB Server mongos Leads to Denial of Service",
+      "date": "2026-10-13",
+      "url": "https://jira.mongodb.org/browse/SERVER-130431",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.13"
+        },
+        {
+          "major": "9.0",
+          "fixed_in": "9.0.4"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9737",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Find command with $meta sort can lead to crash",
+      "date": "2026-07-22",
+      "url": "https://jira.mongodb.org/browse/SERVER-128341",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.39"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.28"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.12"
+        },
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.7"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9741",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Client side encryption fails to encrypt values in a $vectorSearch",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-123507",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9746",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Server crashes in case of the use of exchange",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-124190",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9747",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Crafted cross-shard merge aggregation crashes MongoDB Server",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-123918",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9748",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "$_internalConvertBucketIndexStats may crash the mongod server when working on no timeseries input",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-123951",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.10"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9749",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Using MaxKey() may crash the server",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-124031",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9750",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "Metadata name collision on $-prefixed fields causes post-auth server crash",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-123633",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-9752",
+      "cvss": 7.1,
+      "severity": "high",
+      "title": "GeometryCollection with strict-winding polygon causes server crash during 2dsphere index key generation",
+      "date": "2026-06-09",
+      "url": "https://jira.mongodb.org/browse/SERVER-123440",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.3"
+        },
+        {
+          "major": "8.2",
+          "fixed_in": "8.2.10"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.24"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.35"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-18696",
+      "cvss": 7.0,
+      "severity": "high",
+      "title": "Improper Authorization in MongoDB applyOps Command Handling Allows Unauthorized DDL Operations on Collections",
+      "date": "2026-08-11",
+      "url": "https://jira.mongodb.org/browse/SERVER-130139",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.8"
+        },
+        {
+          "major": "8.0",
+          "fixed_in": "8.0.29"
+        },
+        {
+          "major": "7.0",
+          "fixed_in": "7.0.40"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-82062",
+      "cvss": 7.0,
+      "severity": "high",
+      "title": "Improper Authorization in MongoDB Server applyOps Command Allows Writes to Arbitrary Internal Storage Tables via Feature Gate Bypass",
+      "date": "2026-09-08",
+      "url": "https://jira.mongodb.org/browse/SERVER-131138",
+      "source": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+      "affected": [
+        {
+          "major": "8.3",
+          "fixed_in": "8.3.9"
+        }
+      ]
+    }
+  ],
+  "retrieved_from": "https://www.mongodb.com/resources/products/mongodb-security-bulletins",
+  "min_cvss": 7.0
+}

@@ -1,0 +1,1429 @@
+{
+  "schema_version": 1,
+  "generated": "2026-11-03",
+  "placeholders": {
+    "{to}": "target major",
+    "{from}": "source major",
+    "{cluster}": "PerconaServerMongoDB CR name",
+    "{namespace}": "namespace",
+    "{image}": "percona/percona-server-mongodb:{to_full}",
+    "{operator_to}": "target Operator version, e.g. 1.23.1",
+    "{operator_version}": "running Operator version",
+    "{pbm_version}": "PBM version certified for the Operator"
+  },
+  "operator_versions": [
+    {
+      "version": "1.23.1",
+      "date": "2026-10-05",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.29-23",
+        "7.0.43-23",
+        "8.0.32-14"
+      ],
+      "psmdb_available": [
+        "6.0.19-16",
+        "6.0.21-18",
+        "6.0.25-20",
+        "6.0.27-21",
+        "6.0.29-23",
+        "7.0.24-13",
+        "7.0.28-15",
+        "7.0.30-16",
+        "7.0.37-20",
+        "7.0.43-23",
+        "8.0.12-4",
+        "8.0.17-6",
+        "8.0.19-7",
+        "8.0.26-11",
+        "8.0.32-14"
+      ],
+      "pbm": [
+        "2.15.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.23.1.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.23.1",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.23.0",
+      "date": "2026-07-23",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.29-23",
+        "7.0.37-20",
+        "8.0.26-11"
+      ],
+      "psmdb_available": [
+        "6.0.19-16",
+        "6.0.21-18",
+        "6.0.25-20",
+        "6.0.27-21",
+        "6.0.29-23",
+        "7.0.18-11",
+        "7.0.24-13",
+        "7.0.28-15",
+        "7.0.30-16",
+        "7.0.37-20",
+        "8.0.8-3",
+        "8.0.12-4",
+        "8.0.17-6",
+        "8.0.19-7",
+        "8.0.26-11"
+      ],
+      "pbm": [
+        "2.15.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.23.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.23.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "Adds spec.revisionHistoryLimit for StatefulSets."
+    },
+    {
+      "version": "1.22.0",
+      "date": "2026-02-25",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.27-21",
+        "7.0.30-16",
+        "8.0.19-7"
+      ],
+      "psmdb_available": [
+        "6.0.18-15",
+        "6.0.19-16",
+        "6.0.21-18",
+        "6.0.25-20",
+        "6.0.27-21",
+        "7.0.15-9",
+        "7.0.18-11",
+        "7.0.24-13",
+        "7.0.28-15",
+        "7.0.30-16",
+        "8.0.4-1",
+        "8.0.8-3",
+        "8.0.12-4",
+        "8.0.17-6",
+        "8.0.19-7"
+      ],
+      "pbm": [
+        "2.12.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.22.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.22.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "PSMDB 6.0 support deprecated (EOL). Dedicated psmdb-operator-crds Helm chart. Base image moved to UBI 10, which needs x86-64-v3 CPUs on amd64. spec.enableVolumeExpansion and spec.enableExternalVolumeAutoscaling deprecated, removal planned in 1.25.0."
+    },
+    {
+      "version": "1.21.2",
+      "date": "2026-01-12",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.27-21",
+        "7.0.28-15",
+        "8.0.17-6"
+      ],
+      "psmdb_available": [
+        "6.0.18-15",
+        "6.0.19-16",
+        "6.0.21-18",
+        "6.0.25-20",
+        "6.0.27-21",
+        "7.0.14-8",
+        "7.0.15-9",
+        "7.0.18-11",
+        "7.0.24-13",
+        "7.0.28-15",
+        "8.0.4-1",
+        "8.0.8-3",
+        "8.0.12-4",
+        "8.0.17-6"
+      ],
+      "pbm": [
+        "2.11.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.21.2.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.21.2",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.21.1",
+      "date": "2025-10-30",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.25-20",
+        "7.0.24-13",
+        "8.0.12-4"
+      ],
+      "psmdb_available": [
+        "6.0.16-13",
+        "6.0.18-15",
+        "6.0.19-16",
+        "6.0.21-18",
+        "6.0.25-20",
+        "7.0.12-7",
+        "7.0.14-8",
+        "7.0.15-9",
+        "7.0.18-11",
+        "7.0.24-13",
+        "8.0.4-1",
+        "8.0.8-3",
+        "8.0.12-4"
+      ],
+      "pbm": [
+        "2.11.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.21.1.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.21.1",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.21.0",
+      "date": "2025-10-20",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.25-20",
+        "7.0.24-13",
+        "8.0.12-4"
+      ],
+      "psmdb_available": [
+        "6.0.16-13",
+        "6.0.18-15",
+        "6.0.19-16",
+        "6.0.21-18",
+        "6.0.25-20",
+        "7.0.12-7",
+        "7.0.14-8",
+        "7.0.15-9",
+        "7.0.18-11",
+        "7.0.24-13",
+        "8.0.4-1",
+        "8.0.8-3",
+        "8.0.12-4"
+      ],
+      "pbm": [
+        "2.11.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.21.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.21.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "Deploys PSMDB 8.0 by default for new clusters. Adds persistent logging (logcollector); exclude logcollector from the image patch when you move to 1.21.0."
+    },
+    {
+      "version": "1.20.1",
+      "date": "2025-06-04",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.21-18",
+        "7.0.18-11",
+        "8.0.8-3"
+      ],
+      "psmdb_available": [
+        "6.0.15-12",
+        "6.0.16-13",
+        "6.0.18-15",
+        "6.0.19-16",
+        "6.0.21-18",
+        "7.0.12-7",
+        "7.0.14-8",
+        "7.0.15-9",
+        "7.0.18-11",
+        "8.0.4-1",
+        "8.0.8-3"
+      ],
+      "pbm": [
+        "2.9.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.20.1.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.20.1",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.20.0",
+      "date": "2025-05-19",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.21-18",
+        "7.0.18-11",
+        "8.0.8-3"
+      ],
+      "psmdb_available": [
+        "6.0.15-12",
+        "6.0.16-13",
+        "6.0.18-15",
+        "6.0.19-16",
+        "6.0.21-18",
+        "7.0.12-7",
+        "7.0.14-8",
+        "7.0.15-9",
+        "7.0.18-11",
+        "8.0.4-1",
+        "8.0.8-3"
+      ],
+      "pbm": [
+        "2.9.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.20.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.20.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "SmartUpdate became the default update strategy (K8SPSMDB-1253). Not in the versions.html matrix, but listed in the release notes index (1.20.1 too)."
+    },
+    {
+      "version": "1.19.1",
+      "date": "2025-02-20",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.19-16",
+        "7.0.15-9",
+        "8.0.4-1"
+      ],
+      "psmdb_available": [
+        "6.0.9-7",
+        "6.0.15-12",
+        "6.0.16-13",
+        "6.0.18-15",
+        "6.0.19-16",
+        "7.0.8-5",
+        "7.0.12-7",
+        "7.0.14-8",
+        "7.0.15-9",
+        "8.0.4-1"
+      ],
+      "pbm": [
+        "2.8.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.19.1.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.19.1",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "Same known issue as 1.19.0: avoid for sharded PSMDB 8.0 clusters."
+    },
+    {
+      "version": "1.19.0",
+      "date": "2025-01-21",
+      "psmdb_majors": [
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
+      "psmdb_versions": [
+        "6.0.19-16",
+        "7.0.15-9",
+        "8.0.4-1"
+      ],
+      "psmdb_available": [
+        "6.0.9-7",
+        "6.0.15-12",
+        "6.0.16-13",
+        "6.0.18-15",
+        "6.0.19-16",
+        "7.0.8-5",
+        "7.0.12-7",
+        "7.0.14-8",
+        "7.0.15-9",
+        "8.0.4-1"
+      ],
+      "pbm": [
+        "2.8.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.19.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.19.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "PSMDB 5.0 support EOL. First release with PSMDB 8.0. 1.19.0 and 1.19.1 keep 7.0 as recommended because PITR may fail on sharded 8.0 clusters."
+    },
+    {
+      "version": "1.18.0",
+      "date": "2024-11-14",
+      "psmdb_majors": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ],
+      "psmdb_versions": [
+        "5.0.29-25",
+        "6.0.18-15",
+        "7.0.14-8"
+      ],
+      "psmdb_available": [
+        "5.0.15-13",
+        "5.0.20-17",
+        "5.0.26-22",
+        "5.0.28-24",
+        "5.0.29-25",
+        "6.0.5-4",
+        "6.0.9-7",
+        "6.0.15-12",
+        "6.0.16-13",
+        "6.0.18-15",
+        "7.0.8-5",
+        "7.0.12-7",
+        "7.0.14-8"
+      ],
+      "pbm": [
+        "2.7.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.18.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.18.0",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.17.0",
+      "date": "2024-09-09",
+      "psmdb_majors": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ],
+      "psmdb_versions": [
+        "5.0.28-24",
+        "6.0.16-13",
+        "7.0.12-7"
+      ],
+      "psmdb_available": [
+        "5.0.14-12",
+        "5.0.15-13",
+        "5.0.20-17",
+        "5.0.26-22",
+        "5.0.28-24",
+        "6.0.4-3",
+        "6.0.5-4",
+        "6.0.9-7",
+        "6.0.15-12",
+        "6.0.16-13",
+        "7.0.8-5",
+        "7.0.12-7"
+      ],
+      "pbm": [
+        "2.5.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.17.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.17.0",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.16.2",
+      "date": "2024-07-23",
+      "psmdb_majors": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ],
+      "psmdb_versions": [
+        "5.0.26-22",
+        "6.0.15-12",
+        "7.0.8-5"
+      ],
+      "psmdb_available": [
+        "5.0.11-10",
+        "5.0.14-12",
+        "5.0.15-13",
+        "5.0.20-17",
+        "5.0.26-22",
+        "6.0.4-3",
+        "6.0.5-4",
+        "6.0.9-7",
+        "6.0.15-12",
+        "7.0.8-5"
+      ],
+      "pbm": [
+        "2.4.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.2.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.16.2",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.16.1",
+      "date": "2024-06-24",
+      "psmdb_majors": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ],
+      "psmdb_versions": [
+        "5.0.26-22",
+        "6.0.15-12",
+        "7.0.8-5"
+      ],
+      "psmdb_available": [
+        "5.0.11-10",
+        "5.0.14-12",
+        "5.0.15-13",
+        "5.0.20-17",
+        "5.0.26-22",
+        "6.0.4-3",
+        "6.0.5-4",
+        "6.0.9-7",
+        "6.0.15-12",
+        "7.0.8-5"
+      ],
+      "pbm": [
+        "2.4.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.1.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.16.1",
+      "psmdb_versions_source": "release notes: developed and tested with"
+    },
+    {
+      "version": "1.16.0",
+      "date": "2024-05-24",
+      "psmdb_majors": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ],
+      "psmdb_versions": [
+        "5.0.26-22",
+        "6.0.15-12",
+        "7.0.8-5"
+      ],
+      "psmdb_available": [
+        "5.0.11-10",
+        "5.0.14-12",
+        "5.0.15-13",
+        "5.0.20-17",
+        "5.0.26-22",
+        "6.0.4-3",
+        "6.0.5-4",
+        "6.0.9-7",
+        "6.0.15-12",
+        "7.0.8-5"
+      ],
+      "pbm": [
+        "2.4.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.16.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "PSMDB 4.4 support EOL. First release with PSMDB 7.0. unsafeFlags introduced; allowUnsafeConfigurations deprecated and has no effect."
+    },
+    {
+      "version": "1.15.0",
+      "date": "2023-10-09",
+      "psmdb_majors": [
+        "4.4",
+        "5.0",
+        "6.0"
+      ],
+      "psmdb_versions": [
+        "4.4.24",
+        "5.0.20",
+        "6.0.9"
+      ],
+      "psmdb_available": [
+        "4.4.13-13",
+        "4.4.16-16",
+        "4.4.18-18",
+        "4.4.19-19",
+        "4.4.24-23",
+        "5.0.7-6",
+        "5.0.11-10",
+        "5.0.14-12",
+        "5.0.15-13",
+        "5.0.20-17",
+        "6.0.4-3",
+        "6.0.5-4",
+        "6.0.9-7"
+      ],
+      "pbm": [
+        "2.3.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.15.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.15.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "spec.mongod section removed (deprecated since 1.12.0)."
+    },
+    {
+      "version": "1.14.0",
+      "date": "2023-03-13",
+      "psmdb_majors": [
+        "4.4",
+        "5.0",
+        "6.0"
+      ],
+      "psmdb_versions": [
+        "4.4.18",
+        "5.0.14",
+        "6.0.4"
+      ],
+      "psmdb_available": [
+        "4.4.8-9",
+        "4.4.10-11",
+        "4.4.13-13",
+        "4.4.16-16",
+        "4.4.18-18",
+        "4.4.19-19",
+        "5.0.4-3",
+        "5.0.7-6",
+        "5.0.11-10",
+        "5.0.14-12",
+        "5.0.15-13",
+        "6.0.4-3",
+        "6.0.5-4"
+      ],
+      "pbm": [
+        "2.0.5"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.14.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.14.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "First release with PSMDB 6.0. Replica set members configured with local FQDNs; set clusterServiceDNSMode: External before upgrading if the replica set is exposed and you want to keep IPs."
+    },
+    {
+      "version": "1.13.0",
+      "date": "2022-09-08",
+      "psmdb_majors": [
+        "4.2",
+        "4.4",
+        "5.0"
+      ],
+      "psmdb_versions": [
+        "4.2.22",
+        "4.4.8",
+        "4.4.10",
+        "4.4.13",
+        "4.4.16",
+        "5.0.2",
+        "5.0.4",
+        "5.0.11"
+      ],
+      "psmdb_available": [
+        "4.2.22-22",
+        "4.4.8-9",
+        "4.4.10-11",
+        "4.4.13-13",
+        "4.4.16-16",
+        "5.0.4-3",
+        "5.0.7-6",
+        "5.0.11-10"
+      ],
+      "pbm": [
+        "1.8.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.13.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.13.0",
+      "psmdb_versions_source": "release notes: developed and tested with",
+      "notes": "cr.yaml default upgradeOptions.apply changed to disabled (was <major>-recommended up to 1.12.0)."
+    },
+    {
+      "version": "1.12.0",
+      "date": "2022-05-05",
+      "psmdb_majors": [
+        "4.2",
+        "4.4",
+        "5.0"
+      ],
+      "psmdb_versions": [
+        "4.2.19-19",
+        "4.4.13-13",
+        "5.0.7-6"
+      ],
+      "psmdb_available": [
+        "4.2.7-7",
+        "4.2.8-8",
+        "4.2.11-12",
+        "4.2.12-13",
+        "4.2.13-14",
+        "4.2.14-15",
+        "4.2.15-16",
+        "4.2.17-17",
+        "4.2.19-19",
+        "4.4.2-4",
+        "4.4.3-5",
+        "4.4.5-7",
+        "4.4.6-8",
+        "4.4.8-9",
+        "4.4.10-11",
+        "4.4.13-13",
+        "5.0.2-1",
+        "5.0.4-3",
+        "5.0.7-6"
+      ],
+      "pbm": [
+        "1.7.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.12.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.12.0",
+      "psmdb_versions_source": "Percona Version Service: status recommended per major (release notes for this version do not list tested PSMDB versions)",
+      "notes": "CRD uses a single API version v1. Clusters whose CRD was installed before 1.12.0 need status.storedVersions patched to [\"v1\"]."
+    },
+    {
+      "version": "1.11.0",
+      "date": "2021-12-21",
+      "psmdb_majors": [
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0"
+      ],
+      "psmdb_versions": [
+        "4.0.27-22",
+        "4.2.17-17",
+        "4.4.10-11"
+      ],
+      "psmdb_available": [
+        "4.0.18-11",
+        "4.0.19-12",
+        "4.0.20-13",
+        "4.0.21-15",
+        "4.0.22-17",
+        "4.0.23-18",
+        "4.0.25-20",
+        "4.0.26-21",
+        "4.0.27-22",
+        "4.2.7-7",
+        "4.2.8-8",
+        "4.2.11-12",
+        "4.2.12-13",
+        "4.2.13-14",
+        "4.2.14-15",
+        "4.2.15-16",
+        "4.2.17-17",
+        "4.4.2-4",
+        "4.4.3-5",
+        "4.4.5-7",
+        "4.4.6-8",
+        "4.4.8-9",
+        "4.4.10-11",
+        "5.0.2-1",
+        "5.0.4-3"
+      ],
+      "pbm": [
+        "1.6.1"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.11.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.11.0",
+      "psmdb_versions_source": "Percona Version Service: status recommended per major (release notes for this version do not list tested PSMDB versions)",
+      "notes": "Last release with PSMDB 4.0."
+    },
+    {
+      "version": "1.10.0",
+      "date": "2021-09-30",
+      "psmdb_majors": [
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0"
+      ],
+      "psmdb_versions": [
+        "4.0.26-21",
+        "4.2.15-16",
+        "4.4.8-9"
+      ],
+      "psmdb_available": [
+        "4.0.18-11",
+        "4.0.19-12",
+        "4.0.20-13",
+        "4.0.21-15",
+        "4.0.22-17",
+        "4.0.23-18",
+        "4.0.25-20",
+        "4.0.26-21",
+        "4.2.7-7",
+        "4.2.8-8",
+        "4.2.11-12",
+        "4.2.12-13",
+        "4.2.13-14",
+        "4.2.14-15",
+        "4.2.15-16",
+        "4.4.2-4",
+        "4.4.3-5",
+        "4.4.5-7",
+        "4.4.6-8",
+        "4.4.8-9",
+        "5.0.2-1"
+      ],
+      "pbm": [
+        "1.6.0"
+      ],
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.10.0.html",
+      "version_service_url": "https://check.percona.com/versions/v1/psmdb-operator/1.10.0",
+      "psmdb_versions_source": "Percona Version Service: status recommended per major (release notes for this version do not list tested PSMDB versions)"
+    }
+  ],
+  "upgrade_order": [
+    {
+      "text": "Take a backup and test the upgrade in staging first. The docs require both before any upgrade.",
+      "cmd": "kubectl get psmdb-backup -n {namespace}"
+    },
+    {
+      "text": "Check the current Operator version, crVersion and images. You can upgrade the Operator only to the next minor version (1.22.x to 1.23.x). Bigger gaps need sequential upgrades; patch versions do not count.",
+      "cmd": "kubectl get deploy percona-server-mongodb-operator -n {namespace} -o jsonpath='{.spec.template.spec.containers[0].image}{\"\\n\"}'; kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.crVersion} {.spec.image} {.status.mongoVersion}{\"\\n\"}'"
+    },
+    {
+      "text": "Operators older than 1.12.0 only: check the CRD stored versions. If it is not just v1, patch it to v1 before the upgrade.",
+      "cmd": "kubectl get crd perconaservermongodbs.psmdb.percona.com -o yaml | yq .status.storedVersions; kubectl patch customresourcedefinitions perconaservermongodbs.psmdb.percona.com --subresource='status' --type='merge' -p '{\"status\":{\"storedVersions\":[\"v1\"]}}'"
+    },
+    {
+      "text": "Stage 1a (kubectl install): update the CRD with server-side apply and the RBAC from the release tag of the target Operator version.",
+      "cmd": "kubectl apply --server-side -f https://raw.githubusercontent.com/percona/percona-server-mongodb-operator/v{operator_to}/deploy/crd.yaml\nkubectl apply -n {namespace} -f https://raw.githubusercontent.com/percona/percona-server-mongodb-operator/v{operator_to}/deploy/rbac.yaml"
+    },
+    {
+      "text": "Stage 1b (kubectl install): patch the Operator Deployment image and wait for the rollout. Database Pods do not restart at this point, because the CR still declares the old crVersion.",
+      "cmd": "kubectl patch deployment percona-server-mongodb-operator -n {namespace} -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"percona-server-mongodb-operator\",\"image\":\"percona/percona-server-mongodb-operator:{operator_to}\"}]}}}}'\nkubectl get deployments percona-server-mongodb-operator -n {namespace}"
+    },
+    {
+      "text": "Stage 1 (Helm install, alternative): update the CRDs through the psmdb-operator-crds chart (1.22.0+, Helm 3.17+ for --take-ownership) or with kubectl apply --server-side, then upgrade the Operator release. Pass your saved values if you installed with custom parameters.",
+      "cmd": "helm upgrade --install psmdb-operator-crds percona/psmdb-operator-crds --namespace {namespace} --version {operator_to} --take-ownership\nhelm get values my-op -a -n {namespace} > my-values.yaml\nhelm upgrade my-op percona/psmdb-operator -n {namespace} --version {operator_to} -f my-values.yaml"
+    },
+    {
+      "text": "Stage 2: raise crVersion and the database, backup (PBM), PMM Client and logcollector images to the set certified for the new Operator. Take the versions from the Version Service or the compatibility matrix. Upgrade PMM Server before PMM Client, or leave pmm out of the patch.",
+      "cmd": "curl -s https://check.percona.com/versions/v1/psmdb-operator/{operator_to} | jq -r '.versions[].matrix'\nkubectl patch psmdb {cluster} -n {namespace} --type=merge --patch '{\"spec\":{\"crVersion\":\"{operator_to}\",\"image\":\"{image}\",\"backup\":{\"image\":\"percona/percona-backup-mongodb:{pbm_version}\"}}}'"
+    },
+    {
+      "text": "Stay inside the CRD window. The CRD supports the current and the two previous Operator minor versions, so move each cluster's crVersion before the Operator gets more than two minors ahead.",
+      "cmd": "kubectl get psmdb -A -o custom-columns=NAME:.metadata.name,NS:.metadata.namespace,CRVERSION:.spec.crVersion,STATE:.status.state"
+    },
+    {
+      "text": "Only after the Operator supports the target major, run the database major upgrade (one major at a time). See procedure.",
+      "cmd": ""
+    }
+  ],
+  "procedure": {
+    "replset": [
+      {
+        "text": "Check the version of the Operator you run. If it does not support {to}, upgrade the Operator first (see the Operator first tab).",
+        "cmd": "kubectl get deploy percona-server-mongodb-operator -n {namespace} -o jsonpath='{.spec.template.spec.containers[0].image}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#procedure"
+      },
+      {
+        "text": "Set upgradeOptions.apply in your deploy/cr.yaml Custom Resource manifest to {apply}. Also set upgradeOptions.schedule to \"* * * * *\": the Operator applies the new version only at its next Version Service check, and the default schedule (0 2 * * *) runs it at 02:00. Tested on a lab cluster (Operator 1.23.1, 7.0.43-23 to 8.0.32-14): with the default schedule nothing started for three minutes; with \"* * * * *\" the image changed within about one minute.",
+        "snippet": "spec:\n  upgradeOptions:\n    apply: {apply}\n    schedule: \"* * * * *\"",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsschedule"
+      },
+      {
+        "text": "Apply the Custom Resource manifest to start the upgrade. With the Smart Update strategy the Operator restarts the Pods in the right order. Then watch the image and state until the cluster is ready on the new version.",
+        "cmd": "kubectl apply -f deploy/cr.yaml -n {namespace}\nkubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image} {.status.state} {.status.mongoVersion}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#procedure"
+      },
+      {
+        "text": "The Operator wrote the new images into the cluster, not into your deploy/cr.yaml, which still has the old ones. The command prints spec.image, spec.backup.image and spec.pmm.image: copy each one that differs from your file into it now. Tested on a lab cluster (Operator 1.23.1, 7.0.43-23 to 8.0.32-14): applying the file again with the old spec.image moved a Pod back to the old version, and once FCV was {to} that Pod crash-looped with 'UPGRADE PROBLEM: Found an invalid featureCompatibilityVersion document'. In the same test the Operator also changed spec.pmm.image from percona/pmm-client:3.9.1 to percona/pmm-client:2.44.1-1, the first PMM version the Version Service lists.",
+        "cmd": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image}{\"\\n\"}{.spec.backup.image}{\"\\n\"}{.spec.pmm.image}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#procedure"
+      },
+      {
+        "text": "When the upgrade has finished and the cluster works as expected, set upgradeOptions.setFCV to true. The patch changes only that field, so it cannot touch the image. Set setFCV: true in deploy/cr.yaml too, or the next apply of the file sets it back to false. The custom resource status has no FCV field, so the last command reads FCV from mongod. Tested on a lab cluster (Operator 1.23.1): FCV changed about 10 seconds after the patch, and the Pods did not restart. Wait for {to} before you take the new full backup. With setFCV set, the Operator does not support a major version rollback.",
+        "snippet": "spec:\n  upgradeOptions:\n    setFCV: true",
+        "cmd": "kubectl patch psmdb {cluster} -n {namespace} --type=merge -p '{\"spec\":{\"upgradeOptions\":{\"setFCV\":true}}}'\nkubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image} {.status.state} {.status.mongoVersion}{\"\\n\"}'\nkubectl exec -n {namespace} {cluster}-rs0-0 -c mongod -- bash -c 'mongosh --quiet -u \"$MONGODB_CLUSTER_ADMIN_USER\" -p \"$MONGODB_CLUSTER_ADMIN_PASSWORD\" --eval \"db.adminCommand({getParameter:1,featureCompatibilityVersion:1}).featureCompatibilityVersion\"'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#feature-compatibility-version"
+      },
+      {
+        "text": "Set upgradeOptions.schedule back to your usual value. Set apply to disabled or a pinned version, unless you want the Operator to apply new {to} patches on its own. Make the same changes in deploy/cr.yaml.",
+        "snippet": "spec:\n  upgradeOptions:\n    apply: disabled\n    schedule: \"0 2 * * *\"",
+        "cmd": "kubectl patch psmdb {cluster} -n {namespace} --type=merge -p '{\"spec\":{\"upgradeOptions\":{\"apply\":\"disabled\",\"schedule\":\"0 2 * * *\"}}}'\nkubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image} {.status.state} {.status.mongoVersion}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsschedule"
+      },
+      {
+        "text": "Check that deploy/cr.yaml matches the cluster. When they match, kubectl diff prints nothing. Any image, setFCV, apply or schedule line means the file would set that value back on your next apply: copy the live value (the - line) into the file.",
+        "cmd": "kubectl diff -f deploy/cr.yaml -n {namespace}",
+        "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/"
+      }
+    ],
+    "sharded": [
+      {
+        "text": "Check the version of the Operator you run. If it does not support {to}, upgrade the Operator first (see the Operator first tab).",
+        "cmd": "kubectl get deploy percona-server-mongodb-operator -n {namespace} -o jsonpath='{.spec.template.spec.containers[0].image}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#procedure"
+      },
+      {
+        "text": "Set upgradeOptions.apply in your deploy/cr.yaml Custom Resource manifest to {apply}. Also set upgradeOptions.schedule to \"* * * * *\": the Operator applies the new version only at its next Version Service check, and the default schedule (0 2 * * *) runs it at 02:00. Tested on a lab cluster (Operator 1.23.1, 7.0.43-23 to 8.0.32-14): with the default schedule nothing started for three minutes; with \"* * * * *\" the image changed within about one minute.",
+        "snippet": "spec:\n  upgradeOptions:\n    apply: {apply}\n    schedule: \"* * * * *\"",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsschedule"
+      },
+      {
+        "text": "Apply the Custom Resource manifest to start the upgrade. With the Smart Update strategy the Operator restarts the Pods in the right order. Then watch the image and state until the cluster is ready on the new version.",
+        "cmd": "kubectl apply -f deploy/cr.yaml -n {namespace}\nkubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image} {.status.state} {.status.mongoVersion}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#procedure"
+      },
+      {
+        "text": "The Operator wrote the new images into the cluster, not into your deploy/cr.yaml, which still has the old ones. The command prints spec.image, spec.backup.image and spec.pmm.image: copy each one that differs from your file into it now. Tested on a lab cluster (Operator 1.23.1, 7.0.43-23 to 8.0.32-14): applying the file again with the old spec.image moved a Pod back to the old version, and once FCV was {to} that Pod crash-looped with 'UPGRADE PROBLEM: Found an invalid featureCompatibilityVersion document'. In the same test the Operator also changed spec.pmm.image from percona/pmm-client:3.9.1 to percona/pmm-client:2.44.1-1, the first PMM version the Version Service lists.",
+        "cmd": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image}{\"\\n\"}{.spec.backup.image}{\"\\n\"}{.spec.pmm.image}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#procedure"
+      },
+      {
+        "text": "When the upgrade has finished and the cluster works as expected, set upgradeOptions.setFCV to true. The patch changes only that field, so it cannot touch the image. Set setFCV: true in deploy/cr.yaml too, or the next apply of the file sets it back to false. The custom resource status has no FCV field, so the last command reads FCV from mongod. Tested on a lab cluster (Operator 1.23.1): FCV changed about 10 seconds after the patch, and the Pods did not restart. Wait for {to} before you take the new full backup. With setFCV set, the Operator does not support a major version rollback.",
+        "snippet": "spec:\n  upgradeOptions:\n    setFCV: true",
+        "cmd": "kubectl patch psmdb {cluster} -n {namespace} --type=merge -p '{\"spec\":{\"upgradeOptions\":{\"setFCV\":true}}}'\nkubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image} {.status.state} {.status.mongoVersion}{\"\\n\"}'\nkubectl exec -n {namespace} {cluster}-rs0-0 -c mongod -- bash -c 'mongosh --quiet -u \"$MONGODB_CLUSTER_ADMIN_USER\" -p \"$MONGODB_CLUSTER_ADMIN_PASSWORD\" --eval \"db.adminCommand({getParameter:1,featureCompatibilityVersion:1}).featureCompatibilityVersion\"'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#feature-compatibility-version"
+      },
+      {
+        "text": "Set upgradeOptions.schedule back to your usual value. Set apply to disabled or a pinned version, unless you want the Operator to apply new {to} patches on its own. Make the same changes in deploy/cr.yaml.",
+        "snippet": "spec:\n  upgradeOptions:\n    apply: disabled\n    schedule: \"0 2 * * *\"",
+        "cmd": "kubectl patch psmdb {cluster} -n {namespace} --type=merge -p '{\"spec\":{\"upgradeOptions\":{\"apply\":\"disabled\",\"schedule\":\"0 2 * * *\"}}}'\nkubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.image} {.status.state} {.status.mongoVersion}{\"\\n\"}'",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsschedule"
+      },
+      {
+        "text": "Check that deploy/cr.yaml matches the cluster. When they match, kubectl diff prints nothing. Any image, setFCV, apply or schedule line means the file would set that value back on your next apply: copy the live value (the - line) into the file.",
+        "cmd": "kubectl diff -f deploy/cr.yaml -n {namespace}",
+        "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/"
+      }
+    ]
+  },
+  "upgrade_options": {
+    "fields": {
+      "spec.crVersion": {
+        "type": "string",
+        "example": "1.23.1",
+        "semantics": "Version of the Operator the Custom Resource belongs to. Present in deploy/cr.yaml since 1.6.0. Raising it (with the images) is stage 2 of the upgrade and rolls the Pods. The CRD supports the current and the two previous Operator minors.",
+        "since": "1.6.0",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#crversion"
+      },
+      "spec.image": {
+        "type": "string",
+        "example": "percona/percona-server-mongodb:8.0.32-14",
+        "semantics": "PSMDB image. Patching it is the manual way to change the database version; the configured updateStrategy decides how Pods restart.",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#image"
+      },
+      "spec.updateStrategy": {
+        "type": "string",
+        "values": [
+          "SmartUpdate",
+          "RollingUpdate",
+          "OnDelete"
+        ],
+        "semantics": "SmartUpdate: the Operator restarts Pods one at a time, primary last (steps it down first). For sharded clusters it updates cfg first (with the balancer stopped), shards wait for cfg, then mongos. Waits for running backups. RollingUpdate: StatefulSet controller order, may not be optimal. OnDelete: you delete Pods yourself. SmartUpdate is in deploy/cr.yaml since 1.5.0 and the code default since 1.20.0.",
+        "since": "1.5.0",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/update.html#update-strategies"
+      },
+      "spec.upgradeOptions.versionServiceEndpoint": {
+        "type": "string",
+        "default": "https://check.percona.com",
+        "semantics": "Version Service URL. If the Operator cannot reach it, automatic upgrades do not happen. You can run your own (perconalab/version-service).",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsversionserviceendpoint"
+      },
+      "spec.upgradeOptions.apply": {
+        "type": "string",
+        "default": "disabled (cr.yaml default since 1.13.0; up to 1.12.0 cr.yaml shipped <major>-recommended, and 1.5.0 to 1.7.0 shipped recommended)",
+        "values": [
+          "disabled",
+          "never",
+          "recommended",
+          "latest",
+          "<major>-recommended",
+          "<major>-latest",
+          "<exact version, e.g. 7.0.43-23>"
+        ],
+        "semantics": "Never/Disabled: no automatic upgrades. Recommended/Latest: newest recommended or newest available version, keeping the current major for existing clusters. <major>-recommended / <major>-latest pins the major, and is the documented way to request a major upgrade (e.g. 8.0-recommended). An exact version locks to that version. A major change is accepted only to the next major and only when FCV equals the previous major (canUpgradeVersion in the code; mapping stops at 7.0 -> 8.0 in v1.23.1).",
+        "since": "1.5.0 (minor upgrades); 1.8.0 (major upgrades, <major>-recommended)",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsapply"
+      },
+      "spec.upgradeOptions.schedule": {
+        "type": "string",
+        "example": "0 2 * * *",
+        "semantics": "Cron schedule for Version Service checks. Set to * * * * * to force an immediate check, then set it back.",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionsschedule"
+      },
+      "spec.upgradeOptions.setFCV": {
+        "type": "boolean",
+        "default": "false",
+        "semantics": "If true, the Operator sets FCV to match the running major after all StatefulSets are up to date, only when the step is exactly one major up. Works for both the apply path and a manual image patch (it uses status.mongoVersion). The Operator does not support major rollback once FCV is set. In sharded clusters it runs through mongos.",
+        "since": "1.8.0 (first in deploy/cr.yaml at v1.8.0, together with automated major upgrades K8SPSMDB-284)",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgradeoptionssetfcv"
+      },
+      "spec.revisionHistoryLimit": {
+        "type": "int",
+        "default": "10",
+        "semantics": "StatefulSet revisions kept, used as rollback points for Pod templates.",
+        "since": "1.23.0",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#revisionhistorylimit"
+      },
+      "spec.unsafeFlags": {
+        "type": "subdoc",
+        "keys": [
+          "tls",
+          "replsetSize",
+          "mongosSize",
+          "terminationGracePeriod",
+          "backupIfUnhealthy"
+        ],
+        "semantics": "Fine-grained permissive mode. Once enabled, setting them back to false is ignored. Upgrading a cluster that had allowUnsafeConfigurations=true sets everything under unsafeFlags to true.",
+        "since": "1.16.0",
+        "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html#unsafe-flags-section"
+      }
+    },
+    "notes": "Two stages: stage 1 updates the CRD, RBAC and Operator Deployment and does not restart database Pods; stage 2 raises crVersion and images. The Operator moves one minor at a time (1.22 to 1.23). PSMDB majors move one at a time in both directions (6.0 to 7.0 to 8.0). By default the Operator does not touch FCV (setFCV: false), which keeps a major rollback possible. The major-version guard in the code (FCV must equal the previous major) applies to the upgradeOptions.apply path; a manual spec.image patch is not checked by that function, so check FCV yourself. Smart Update is required for the automatic paths in the docs. As of Operator 1.23.1 (2026-10-05) the certified majors are 6.0 (deprecated since 1.22.0), 7.0 and 8.0; no 9.0. Version Service matrix per Operator: curl https://check.percona.com/versions/v1/psmdb-operator/<version>.",
+    "url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-automatic.html",
+    "urls": [
+      "https://docs.percona.com/percona-operator-for-mongodb/operator.html#upgrade-options-section",
+      "https://docs.percona.com/percona-operator-for-mongodb/update-major.html",
+      "https://docs.percona.com/percona-operator-for-mongodb/update-db.html",
+      "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/version.go",
+      "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/smart.go",
+      "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/psmdb_controller.go"
+    ]
+  },
+  "items": [
+    {
+      "id": "op-supports-target-major",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "The Operator version must certify {to}",
+      "action": "Check that the running Operator lists a {to} image. 7.0 needs 1.16.0+, 8.0 needs 1.19.0+. If not, upgrade the Operator first, one minor at a time.",
+      "check": "curl -s https://check.percona.com/versions/v1/psmdb-operator/$(kubectl get deploy percona-server-mongodb-operator -n {namespace} -o jsonpath='{.spec.template.spec.containers[0].image}' | cut -d: -f2) | jq -r '.versions[].matrix.mongod | keys[]'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/versions.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-supports-source-major",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Do not upgrade the Operator past the EOL of {from}",
+      "action": "4.4 reached EOL in Operator 1.16.0 and 5.0 in 1.19.0. Upgrade the database to a supported major before you move the Operator past those releases.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.status.mongoVersion}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-automatic.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-one-minor-at-a-time",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Upgrade the Operator one minor at a time",
+      "action": "You can upgrade the Operator only to the next major.minor (1.18.x to 1.19.x). Plan sequential upgrades for bigger gaps. Patch versions do not count.",
+      "check": "kubectl get deploy percona-server-mongodb-operator -n {namespace} -o jsonpath='{.spec.template.spec.containers[0].image}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-crversion-window",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "crVersion must stay within two minors of the Operator",
+      "action": "The CRD supports the current and two previous Operator minors. Raise spec.crVersion of every cluster before the Operator gets more than two minors ahead.",
+      "check": "kubectl get psmdb -A -o custom-columns=NAME:.metadata.name,NS:.metadata.namespace,CRVERSION:.spec.crVersion",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-crversion-matches",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Set crVersion to the Operator version before the database upgrade",
+      "action": "Patch spec.crVersion to the running Operator version together with the certified images, so the cluster gets the new Operator behavior.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.crVersion}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-manual.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-one-major-at-a-time",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "The Operator upgrades PSMDB one major at a time",
+      "action": "Plan 6.0 to 7.0 to 8.0 as separate hops, in both directions. The Operator rejects apply: <major>-recommended for a jump of more than one major.",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-fcv-previous-major",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "FCV must equal {from} before the Operator starts the major upgrade",
+      "action": "With upgradeOptions.apply the Operator refuses the upgrade (error \"can't upgrade to X with FCV set to Y\") unless FCV equals {from}. Finish the previous hop with setFCV first.",
+      "check": "kubectl exec -n {namespace} {cluster}-rs0-0 -c mongod -- bash -c 'mongosh --quiet -u \"$MONGODB_CLUSTER_ADMIN_USER\" -p \"$MONGODB_CLUSTER_ADMIN_PASSWORD\" --eval \"db.adminCommand({getParameter:1,featureCompatibilityVersion:1}).featureCompatibilityVersion\"'",
+      "verified": false,
+      "source_url": "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/version.go",
+      "basis": "docs",
+      "note": "bash -c with single quotes makes the credential variables expand inside the mongod container, where the Operator sets them (tested on a lab cluster)."
+    },
+    {
+      "id": "op-setfcv-false-during-upgrade",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Keep upgradeOptions.setFCV false until you validate {to}",
+      "action": "With setFCV true the Operator sets FCV to {to} as soon as all Pods are updated, and it does not support a major rollback after that. Leave it false, validate, then set it to true.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.upgradeOptions.setFCV}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-setfcv-after",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "warning",
+      "title": "Set upgradeOptions.setFCV to true to finish the hop",
+      "action": "FCV stays at {from} until you set setFCV: true. The next major hop is blocked until FCV is {to}.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.upgradeOptions.setFCV}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html",
+      "basis": "docs",
+      "fix": "kubectl patch psmdb {cluster} -n {namespace} --type=merge --patch '{\"spec\":{\"upgradeOptions\":{\"setFCV\":true}}}'"
+    },
+    {
+      "id": "op-smartupdate",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Use updateStrategy: SmartUpdate",
+      "action": "Smart Update restarts Pods one at a time, primary last, and for sharded clusters updates cfg (with the balancer stopped), then shards, then mongos. RollingUpdate follows StatefulSet order, which may not be optimal; OnDelete needs manual Pod deletes, including mongos and cfg.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.updateStrategy}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-apply-disabled-after",
+      "hop_to": "*",
+      "section": "post",
+      "severity": "warning",
+      "title": "Do not leave upgradeOptions.apply on Latest or Recommended unintentionally",
+      "action": "With Latest or Recommended the Operator upgrades the database on the next schedule. Set apply to disabled or a pinned version after the hop, unless you want automatic minor upgrades.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.upgradeOptions}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-db.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-version-service-reachable",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "The Version Service must be reachable for apply-based upgrades",
+      "action": "If the Operator cannot reach upgradeOptions.versionServiceEndpoint, the upgrade does not happen. Use spec.image patching or run the Version Service in the cluster in air-gapped setups.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.upgradeOptions.versionServiceEndpoint}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-automatic.html#:~:text=If%20the%20Operator",
+      "basis": "docs"
+    },
+    {
+      "id": "op-pbm-image",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Use the PBM image certified for the Operator version",
+      "action": "Patch spec.backup.image to the PBM version listed for the Operator (1.19.x: 2.8.0, 1.20.x: 2.9.1, 1.21.x: 2.11.0, 1.22.0: 2.12.0, 1.23.x: 2.15.0).",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.backup.image}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/versions.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-backup-before",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Take a backup before any Operator or database upgrade",
+      "action": "Run an on-demand backup and confirm it is ready. Smart Update also waits for running backups and active PBM jobs before restarting Pods.",
+      "check": "kubectl get psmdb-backup -n {namespace}",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update.html#:~:text=Take%20a%20backup",
+      "basis": "docs"
+    },
+    {
+      "id": "op-cluster-ready",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "The cluster must be ready with all Pods running",
+      "action": "Smart Update does not start or continue while a StatefulSet has fewer ready replicas than desired. Fix unhealthy Pods and Pending PVCs first.",
+      "check": "kubectl get psmdb {cluster} -n {namespace}; kubectl get pods,pvc -n {namespace} -l app.kubernetes.io/instance={cluster}",
+      "verified": false,
+      "source_url": "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/smart.go",
+      "basis": "docs"
+    },
+    {
+      "id": "op-crd-storedversions",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "CRD installed before Operator 1.12.0 needs storedVersions v1",
+      "action": "If storedVersions lists anything other than v1, patch it to [\"v1\"] before upgrading the CRD.",
+      "check": "kubectl get crd perconaservermongodbs.psmdb.percona.com -o jsonpath='{.status.storedVersions}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-crd-server-side",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Apply the CRD with server-side apply",
+      "action": "Use kubectl apply --server-side for deploy/crd.yaml. With Helm, CRDs are not updated by helm upgrade; use psmdb-operator-crds (1.22.0+) or apply them manually.",
+      "check": "kubectl get crd perconaservermongodbs.psmdb.percona.com --show-labels",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-helm.html#:~:text=Apply%20the%20CRD",
+      "basis": "docs"
+    },
+    {
+      "id": "op-unsafe-flags",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Review allowUnsafeConfigurations and unsafeFlags",
+      "action": "From 1.16.0 allowUnsafeConfigurations has no effect; upgrading a cluster that had it true sets every unsafeFlags key to true, and you cannot turn them back off by setting false.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.allowUnsafeConfigurations} {.spec.unsafeFlags}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.16.0.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-mongod-section-removed",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Move spec.mongod settings before Operator 1.15.0",
+      "action": "spec.mongod is removed in 1.15.0. If you disabled encryption with mongod.security.enableEncryption, set security.enableEncryption: false in replsets[].configuration before the upgrade.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.mongod}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-exposed-fqdn-114",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Exposed replica sets switch to FQDN in Operator 1.14.0",
+      "action": "From 1.14.0 the replica set config uses local FQDNs. If the replica set is exposed and clients rely on IPs, set clusterServiceDNSMode: External before the upgrade.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.clusterServiceDNSMode} {.spec.replsets[*].expose.enabled}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-119-sharded-80",
+      "hop_to": "8.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Avoid Operator 1.19.0/1.19.1 for sharded 8.0 clusters",
+      "action": "Point-in-time recovery may fail on sharded 8.0 clusters with Operator 1.19.x. Use 1.20.0 or later for the 8.0 hop on sharded clusters.",
+      "check": "kubectl get deploy percona-server-mongodb-operator -n {namespace} -o jsonpath='{.spec.template.spec.containers[0].image}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html#:~:text=Point-in-time%20recovery%20may%20fail%20on",
+      "basis": "docs"
+    },
+    {
+      "id": "op-logcollector-121",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "title": "Exclude logcollector from the image patch when moving to 1.21.0",
+      "action": "Persistent logging arrives in 1.21.0. The docs say to leave logcollector out of the images you patch when updating to 1.21.0.",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-set-version.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-ubi10-cpu",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "Operator 1.22.0+ needs x86-64-v3 CPUs on amd64",
+      "action": "From 1.22.0 the base image is UBI 10, which requires AVX2, BMI1, BMI2 and FMA (Intel Haswell 2013+, AMD Excavator 2015+). Check node CPUs before moving the Operator to 1.22.0.",
+      "check": "grep -o -w -E 'avx2|bmi1|bmi2|fma' /proc/cpuinfo | sort -u",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/System-Requirements.html",
+      "basis": "docs",
+      "run_on": "each Kubernetes worker node, in the OS shell"
+    },
+    {
+      "id": "op-volume-options-125",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "title": "enableVolumeExpansion and enableExternalVolumeAutoscaling are deprecated",
+      "action": "Deprecated in 1.22.0, removal planned in 1.25.0. Move to spec.storageScaling.enableVolumeScaling and enableExternalAutoscaling after the upgrade.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.enableVolumeExpansion} {.spec.storageScaling}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.22.0.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-k8s-platform",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Kubernetes version must be supported by the target Operator",
+      "action": "Check the platform matrix. For example 1.23.1 is tested on GKE 1.34-1.35, EKS and AKS 1.34-1.36, OpenShift 4.19-4.22. The Operator may fail on clusters where deprecated APIs were removed.",
+      "check": "kubectl version",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/versions.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-60-deprecated",
+      "hop_to": "7.0",
+      "section": "preflight",
+      "severity": "info",
+      "title": "PSMDB 6.0 is deprecated in the Operator since 1.22.0",
+      "action": "6.0 still runs, but new features are not tested against it. Plan the 7.0 hop.",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/RN/Kubernetes-Operator-for-PSMONGODB-RN1.22.0.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-pmm-client",
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "info",
+      "title": "Upgrade PMM Server before PMM Client",
+      "action": "Leave spec.pmm.image out of the patch until PMM Server is upgraded. PMM2 is deprecated since 1.22.0.",
+      "check": "kubectl get psmdb {cluster} -n {namespace} -o jsonpath='{.spec.pmm.image}{\"\\n\"}'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-manual.html",
+      "basis": "docs"
+    },
+    {
+      "id": "op-no-90",
+      "hop_to": "9.0",
+      "section": "preflight",
+      "severity": "blocker",
+      "title": "No Operator release certifies PSMDB 9.0 yet",
+      "action": "As of 1.23.1 (2026-10-05) the certified majors are 6.0, 7.0 and 8.0, and the major upgrade code maps only up to 7.0 to 8.0. Wait for an Operator release that lists 9.0.",
+      "check": "curl -s https://check.percona.com/versions/v1/psmdb-operator/1.23.1 | jq -r '.versions[].matrix.mongod | keys[]'",
+      "verified": false,
+      "source_url": "https://docs.percona.com/percona-operator-for-mongodb/versions.html",
+      "basis": "docs"
+    }
+  ],
+  "rollback": {
+    "text": "The docs describe a major downgrade as the same mechanism in reverse, one major at a time: set upgradeOptions.apply (or spec.image) to the previous major. It works only while FCV still equals the previous major: the Operator code accepts a downgrade only when the target major equals the current FCV, and the docs state the Operator does not support major version rollback once setFeatureCompatibilityVersion is set (setFCV is not undone by downgrading the image). So keep setFCV false until you validate. Before downgrading, remove persisted incompatible features and settings per the upstream MongoDB downgrade considerations. For the Operator itself, the docs give no downgrade procedure; Helm users get rollback for CRDs through the psmdb-operator-crds chart (1.22.0+). spec.revisionHistoryLimit (1.23.0+) controls the StatefulSet revisions kept as rollback points for Pod templates. After FCV is raised, the remaining path is restoring a backup taken before the upgrade.",
+    "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#downgrades",
+    "urls": [
+      "https://docs.percona.com/percona-operator-for-mongodb/update-major.html#feature-compatibility-version",
+      "https://docs.percona.com/percona-operator-for-mongodb/update.html#before-you-upgrade-limits-you-should-know",
+      "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/version.go",
+      "https://docs.percona.com/percona-operator-for-mongodb/update-crd-helm.html",
+      "https://docs.percona.com/percona-operator-for-mongodb/update.html#revision-history-limit"
+    ]
+  },
+  "docs": [
+    {
+      "label": "Update overview and strategies",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update.html"
+    },
+    {
+      "label": "Upgrade the Operator and CRD (considerations)",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html"
+    },
+    {
+      "label": "Upgrade the Operator manually",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-manual.html"
+    },
+    {
+      "label": "Upgrade the Operator with Helm",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-helm.html"
+    },
+    {
+      "label": "Upgrade via OLM (OpenShift)",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-olm.html"
+    },
+    {
+      "label": "Upgrade Percona Server for MongoDB",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-db.html"
+    },
+    {
+      "label": "Major version upgrades",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html"
+    },
+    {
+      "label": "Automatic minor upgrades",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-automatic.html"
+    },
+    {
+      "label": "Upgrade to a specific version",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-set-version.html"
+    },
+    {
+      "label": "Manual upgrades (RollingUpdate, OnDelete)",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-manually.html"
+    },
+    {
+      "label": "Upgrade on OpenShift",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-openshift.html"
+    },
+    {
+      "label": "Custom Resource options (upgradeOptions, unsafeFlags)",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/operator.html"
+    },
+    {
+      "label": "Versions compatibility matrix",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/versions.html"
+    },
+    {
+      "label": "System requirements",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/System-Requirements.html"
+    },
+    {
+      "label": "Release notes index",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/RN/index.html"
+    },
+    {
+      "label": "Percona Version Service (per Operator version)",
+      "url": "https://check.percona.com/versions/v1/psmdb-operator/1.23.1"
+    },
+    {
+      "label": "deploy/cr.yaml at v1.23.1",
+      "url": "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/deploy/cr.yaml"
+    },
+    {
+      "label": "Smart Update code (smart.go) at v1.23.1",
+      "url": "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/smart.go"
+    },
+    {
+      "label": "Major upgrade and FCV guard (version.go) at v1.23.1",
+      "url": "https://github.com/percona/percona-server-mongodb-operator/blob/v1.23.1/pkg/controller/perconaservermongodb/version.go"
+    }
+  ],
+  "procedure_source": "https://docs.percona.com/percona-operator-for-mongodb/update-major.html",
+  "patch_procedure": [
+    {
+      "text": "Set upgradeOptions.apply in your deploy/cr.yaml Custom Resource manifest to the exact version {apply}.",
+      "snippet": "spec:\n  upgradeOptions:\n    apply: {apply}",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-set-version.html"
+    },
+    {
+      "text": "Apply the Custom Resource manifest. The Operator restarts the Pods with the new image.",
+      "cmd": "kubectl apply -f deploy/cr.yaml -n {namespace}",
+      "url": "https://docs.percona.com/percona-operator-for-mongodb/update-minor-set-version.html"
+    }
+  ]
+}

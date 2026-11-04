@@ -1,0 +1,923 @@
+<title>MongoDB Upgrade Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one screen. A toolbar with the inputs, the route, then tabs per hop with sub-tabs Before / Steps / After / Rollback / What changes. */
+:root {
+  --bg: #f3f6f7;
+  --surface: #ffffff;
+  --sunken: #e9eef0;
+  --ink: #14232b;
+  --muted: #56676f;
+  --line: #d6dfe2;
+  --accent: #0b6b6b;
+  --accent-ink: #ffffff;
+  --accent-soft: #dcefed;
+  --blocker: #b42318;
+  --blocker-soft: #fcebe9;
+  --warn: #9a5800;
+  --warn-soft: #fff1d9;
+  --info: #2d5b98;
+  --ok: #2c7a3f;
+  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1518; --surface: #142026; --sunken: #0f1a1e; --ink: #e2eaed; --muted: #93a4ab; --line: #26363c;
+    --accent: #5cc4bb; --accent-ink: #062120; --accent-soft: #123331;
+    --blocker: #f28b80; --blocker-soft: #3a1714; --warn: #efb45c; --warn-soft: #33240d; --info: #8db6ef; --ok: #79c98c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1518; --surface: #142026; --sunken: #0f1a1e; --ink: #e2eaed; --muted: #93a4ab; --line: #26363c;
+  --accent: #5cc4bb; --accent-ink: #062120; --accent-soft: #123331;
+  --blocker: #f28b80; --blocker-soft: #3a1714; --warn: #efb45c; --warn-soft: #33240d; --info: #8db6ef; --ok: #79c98c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 15px/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1100px; margin: 0 auto; display: grid; gap: 18px; padding-block: 24px 48px; }
+.stack { display: grid; gap: 14px; min-width: 0; }
+
+/* Header */
+.masthead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+.masthead h1 { font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; font-stretch: 80%; text-transform: uppercase; letter-spacing: 0.01em; }
+.views { display: flex; gap: 16px; font-size: 14px; }
+.views a { color: var(--muted); text-decoration: none; font-weight: 600; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+.views a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* Toolbar */
+.toolbar { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 12px; }
+.row { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 12px; }
+.f { display: grid; gap: 4px; min-width: 0; }
+.f > label, .f > .lbl { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.arrow { align-self: center; padding-top: 18px; color: var(--muted); font-size: 18px; }
+select, input[type="text"] {
+  font: inherit; font-size: 14px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; min-width: 0; max-width: 100%;
+}
+input[type="text"] { font-family: var(--font-mono); font-size: 13.5px; width: 120px; }
+input.bad { border-color: var(--blocker); }
+button { font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; border-radius: 6px; padding: 7px 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+button.link { border: 0; background: none; color: var(--accent); padding: 7px 4px; }
+.lblrow { display: flex; align-items: center; gap: 5px; }
+.lblrow > label, .lblrow > .lbl { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.help { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--line); color: var(--muted); font-size: 11px; font-weight: 700; cursor: help; background: var(--surface); line-height: 1; padding: 0; }
+.help:hover, .help:focus-visible { color: var(--accent); border-color: var(--accent); }
+.tip { position: fixed; z-index: 30; width: min(340px, calc(100vw - 32px)); background: var(--ink); color: var(--bg); border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.5; text-transform: none; letter-spacing: 0; font-weight: 400; box-shadow: 0 6px 24px rgb(0 0 0 / 0.2); }
+.tip b { font-weight: 600; }
+.tip code { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 12px; background: rgb(255 255 255 / 0.12); border-radius: 4px; padding: 5px 7px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.more { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 12px; }
+.hint { font-size: 12.5px; color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 12px; overflow-wrap: anywhere; }
+.driver-rows { display: grid; gap: 6px; }
+.driver-row { display: flex; gap: 6px; }
+.driver-row button { padding: 0 10px; color: var(--muted); }
+
+/* Summary */
+.summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.route { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-family: var(--font-display); font-weight: 700; font-size: 20px; font-variant-numeric: tabular-nums; }
+.route .sep { color: var(--muted); font-weight: 500; font-size: 16px; }
+.route small { font-family: var(--font-body); font-weight: 500; font-size: 12px; color: var(--muted); margin-left: 3px; }
+.status { display: inline-flex; align-items: center; font-weight: 600; font-size: 14px; padding: 5px 12px; border-radius: 999px; }
+.status.bad { background: var(--blocker-soft); color: var(--blocker); }
+.status.good { background: var(--accent-soft); color: var(--accent); }
+.status.meh { background: var(--warn-soft); color: var(--warn); }
+.checked { margin: -6px 0 0; font-size: 13px; color: var(--muted); }
+.checked .unset { color: var(--warn); }
+.route small.osmark { color: var(--blocker); font-weight: 700; }
+.alerts { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.alerts li { padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+.alerts li.blocker { background: var(--blocker-soft); }
+.alerts li.warning { background: var(--warn-soft); }
+.alerts li b { font-weight: 600; }
+.alerts ul.bul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; }
+.alerts .aff { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.err { background: var(--blocker-soft); color: var(--blocker); padding: 12px 14px; border-radius: 6px; font-weight: 500; }
+
+/* Tabs */
+.tabs { display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid var(--line); }
+.tabs button { border: 1px solid transparent; border-radius: 6px 6px 0 0; background: transparent; color: var(--muted); padding: 9px 14px; white-space: nowrap; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--ink); background: var(--surface); border-color: var(--line); border-bottom-color: var(--surface); }
+.tabs .n { display: inline-block; min-width: 18px; font-size: 11.5px; font-weight: 700; padding: 0 5px; margin-left: 6px; border-radius: 9px; background: var(--blocker-soft); color: var(--blocker); text-align: center; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 10px 10px; padding: 0 18px 18px; }
+.subtabs { display: flex; flex-wrap: wrap; gap: 6px; padding-block: 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+.subtabs button { border-radius: 999px; padding: 5px 12px; font-size: 13px; color: var(--muted); }
+.subtabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.subtabs .c { opacity: 0.75; margin-left: 5px; font-weight: 500; }
+.lead { margin: 0 0 12px; color: var(--muted); font-size: 14px; max-width: 75ch; }
+
+/* Checklist and items */
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.it { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; padding: 9px 12px; border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 6px; }
+.it.blocker { border-left-color: var(--blocker); }
+.it.warning { border-left-color: var(--warn); }
+.it.info { border-left-color: var(--info); }
+.it.done { opacity: 0.55; }
+.it.done .t { text-decoration: line-through; }
+.it input { width: 17px; height: 17px; margin: 3px 0 0; accent-color: var(--accent); }
+.it .t { font-weight: 600; }
+.it .must { font-size: 11px; font-weight: 700; color: var(--blocker); text-transform: uppercase; letter-spacing: 0.05em; margin-left: 6px; }
+.it p { margin: 2px 0 0; font-size: 14px; max-width: 80ch; }
+.it .runon { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.it ul.bul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; max-width: 80ch; }
+.it ul.bul .aff { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-left: 4px; }
+.tip .tc { display: flex; gap: 6px; align-items: stretch; margin-top: 6px; }
+.tip .tc code { margin-top: 0; flex: 1; }
+.tip .tc button { font-size: 11.5px; padding: 0 8px; border-radius: 4px; border: 1px solid rgb(255 255 255 / 0.25); background: transparent; color: var(--bg); }
+.it .meta { font-size: 12px; color: var(--muted); margin-top: 4px; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.it .meta a { color: var(--muted); }
+details.fold { margin-top: 12px; }
+details.fold summary { cursor: pointer; color: var(--muted); font-size: 13.5px; font-weight: 600; }
+details.fold[open] summary { margin-bottom: 8px; }
+
+.cmd { display: flex; margin-top: 6px; border-radius: 5px; background: var(--sunken); border: 1px solid var(--line); min-width: 0; }
+.cmd pre { margin: 0; padding: 6px 10px; flex: 1; min-width: 0; overflow-x: auto; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; white-space: pre; }
+.cmd button { border: 0; border-left: 1px solid var(--line); border-radius: 0 5px 5px 0; background: transparent; font-size: 12px; padding: 0 10px; color: var(--muted); }
+.cmd button.copied { color: var(--ok); }
+.cmd button.exp { white-space: nowrap; border-right: 0; }
+.tip .tl { font-family: var(--font-mono); font-size: 11.5px; opacity: 0.75; margin-top: 8px; }
+.tip .tn { margin-top: 6px; }
+.tip .ts { margin-top: 8px; font-size: 11.5px; opacity: 0.7; }
+.tip.wide { width: min(560px, calc(100vw - 32px)); }
+
+ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 12px; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; }
+ol.steps li::before { content: counter(s); font-family: var(--font-display); font-weight: 700; font-size: 13px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+ol.steps li.key::before { background: var(--accent); color: var(--accent-ink); }
+ol.steps p { margin: 1px 0 0; }
+ol.steps p.sh { font-weight: 600; }
+ol.steps p.sh a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+ol.steps p.sh a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+ol.steps.sub { margin-top: 10px; gap: 8px; }
+ol.steps.sub li::before { background: var(--sunken); color: var(--muted); width: 20px; height: 20px; font-size: 11.5px; }
+h3.part { font-family: var(--font-body); font-size: 15px; font-weight: 600; margin: 18px 0 10px; }
+h3.part:first-of-type { margin-top: 4px; }
+h3.part small { font-weight: 400; color: var(--muted); font-size: 12.5px; margin-left: 6px; }
+
+.rb { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 640px) { .rb { grid-template-columns: minmax(0, 1fr); } }
+.rb > div { border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; }
+.rb h4 { margin: 0 0 4px; font-size: 14px; }
+.rb p { margin: 0; font-size: 14px; }
+.rb .open { border-top: 4px solid var(--ok); }
+.rb .closed { border-top: 4px solid var(--warn); }
+.small { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+.small a { color: var(--muted); }
+.docs { margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.docs a { color: var(--muted); }
+
+.drivers { display: grid; gap: 4px; font-size: 14px; }
+.drivers .d { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 10px; }
+@media (max-width: 560px) { .drivers .d { grid-template-columns: minmax(0, 1fr); } }
+
+/* Catalog */
+.catalog { display: grid; gap: 16px; }
+.filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.vgroup h2 { font-size: 20px; font-weight: 800; font-stretch: 85%; margin-bottom: 8px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); background: var(--sunken); }
+tr:last-child td { border-bottom: 0; }
+td.sev { white-space: nowrap; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+td.sev.blocker { color: var(--blocker); } td.sev.warning { color: var(--warn); } td.sev.info { color: var(--info); }
+td.title { font-weight: 600; min-width: 200px; }
+td small { font-weight: 400; color: var(--muted); }
+
+.copybox textarea { width: 100%; min-height: 200px; font-family: var(--font-mono); font-size: 12.5px; background: var(--sunken); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+.toast { position: fixed; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 6px; font-size: 13.5px; font-weight: 600; z-index: 20; }
+footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 8px; }
+.credit { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 14px; color: var(--ink); }
+.credit b { font-weight: 600; }
+.credit a { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 600; text-decoration: none; }
+.credit a:hover { text-decoration: underline; }
+.credit svg { width: 16px; height: 16px; fill: currentColor; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <h1>MongoDB Upgrade Roadmap</h1>
+    <nav class="views" aria-label="Views">
+      <a href="#plan" id="nav-plan">Plan</a>
+      <a href="#changes" id="nav-changes">All changes by version</a>
+    </nav>
+  </header>
+
+  <div id="view-plan" class="stack">
+    <form class="toolbar" id="form" autocomplete="off">
+      <div class="row">
+        <div class="f" data-help="dist"><label for="dist">Distribution</label>
+          <select id="dist">
+            <option value="psmdb">Percona Server for MongoDB</option>
+            <option value="mongodb-community">MongoDB Community</option>
+          </select></div>
+        <div class="f" data-help="from"><label for="from-major">Current version</label>
+          <div class="row" style="gap:6px"><select id="from-major" aria-label="Current release series"></select><select id="from-exact" aria-label="Current minor version"></select></div></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="f" data-help="to"><label for="to-major">Target version</label>
+          <div class="row" style="gap:6px"><select id="to-major" aria-label="Target release series"></select><select id="to-exact" aria-label="Target minor version"></select></div></div>
+        <div class="f" data-help="topology"><label for="topology">Topology</label>
+          <select id="topology">
+            <option value="replset">Replica set</option>
+            <option value="sharded">Sharded cluster</option>
+            <option value="standalone">Standalone</option>
+          </select></div>
+        <div class="f" data-help="platform"><label for="platform">Runs on</label>
+          <select id="platform">
+            <option value="packages">Linux packages</option>
+            <option value="operator">Percona Operator (Kubernetes)</option>
+          </select></div>
+        <div class="f" data-help="pm" id="pm-field"><label for="pm">Package manager</label>
+          <select id="pm"><option value="apt">apt (Debian, Ubuntu)</option><option value="yum">yum / dnf (RHEL)</option></select></div>
+        <div class="f" data-help="arch"><label for="arch">CPU</label>
+          <select id="arch"><option value="">Not checked</option><option value="x86_64">x86_64</option><option value="aarch64">aarch64 (ARM)</option></select></div>
+        <div class="f" data-help="os"><label for="os">OS</label><select id="os"></select></div>
+        <div class="f" data-help="fcv"><label for="fcv">Current FCV</label><select id="fcv"></select></div>
+        <button type="button" class="link" id="more-btn" aria-expanded="false" aria-controls="more">+ More details</button>
+      </div>
+
+      <div class="more" id="more" hidden>
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="f" data-help="pbm"><label for="c-pbm">PBM</label><select id="c-pbm"></select></div>
+          <div class="f" data-help="pmm"><label for="c-pmm">PMM</label><select id="c-pmm"></select></div>
+          <div class="f" data-help="operator"><label for="c-operator">Operator</label><select id="c-operator"></select></div>
+        </div>
+        <div class="f" data-help="drivers"><span class="lbl">Application drivers</span>
+          <div id="driver-rows" class="driver-rows"></div>
+          <div><button type="button" class="link" id="add-driver">+ Add a driver</button></div>
+        </div>
+      </div>
+    </form>
+
+    <section id="result" aria-live="polite" class="stack"></section>
+  </div>
+
+  <div id="view-changes" class="catalog" hidden>
+    <div class="filters">
+      <div class="f"><label for="cat-dist">Distribution</label>
+        <select id="cat-dist"><option value="psmdb">PSMDB</option><option value="mongodb-community">MongoDB Community</option></select></div>
+      <div class="f"><label for="cat-from">From</label><select id="cat-from"></select></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="f"><label for="cat-to">To</label><select id="cat-to"></select></div>
+      <div class="f"><label for="cat-topo">Topology</label>
+        <select id="cat-topo"><option value="">All</option><option value="standalone">Standalone</option><option value="replset">Replica set</option><option value="sharded">Sharded cluster</option></select></div>
+      <div class="f"><label for="cat-sev">Severity</label>
+        <select id="cat-sev"><option value="">All</option><option value="blocker">Blockers</option><option value="warning">Warnings</option><option value="info">Info</option></select></div>
+      <div class="f"><label for="cat-q">Search</label><input type="text" id="cat-q" placeholder="tls, opcode..." style="width:180px"></div>
+    </div>
+    <div id="catalog"></div>
+  </div>
+
+  <footer>
+    <div class="credit">
+      <span>Created by <b>Zelmar Michelini</b></span>
+      <a href="https://uy.linkedin.com/in/zelmario" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
+      <a href="https://github.com/zelmario" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg>GitHub</a>
+    </div>
+    <div id="footer"></div>
+  </footer>
+</div>
+
+<script>
+/*__PLANNER__*/
+/*__RENDER__*/
+const KB = /*__KB__*/;
+const BUILD = /*__BUILD__*/;
+
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const majors = KB.versions.majors;
+  const DRIVERS = Object.entries(KB.drivers?.drivers ?? {}).sort((a, b) => a[1].name.localeCompare(b[1].name));
+  const DIST_LABEL = { psmdb: 'Percona Server for MongoDB', 'mongodb-community': 'MongoDB Community' };
+  const DIST_SHORT = { psmdb: 'PSMDB', 'mongodb-community': 'Community' };
+  const TOPO = { standalone: 'standalone', replset: 'replica set', sharded: 'sharded cluster' };
+  const EXAMPLE = { dist: 'psmdb', platform: 'packages', pm: 'apt', fromMajor: '6.0', fromExact: BUILD.exampleFrom ?? '', to: '8.0', topology: 'replset', fcv: '', arch: '', pbm: '', pmm: '', operator: '', drivers: [] };
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const ui = { tab: 0, sub: 'before' };
+
+  // ---------- form ----------
+  const fromSel = $('#from-major'), toSel = $('#to-major'), fcvSel = $('#fcv'), exactSel = $('#from-exact');
+  const kindOf = (dist, v) => (KB.series?.series?.[dist === 'psmdb' ? 'psmdb' : 'mongodb'] ?? []).find((x) => x.series === v)?.kind;
+  const seriesLabel = (dist, v) => { const k = kindOf(dist, v); return k && k !== 'major' ? `${v} (${k})` : v; };
+  function fillFrom(keep) {
+    const d = $('#dist').value;
+    const list = seriesFor(KB, d);
+    fromSel.innerHTML = list.map((m) => `<option value="${m}">${esc(seriesLabel(d, m))}</option>`).join('');
+    fromSel.value = keep && list.includes(keep) ? keep : (list.includes('6.0') ? '6.0' : list[0]);
+  }
+
+  const isPreview = (m) => $('#dist').value === 'psmdb' && KB.versions.previews?.[m];
+  function fillTo(keep) {
+    const td = $('#dist').value;
+    const opts = reachableFrom(KB, td, fromSel.value);
+    toSel.innerHTML = `<option value="${fromSel.value}">${fromSel.value} (patch upgrade)</option>` +
+      opts.map((m) => `<option value="${m}">${esc(seriesLabel(td, m))}${isPreview(m) ? ' (preview)' : ''}</option>`).join('');
+    const ga = [...toSel.options].filter((o) => !isPreview(o.value) && o.value !== fromSel.value);
+    if (keep && [...toSel.options].some((o) => o.value === keep)) toSel.value = keep;
+    else toSel.value = (ga.length ? ga[ga.length - 1] : toSel.options[0]).value;
+  }
+  function fillExact(keep) {
+    const list = [...releasesFor(KB, $('#dist').value, fromSel.value)].reverse();
+    const latest = latestRelease(KB, $('#dist').value, fromSel.value);
+    fillVersionSelect(exactSel, list, latest, keep);
+  }
+  function fillVersionSelect(sel, list, latest, keep) {
+    sel.innerHTML = list.length
+      ? list.map((r) => `<option value="${esc(r.version)}">${esc(r.version)}${latest && r.version === latest.version ? ' (latest)' : ''}${r.channel && r.channel !== 'release' ? ' (' + esc(r.channel) + ')' : r.prerelease ? ' (pre-release)' : ''}</option>`).join('')
+      : '<option value="">No release list</option>';
+    sel.value = keep && list.some((r) => r.version === keep) ? keep : (latest?.version ?? list[0]?.version ?? '');
+  }
+  function fillToExact(keep) {
+    const td = $('#dist').value;
+    let list = [...releasesFor(KB, td, toSel.value)].reverse();
+    if (toSel.value === fromSel.value && exactSel.value) list = list.filter((r) => compareVersions(r.version, exactSel.value) > 0);
+    fillVersionSelect($('#to-exact'), list, latestRelease(KB, td, toSel.value), keep);
+  }
+  // FCV can only equal the binary major or the previous one.
+  function fillFcv(keep) {
+    const from = fromSel.value;
+    if (compareVersions(from, KB.versions.fcv_introduced) < 0) { fcvSel.innerHTML = '<option value="">Not before 3.4</option>'; fcvSel.disabled = true; return; }
+    fcvSel.disabled = false;
+    let html = `<option value="">Not checked</option><option value="${from}">${from}</option>`;
+    // The previous FCV is the series you upgraded from: any series with a documented edge into this one.
+    const prevs = seriesFor(KB, $('#dist').value).filter((p) => compareVersions(p, from) < 0 && compareVersions(p, KB.versions.fcv_introduced) >= 0 && !isAtlasOnly(KB, $('#dist').value, p) && (findPath(KB, $('#dist').value, p, from) ?? []).length === 2);
+    for (const p of prevs.reverse()) html += `<option value="${p}">${p} (last upgrade not finished)</option>`;
+    html += '<option value="upgrading">Upgrading or downgrading</option>';
+    fcvSel.innerHTML = html;
+    if (keep !== undefined && [...fcvSel.options].some((o) => o.value === keep)) fcvSel.value = keep;
+  }
+  function syncPlatform() {
+    const op = $('#platform').value === 'operator';
+    $('#pm-field').hidden = op;
+    $('#topology').querySelector('[value="standalone"]').disabled = op;
+    if (op && $('#topology').value === 'standalone') $('#topology').value = 'replset';
+    for (const o of $('#dist').options) o.disabled = op && o.value !== 'psmdb';
+    if (op && $('#dist').value !== 'psmdb') { $('#dist').value = 'psmdb'; fillFrom(fromSel.value); fillTo(toSel.value); fillExact(); }
+  }
+
+  $('#os').innerHTML = '<option value="">Not checked</option>' + osOptions(KB).sort((a, b) => a.label.localeCompare(b.label)).map((o) => `<option value="${esc(o.id)}">${esc(o.label)}</option>`).join('');
+  // Component selectors: newest first, "Not used" by default.
+  for (const k of ['pbm', 'pmm', 'operator']) {
+    const rel = [...(KB.components.components[k]?.releases ?? [])].sort((a, b) => compareVersions(b.version, a.version));
+    $(`#c-${k}`).innerHTML = '<option value="">Not used</option>' + rel.map((r) => `<option value="${esc(r.version)}">${esc(r.version)}${r.date ? ' (' + esc(r.date.slice(0, 7)) + ')' : ''}</option>`).join('');
+  }
+  const rowsEl = $('#driver-rows');
+  let rowSeq = 0;
+  function addDriverRow(key = '', version = '') {
+    if (!DRIVERS.length) return;
+    const n = ++rowSeq;
+    const row = document.createElement('div');
+    row.className = 'driver-row';
+    row.innerHTML = `<select id="drv-${n}" aria-label="Driver">${DRIVERS.map(([k, d]) => `<option value="${esc(k)}">${esc(d.name)}</option>`).join('')}</select>
+      <select id="drv-v-${n}" aria-label="Driver version"></select>
+      <button type="button" data-remove aria-label="Remove driver">×</button>`;
+    const [drvSel, verSel] = row.querySelectorAll('select');
+    if (key) drvSel.value = key;
+    const fillVersions = (keep) => {
+      const vs = KB.drivers.drivers[drvSel.value]?.versions ?? [];
+      verSel.innerHTML = '<option value="">Version</option>' + vs.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+      verSel.value = keep && vs.includes(keep) ? keep : '';
+    };
+    fillVersions(version);
+    drvSel.addEventListener('change', () => fillVersions());
+    rowsEl.append(row);
+  }
+  const readDrivers = () => [...rowsEl.querySelectorAll('.driver-row')].map((r) => { const [a, b] = r.querySelectorAll('select'); return { key: a.value, version: b.value }; });
+
+  function readForm() {
+    return {
+      dist: $('#dist').value, platform: $('#platform').value, pm: $('#pm').value,
+      fromMajor: fromSel.value, fromExact: exactSel.value, to: toSel.value, toExact: $('#to-exact').value, topology: $('#topology').value,
+      fcv: fcvSel.value, arch: $('#arch').value, os: $('#os').value,
+      pbm: $('#c-pbm').value, pmm: $('#c-pmm').value, operator: $('#c-operator').value,
+      drivers: readDrivers(),
+    };
+  }
+  function writeForm(s) {
+    $('#dist').value = DIST_LABEL[s.dist] ? s.dist : 'psmdb';
+    $('#platform').value = s.platform === 'operator' ? 'operator' : 'packages';
+    $('#pm').value = s.pm === 'yum' ? 'yum' : 'apt';
+    fillFrom(s.fromMajor);
+    fillTo(s.to);
+    fillFcv(s.fcv);
+    fillExact(s.fromExact);
+    fillToExact(s.toExact);
+    $('#topology').value = TOPO[s.topology] ? s.topology : 'replset';
+    $('#arch').value = s.arch ?? '';
+    $('#os').value = [...$('#os').options].some((o) => o.value === s.os) ? s.os : '';
+    for (const k of ['pbm', 'pmm', 'operator']) { const el = $(`#c-${k}`); el.value = [...el.options].some((o) => o.value === s[k]) ? s[k] : ''; }
+    rowsEl.innerHTML = '';
+    for (const d of s.drivers ?? []) if (KB.drivers.drivers[d.key]) addDriverRow(d.key, d.version);
+    syncPlatform();
+  }
+  function toInput(s) {
+    const ok = (v) => { try { parseVersion(v); return true; } catch { return false; } };
+    const components = {};
+    for (const k of ['pbm', 'pmm', 'operator']) {
+      const good = !s[k] || ok(s[k]);
+      document.getElementById(`c-${k}`).classList.toggle('bad', !good);
+      if (s[k] && good) components[k] = s[k];
+    }
+    const drivers = [];
+    for (const d of s.drivers) if (d.version && ok(d.version)) drivers.push(d);
+    return {
+      from: s.fromExact || s.fromMajor, to: s.to, toVersion: s.toExact || undefined, topology: s.topology,
+      distribution: s.dist, platform: s.platform, packageManager: s.pm,
+      fcv: s.fcv || undefined, arch: s.arch || undefined, os: s.os || undefined, components, drivers,
+    };
+  }
+
+  // ---------- rendering ----------
+  let current = null;
+  let checks = {};
+  const planKey = (r) => `ur:v2:${r.input.distribution}:${majorOf(r.input.from)}>${r.input.to}:${r.input.topology}:${r.input.platform}`;
+  const SEV_ORDER = { blocker: 0, warning: 1, info: 2 };
+
+  // Expected output: real lab captures or official doc examples, matched by command pattern.
+  const EXPECTED = (KB.expected?.patterns ?? []).map((p) => { try { return { ...p, re: new RegExp(p.match) }; } catch { return null; } }).filter(Boolean);
+  // The same command can expect different output depending on what ran before it in the
+  // block (getBalancerState after stopBalancer) and on where it sits in the plan (FCV before or after setFCV).
+  // A statement spread over several lines (open brackets) is matched as one line.
+  function statements(cmd) {
+    const out = [];
+    let buf = '', depth = 0;
+    for (const raw of String(cmd).split('\n')) {
+      const l = raw.replace(/^\s*[$>] /, '').trim();
+      if (!l) continue;
+      buf = buf ? `${buf} ${l}` : l;
+      depth += (l.match(/[({[]/g) ?? []).length - (l.match(/[)}\]]/g) ?? []).length;
+      if (depth <= 0) { out.push(buf); buf = ''; depth = 0; }
+    }
+    if (buf) out.push(buf);
+    return out;
+  }
+  function expectedFor(cmd) {
+    const lines = statements(cmd);
+    const found = lines.map((l, i) => {
+      let p = EXPECTED.find((x) => x.re.test(l));
+      if (!p) return null;
+      const before = lines.slice(0, i).reverse();
+      const variant = (p.after ?? []).find((v) => before.some((b) => new RegExp(v.prev).test(b)));
+      if (variant) p = { ...p, output: variant.output, note: variant.note, source: variant.source ?? p.source, afterVariant: true };
+      return { l, p, afterSetFcv: before.some((b) => /setFeatureCompatibilityVersion|"setFCV":true/.test(b)) };
+    }).filter(Boolean);
+    return found.length ? found : null;
+  }
+  let curCtx = { from: '', to: '' };
+  let expSeq = 0;
+  const expStore = new Map();
+  const cmdBlock = (cmd, phase = 'step') => {
+    const exp = expectedFor(cmd);
+    let expBtn = '';
+    if (exp) { const id = `e${++expSeq}`; expStore.set(id, { exp, ctx: { ...curCtx, phase } }); expBtn = `<button type="button" class="exp" data-exp="${id}" aria-label="Expected output">Expected output</button>`; }
+    return `<div class="cmd"><pre>${esc(cmd)}</pre>${expBtn}<button type="button" data-copy="${esc(cmd)}" aria-label="Copy command">Copy</button></div>`;
+  };
+  const OS_CODENAME = { ubuntu2004: 'focal', ubuntu2204: 'jammy', ubuntu2404: 'noble', debian11: 'bullseye', debian12: 'bookworm', debian13: 'trixie' };
+  const OS_EL = { rhel7: 'el7', rhel8: 'el8', rhel9: 'el9', rhel10: 'el10', amzn2: 'amzn2', amzn2023: 'amzn2023' };
+  // Variants by distribution or phase (before or after the hop), first match wins.
+  const resolveVariant = (p, ctx) => {
+    const v = p.afterVariant ? null : (p.variants ?? []).find((x) => (!x.dist || x.dist.includes(ctx.dist)) && (!x.phase || x.phase === ctx.phase) && (!x.to || x.to.includes(ctx.to)));
+    return v ? { ...p, ...v } : p;
+  };
+  function expectedHtml({ exp, ctx }) {
+    const sources = [...new Set(exp.map(({ p }) => resolveVariant(p, ctx).source ?? ''))];
+    const srcText = (src) => (/^https?:/.test(src) ? 'Example from the documentation' : src.replace(/^lab: /, 'Captured on a lab cluster: '));
+    return exp.map(({ l, p: p0, afterSetFcv }) => {
+      const p = resolveVariant(p0, ctx);
+      const fcv = ctx.phase === 'after' || afterSetFcv ? ctx.to : ctx.from;
+      const vars = { to: ctx.to, from: ctx.from, fcv, to_full: ctx.toFull ?? ctx.to, to_nodot: String(ctx.to).replace('.', ''),
+        from_nodot: String(ctx.from).replace('.', ''), codename: OS_CODENAME[ctx.os] ?? 'jammy', el: OS_EL[ctx.os] ?? 'el8' };
+      const fillv = (t) => String(t ?? '').replace(/\{(\w+)\}/g, (m, k) => vars[k] ?? m);
+      // {version}: the dotted form of a psmdb-XX token in the command (psmdb-83 -> 8.3).
+      const m = l.match(/psmdb-(\d)(\d+)/);
+      const fv = (t) => fillv(String(t ?? '').replace(/\{version\}/g, m ? `${m[1]}.${m[2]}` : '{version}'));
+      const out = p.output === '' ? '<code>(no output)</code>' : p.output ? `<code>${esc(fv(p.output))}</code>` : '';
+      return `${exp.length > 1 ? `<div class="tl">${esc(l)}</div>` : ''}${out}${p.note ? `<div class="tn">${esc(fv(p.note))}</div>` : ''}`;
+    }).join('') +
+      `<div class="ts">${esc(sources.filter(Boolean).map(srcText).join('; '))}. Version numbers, hosts and timestamps in your output will differ.</div>`;
+  }
+  function host(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return 'source'; } }
+  function itemHtml(item, key, checkable) {
+    const done = checkable && checks[key];
+    const meta = [
+      item.sourceUrl ? `<a href="${esc(item.sourceUrl)}" target="_blank" rel="noopener" title="${esc(item.quote ?? '')}">Source: ${esc(host(item.sourceUrl))}</a>` : '',
+    ].filter(Boolean);
+    return `<li class="it ${item.severity}${done ? ' done' : ''}">
+      ${checkable ? `<input type="checkbox" data-check="${esc(key)}" aria-label="Done: ${esc(item.title)}"${done ? ' checked' : ''}>` : '<span></span>'}
+      <div>
+        <span class="t">${esc(item.title)}</span>${item.severity === 'blocker' ? '<span class="must">must</span>' : ''}
+        <p>${esc(item.action)}</p>
+        ${item.bullets?.length ? `<ul class="bul">${item.bullets.map((b) => `<li><b>${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.issue)}</a>` : esc(b.issue)}</b> <span class="aff">${esc(b.affected)}</span><br>${esc(b.text)}.</li>`).join('')}</ul>` : ''}
+        ${item.check ? `${item.runOn ? `<div class="runon">Run on ${esc(item.runOn)}:</div>` : ''}${cmdBlock(item.check, item.section === 'post' ? 'after' : 'before')}` : ''}
+        ${item.fix ? `<div class="runon">If needed, fix it with:</div>${cmdBlock(item.fix, 'before')}` : ''}
+        ${item.tested ? `<div class="meta"><span title="${esc(item.tested)}">Tested on a lab cluster ✓</span></div>` : ''}
+        ${meta.length ? `<div class="meta">${meta.join('')}</div>` : ''}
+      </div>
+    </li>`;
+  }
+  // Only what the documentation says is shown in the plan.
+  // Documented facts and checks reproduced on a lab cluster; general advice stays out of the plan.
+  const fromDocs = (i) => i.basis === 'docs' || i.basis === 'lab';
+  function checklist(items, prefix, checkable) {
+    const sorted = [...items].sort((a, b) => SEV_ORDER[a.severity] - SEV_ORDER[b.severity]);
+    const list = (xs) => `<ul class="list">${xs.map((i) => itemHtml(i, `${prefix}:${i.id}`, checkable)).join('')}</ul>`;
+    const docs = sorted.filter(fromDocs);
+    const main = docs.filter((i) => i.severity !== 'info');
+    const notes = docs.filter((i) => i.severity === 'info');
+    let html = main.length ? list(main) : '';
+    if (notes.length) html += `<details class="fold"><summary>${notes.length} more ${notes.length === 1 ? 'note' : 'notes'} from the docs</summary>${list(notes)}</details>`;
+    return html || '<p class="lead">Nothing here for this hop.</p>';
+  }
+  const stepsHtml = (steps, nested = false) => `<ol class="steps${nested ? ' sub' : ''}">${steps.map((st) => `<li${/setFeatureCompatibilityVersion|setFCV/.test(st.cmd ?? '') ? ' class="key"' : ''}><div>
+      ${st.heading ? `<p class="sh">${st.url ? `<a href="${esc(st.url)}" target="_blank" rel="noopener" title="Open this step in the documentation">${esc(st.heading)}</a>` : esc(st.heading)}</p>` : ''}${st.text ? `<p>${esc(st.text)}</p>` : ''}
+      ${st.cmd ? cmdBlock(st.cmd) : ''}${st.snippet ? cmdBlock(st.snippet) : ''}
+      ${st.substeps?.length ? stepsHtml(st.substeps, true) : ''}</div></li>`).join('')}</ol>`;
+  const srcLink = (u) => (u ? `<p class="small"><a href="${esc(u)}" target="_blank" rel="noopener">Source: ${esc(host(u))}</a></p>` : '');
+
+  function buildTabs(r) {
+    const tabs = [];
+    if (r.operatorPrep.length) tabs.push({ kind: 'operator', label: 'Operator first' });
+    if (r.switch && r.switch.index === 0) tabs.push({ kind: 'switch', label: `Switch to ${DIST_SHORT[r.switch.to]}` });
+    r.hops.forEach((h, i) => {
+      if (r.switch && r.switch.index === i && i > 0) tabs.push({ kind: 'switch', label: `Switch to ${DIST_SHORT[r.switch.to]}` });
+      for (const pl of r.osPlans ?? []) if (pl.at === i + 1) tabs.push({ kind: 'os', plan: pl, label: (r.osPlans.length > 1 ? `Upgrade the OS to ${pl.recommend[0]?.label ?? pl.alternatives[0]?.label ?? 'a supported OS'}` : 'Upgrade the OS'), blockers: 1 });
+      const b = [...h.preflight, ...h.post].filter((x) => x.severity === 'blocker' && fromDocs(x) && !/^os-/.test(x.id)).length;
+      tabs.push({ kind: 'hop', hop: h, n: i + 1, label: h.patch ? `${h.from} → ${h.to} (patch)` : `${h.from} → ${h.to}`, blockers: b });
+    });
+    if (r.switch && r.switch.index > 0 && r.switch.index >= r.hops.length) tabs.push({ kind: 'switch', label: `Switch to ${DIST_SHORT[r.switch.to]}` });
+    return tabs;
+  }
+
+  function hopPanel(r, t) {
+    const h = t.hop;
+    const env = { dist: h.distribution ?? r.input.distribution, os: r.input.os };
+    curCtx = h.patch ? { ...env, from: h.series, to: h.series, toFull: h.latestTo } : { ...env, from: h.from, to: h.to, toFull: h.latestTo ?? h.to };
+    const p = `h${t.n}`;
+    const count = (xs) => xs.filter(fromDocs).length;
+    const nSteps = h.steps.length || (h.official?.merged?.length ?? ((h.official?.order.length ?? 0) + (h.official?.node.length ?? 0)));
+    const subs = [
+      ['before', 'Before', count(h.preflight)],
+      ['steps', 'Steps', nSteps],
+      ['after', 'After', count(h.post)],
+      ['rollback', 'Rollback', null],
+      ['changes', 'What changes', count(h.behaviour)],
+    ].filter(([k]) => k !== 'rollback' || h.rollback);
+    if (!subs.some(([k]) => k === ui.sub)) ui.sub = 'before';
+    const tabsHtml = `<div class="subtabs" role="tablist">${subs.map(([k, l, c]) => `<button type="button" role="tab" data-sub="${k}" aria-selected="${ui.sub === k}">${l}${c !== null ? `<span class="c">${c}</span>` : ''}</button>`).join('')}</div>`;
+    const where = r.input.platform === 'operator' ? 'with the Percona Operator' : `with ${r.input.packageManager === 'yum' ? 'yum/dnf' : 'apt'} packages`;
+    let body = '';
+    if (ui.sub === 'before') body = `<p class="lead">Check these before you touch any binary.</p>${checklist(h.preflight, p, true)}`;
+    if (ui.sub === 'steps') {
+      const o = h.official;
+      const issues = (o?.issues ?? []).map((x) => `<li class="warning"><b>Note on the docs:</b> ${esc(x.text)}</li>`).join('');
+      const parts = [];
+      if (h.steps.length) parts.push(stepsHtml(h.steps));
+      else if (o?.merged?.length) {
+        parts.push(stepsHtml(o.merged));
+        parts.push(`<p class="small">Order from the <a href="${esc(o.orderSource)}" target="_blank" rel="noopener">MongoDB upgrade page</a>${o.nodeSource ? `, package commands from the <a href="${esc(o.nodeSource)}" target="_blank" rel="noopener">Percona upgrade page</a>` : ', package commands from the MongoDB installation docs'}.</p>`);
+      } else {
+        if (o?.order.length) parts.push(`${stepsHtml(o.order)}${srcLink(o.orderSource)}`);
+        if (o?.node.length) parts.push(`${stepsHtml(o.node)}${srcLink(o.nodeSource)}`);
+      }
+      if (!parts.length) parts.push('<p class="lead">There is no official procedure page for this hop. Use the documentation links below.</p>');
+      body = `<p class="lead">Upgrade the ${TOPO[r.input.topology]} from ${h.from} to ${esc(h.latestTo ?? h.to)} ${where}, in this order.</p>${issues ? `<ul class="alerts" style="margin-bottom:12px">${issues}</ul>` : ''}${parts.join('')}`;
+    }
+    if (ui.sub === 'after') body = `<p class="lead">Check these once the upgrade is done.</p>${checklist(h.post, p, true)}`;
+    if (ui.sub === 'changes') body = `<p class="lead">What behaves differently in ${h.to}. Review it with the application team.</p>${checklist(h.behaviour, p, false)}`;
+    if (ui.sub === 'rollback' && h.patch) body = `<div class="rb"><div class="open"><h4>Going back to ${esc(h.from)}</h4><p>${esc(h.rollback.beforeSetFcv)}</p></div><div class="open"><h4>FCV</h4><p>${esc(h.rollback.afterSetFcv)}</p></div></div>${h.rollback.sourceUrl ? `<p class="small"><a href="${esc(h.rollback.sourceUrl)}" target="_blank" rel="noopener">Source: ${esc(host(h.rollback.sourceUrl))}</a></p>` : ''}`;
+    else if (ui.sub === 'rollback') body = `<div class="rb">
+        <div class="open"><h4>Before setFCV "${h.to}"</h4><p>${esc(h.rollback.beforeSetFcv)}</p></div>
+        <div class="closed"><h4>After setFCV "${h.to}"</h4><p>${esc(h.rollback.afterSetFcv)}</p></div>
+      </div>
+      ${h.rollback.operatorNote ? `<p class="small">Operator: ${esc(h.rollback.operatorNote)}</p>` : ''}
+      ${h.rollback.sourceUrl ? `<p class="small"><a href="${esc(h.rollback.sourceUrl)}" target="_blank" rel="noopener">Source: ${esc(host(h.rollback.sourceUrl))}</a></p>` : ''}`;
+    const docs = `<div class="docs">${h.docs.map((d) => `<a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.label)}</a>`).join('')}</div>`;
+    return tabsHtml + body + docs;
+  }
+
+  function phasePanel(r, t) {
+    curCtx = { dist: r.input.distribution, os: r.input.os, from: majorOf(r.input.from), to: r.switch?.at ?? r.path[r.path.length - 1] };
+    if (t.kind === 'os') {
+      const o = t.plan;
+      const list = (xs) => xs.map((x) => `<li><b>${esc(x.label)}</b>${x.minPatch ? ` <span class="aff">needs ${esc(o.during)} ${esc(x.minPatch)} or later</span>` : ''}</li>`).join('');
+      return `<div style="padding-top:16px">
+        <ul class="alerts" style="margin-bottom:14px"><li class="blocker"><b>${esc(o.label)} is not supported by ${esc(o.before)}.</b> Upgrade the operating system while the cluster runs ${esc(o.during)}, before the ${esc(o.during)} → ${esc(o.before)} hop. The MongoDB version does not change during this step.</li></ul>
+        ${o.recommend.length ? `<h3 class="part">Recommended <small>supported by every version from ${esc(o.during)} to ${esc(r.path[r.path.length - 1])}, so you upgrade the OS only once</small></h3><ul class="bul">${list(o.recommend)}</ul>` : ''}
+        ${o.alternatives.length ? `<h3 class="part">Also possible <small>supported by ${esc(o.during)} and ${esc(o.before)}, but a later hop will need another OS upgrade</small></h3><ul class="bul">${list(o.alternatives)}</ul>` : ''}
+        ${!o.recommend.length && !o.alternatives.length ? '<p class="lead">No newer release of this OS family is supported by both versions. Move the members to one of the operating systems below.</p>' : ''}
+        <h3 class="part">Supported by ${esc(o.during)}</h3><p class="lead">${esc(o.supportedDuring.join(', '))}</p>
+        <h3 class="part">Supported by ${esc(o.before)}</h3><p class="lead">${esc(o.supportedBefore.join(', '))}</p>
+        <div class="docs">${o.urls.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">Platform support table (${esc(host(u))})</a>`).join('')}</div>
+      </div>`;
+    }
+    if (t.kind === 'operator') {
+      return `<div style="padding-top:16px"><p class="lead">Upgrade the Operator, its CRDs and RBAC to a release that supports the target before you change the database image, one Operator minor version at a time.</p>${stepsHtml(r.operatorPrep)}</div>`;
+    }
+    const sw = r.switch;
+    return `<div style="padding-top:16px">
+      <p class="lead">Move from ${esc(sw.fromName)} to ${esc(sw.toName)} on ${esc(sw.at)}, as its own change, ${sw.index === 0 ? 'before any version upgrade' : `after the upgrade to ${esc(sw.at)} and before any later hop`}.${sw.order ? ' ' + esc(sw.order) : ''} Run these steps on each node:</p>
+      ${sw.blockers.length ? checklist(sw.blockers, 'sw', true) : ''}
+      ${sw.steps.length ? stepsHtml(sw.steps) : '<p class="lead">There is no documented procedure for this switch in the knowledge base yet.</p>'}
+      ${sw.docs.length ? `<div class="docs">${sw.docs.map((d) => `<a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.label)}</a>`).join('')}</div>` : ''}
+    </div>`;
+  }
+
+  function render() {
+    expStore.clear();
+    const s = readForm();
+    store.set('ur:form:v2', s);
+    const res = $('#result');
+    let r;
+    try { r = buildRoadmap(toInput(s), KB); } catch (e) { res.innerHTML = `<div class="err">${esc(e.message)}</div>`; current = null; return; }
+    current = r;
+    checks = store.get(planKey(r)) ?? {};
+
+    const tabs = buildTabs(r);
+    if (ui.tab >= tabs.length) ui.tab = 0;
+
+    const route = r.hops[0]?.patch ? `<div class="route"><span>${esc(r.hops[0].from)}</span><span class="sep">──►</span><span>${esc(r.hops[0].to)}<small>patch</small></span></div>` : `<div class="route">${r.path.map((v, i) => `${i ? '<span class="sep">──►</span>' : ''}<span>${v}${r.switch && r.switch.index === i ? `<small>${esc(DIST_SHORT[r.switch.to])}</small>` : ''}${r.hops[i - 1]?.preview ? '<small>preview</small>' : ''}${(r.osPlans ?? []).some((pl) => pl.at === i + 1) ? '<small class="osmark">OS ↑</small>' : ''}</span>`).join('')}</div>`;
+    const status = r.hops.length === 0
+      ? '<span class="status meh">Pick a newer version</span>'
+      : r.blockers.length
+        ? `<span class="status bad">${r.blockers.length} to fix before you start</span>`
+        : `<span class="status good">${r.hops.length} ${r.hops.length === 1 ? 'hop' : 'hops'}</span>`;
+    const alerts = [
+      ...r.blockers.map((m) => `<li class="blocker"><b>Fix first:</b> ${esc(m)}</li>`),
+      ...r.warnings.map((m) => `<li class="warning">${esc(m)}</li>`),
+      ...['current', 'target'].map((which) => {
+        const sm = cveSummary(r.cves, which);
+        if (!sm) return '';
+        const ver = which === 'current' ? r.input.from : (r.hops.at(-1)?.latestTo ?? r.input.to);
+        const head = which === 'current'
+          ? `<b>${sm.count} known ${sm.count === 1 ? 'CVE' : 'CVEs'} in ${esc(ver)}</b> (${sm.critical} critical, highest CVSS ${sm.maxCvss}). ${sm.unfixed ? `${sm.unfixed} have no fix in ${esc(majorOf(ver))}; upgrading to a newer series closes them.` : `All are fixed in ${esc(sm.fixedBy)} or later.`}`
+          : `<b>The version you land on, ${esc(ver)}, still has ${sm.count} known ${sm.count === 1 ? 'CVE' : 'CVEs'}</b> (highest CVSS ${sm.maxCvss}).${sm.fixedBy ? ` Land on ${esc(sm.fixedBy)} or later.` : ''}`;
+        const list = sm.items.sort((a, b) => (b.cvss ?? 0) - (a.cvss ?? 0)).map((c) => `<li><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.id)}</a> <span class="aff">CVSS ${c.cvss ?? '?'}${c.fixedIn ? ` · fixed in ${esc(c.fixedIn)}` : ' · no fix in this series'}</span><br>${esc(c.title)}</li>`).join('');
+        return `<li class="${which === 'current' && !sm.critical ? 'warning' : 'blocker'}">${head}<details class="fold"><summary>Show the ${sm.count === 1 ? 'CVE' : `${sm.count} CVEs`}</summary><ul class="bul">${list}</ul></details></li>`;
+      }).filter(Boolean),
+    ];
+    const drivers = r.drivers.length ? `<div class="drivers">${r.drivers.map((d) => `<div class="d"><b>${esc(d.name)} ${esc(d.version)}</b><span>${esc(d.message)}${d.source ? ` <a href="${esc(d.source)}" target="_blank" rel="noopener">Compatibility table</a>` : ''}</span></div>`).join('')}</div>` : '';
+
+    const t = tabs[ui.tab];
+    const tabBar = tabs.length ? `<div class="tabs" role="tablist">${tabs.map((x, i) => `<button type="button" role="tab" data-tab="${i}" aria-selected="${i === ui.tab}">${esc(x.label)}${x.blockers ? `<span class="n" title="must-do checks">${x.blockers}</span>` : ''}</button>`).join('')}</div>` : '';
+    const panel = t ? `<div class="panel" role="tabpanel">${t.kind === 'hop' ? hopPanel(r, t) : phasePanel(r, t)}</div>` : '';
+
+    const inp = r.input;
+    const checked = [
+      `${DIST_SHORT[inp.distribution]} ${inp.from} → ${r.hops.at(-1)?.latestTo ?? inp.to}`,
+      TOPO[inp.topology], inp.platform === 'operator' ? 'Percona Operator' : (inp.packageManager === 'yum' ? 'yum / dnf' : 'apt'),
+      inp.arch ? inp.arch : '<span class="unset">CPU not set</span>',
+      inp.os ? esc($('#os').selectedOptions[0]?.textContent ?? inp.os) : '<span class="unset">OS not set</span>',
+      inp.fcv ? `FCV ${esc(inp.fcv)}` : '<span class="unset">FCV not checked</span>',
+    ];
+    const checkedLine = `<p class="checked">Checked for: ${checked.join(' · ')}${!inp.os || !inp.arch ? ' <span class="unset">· set the CPU and OS above to include the platform checks</span>' : ''}</p>`;
+    res.innerHTML = `<div class="summary">${route}<div class="row" style="gap:8px">${status}<button type="button" id="copy-md">Copy as Markdown</button></div></div>
+      ${checkedLine}
+      ${alerts.length ? `<ul class="alerts">${alerts.join('')}</ul>` : ''}
+      ${drivers}
+      <div>${tabBar}${panel}</div>`;
+  }
+
+  // ---------- catalog ----------
+  function fillCatalogVersions() {
+    const dist = $('#cat-dist').value;
+    const from = $('#cat-from').value, to = $('#cat-to').value;
+    const all = seriesFor(KB, dist);
+    $('#cat-from').innerHTML = all.map((v) => `<option value="${v}">${esc(seriesLabel(dist, v))}</option>`).join('');
+    $('#cat-from').value = all.includes(from) ? from : (all.includes('6.0') ? '6.0' : all[0]);
+    const targets = reachableFrom(KB, dist, $('#cat-from').value);
+    $('#cat-to').innerHTML = targets.map((v) => `<option value="${v}">${esc(seriesLabel(dist, v))}</option>`).join('') || '<option value="">Latest already</option>';
+    const ga = targets.filter((v) => !(dist === 'psmdb' && KB.versions.previews?.[v]));
+    $('#cat-to').value = targets.includes(to) ? to : (ga.at(-1) ?? targets.at(-1) ?? '');
+  }
+  function renderCatalog() {
+    const dist = $('#cat-dist').value, topo = $('#cat-topo').value, sev = $('#cat-sev').value, q = $('#cat-q').value.trim().toLowerCase();
+    const path = $('#cat-to').value ? (findPath(KB, dist, $('#cat-from').value, $('#cat-to').value) ?? []) : [];
+    const hopsInPath = path.slice(1).map((to, i) => ({ from: path[i], to }));
+    const normal = (i) => ({ ...i, when: { ...(i.when ?? {}), ...(i.distribution && !i.when?.distribution ? { distribution: i.distribution } : {}) } });
+    const pool = [...KB.changes.items, ...(KB.distributions?.items ?? [])].map(normal);
+    const everyHop = pool.filter((i) => i.hop_to === '*' && (i.basis === 'docs' || i.basis === 'lab'))
+      .filter((i) => !i.when?.distribution || i.when.distribution.includes(dist))
+      .filter((i) => !topo || !i.when?.topology || i.when.topology.includes(topo))
+      .filter((i) => !sev || i.severity === sev)
+      .filter((i) => !q || `${i.title} ${i.action} ${i.check ?? ''} ${i.id}`.toLowerCase().includes(q));
+    const items = pool.filter((i) => i.hop_to !== '*' && (i.basis === 'docs' || i.basis === 'lab'))
+      .filter((i) => hopsInPath.some((h) => compareVersions(i.hop_to, h.from) > 0 && compareVersions(i.hop_to, h.to) <= 0 && (!i.when?.from || i.when.from.includes(h.from))))
+      .filter((i) => !i.when?.distribution || i.when.distribution.includes(dist))
+      .filter((i) => !topo || !i.when?.topology || i.when.topology.includes(topo))
+      .filter((i) => !sev || i.severity === sev)
+      .filter((i) => !q || `${i.title} ${i.action} ${i.check ?? ''} ${i.id}`.toLowerCase().includes(q));
+    const summary = path.length > 1 ? `<p class="lead">${esc(path.join(' → '))}: ${items.length} documented changes in ${hopsInPath.length} ${hopsInPath.length === 1 ? 'hop' : 'hops'}.</p>` : '';
+    const html = summary + hopsInPath.map(({ from: f, to: v }) => {
+      const rows = items.filter((i) => compareVersions(i.hop_to, f) > 0 && compareVersions(i.hop_to, v) <= 0);
+      if (!rows.length) return `<section class="vgroup"><h2>${f} → ${v}</h2><p class="lead">No documented changes recorded for this hop.</p></section>`;
+      return `<section class="vgroup"><h2>${f} → ${v}</h2><div class="tablewrap"><table>
+        <thead><tr><th>Severity</th><th>Change</th><th>What to do</th></tr></thead>
+        <tbody>${rows.map((i) => `<tr><td class="sev ${i.severity}">${i.severity}</td>
+          <td class="title">${esc(i.title)}${i.when?.distribution ? `<br><small>${i.when.distribution.map((d) => DIST_SHORT[d] ?? d).join(', ')} only</small>` : ''}${i.when?.topology ? `<br><small>${i.when.topology.map((x) => TOPO[x]).join(', ')}</small>` : ''}</td>
+          <td>${esc(i.action)}${i.check ? `<div class="mono" style="margin-top:4px">${esc(i.check)}</div>` : ''}${i.source_url ? `<div><small><a href="${esc(i.source_url)}" target="_blank" rel="noopener">Source: ${esc(host(i.source_url))}</a></small></div>` : ''}</td></tr>`).join('')}</tbody>
+      </table></div></section>`;
+    }).join('');
+    const table = (rows) => `<div class="tablewrap"><table><thead><tr><th>Severity</th><th>Change</th><th>What to do</th></tr></thead><tbody>${rows.map((i) => `<tr><td class="sev ${i.severity}">${i.severity}</td><td class="title">${esc(i.title)}</td><td>${esc(i.action)}${i.check ? `<div class="mono" style="margin-top:4px">${esc(i.check)}</div>` : ''}${i.source_url ? `<div><small><a href="${esc(i.source_url)}" target="_blank" rel="noopener">Source: ${esc(host(i.source_url))}</a></small></div>` : ''}</td></tr>`).join('')}</tbody></table></div>`;
+    const every = everyHop.length ? `<section class="vgroup"><h2>Checks for every hop</h2>${table(everyHop)}</section>` : '';
+    $('#catalog').innerHTML = (html + every) || '<p class="lead">No change matches these filters.</p>';
+  }
+
+  function route() {
+    const view = location.hash === '#changes' ? 'changes' : 'plan';
+    $('#view-plan').hidden = view !== 'plan';
+    $('#view-changes').hidden = view !== 'changes';
+    $('#nav-plan').toggleAttribute('aria-current', view === 'plan');
+    $('#nav-changes').toggleAttribute('aria-current', view === 'changes');
+    if (view === 'plan') $('#nav-plan').setAttribute('aria-current', 'page'); else $('#nav-changes').setAttribute('aria-current', 'page');
+    if (view === 'changes') renderCatalog();
+  }
+
+  // ---------- copy ----------
+  let toastTimer;
+  function toast(msg) {
+    let t = document.querySelector('.toast');
+    if (!t) { t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); document.body.append(t); }
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 1800);
+  }
+  function copyText(text, ok, fail) {
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(ok, fail); else fail();
+  }
+
+  // ---------- events ----------
+  function onForm(e) {
+    const id = e.target.id;
+    if (id === 'dist') { fillFrom(fromSel.value); fillFcv(fcvSel.value); fillExact(); fillTo(toSel.value); }
+    if (id === 'from-major') { fillTo(toSel.value); fillFcv(fcvSel.value); fillExact(); }
+    if (id === 'platform') syncPlatform();
+    if (id === 'os' && $('#os').value) $('#pm').value = /^(ubuntu|debian)/.test($('#os').value) ? 'apt' : 'yum';
+    if (['dist', 'from-major', 'to-major', 'platform', 'from-exact'].includes(id)) fillToExact();
+    if (['dist', 'from-major', 'to-major', 'topology', 'platform'].includes(id)) { ui.tab = 0; ui.sub = 'before'; }
+    render();
+  }
+  $('#form').addEventListener('change', onForm);
+  $('#form').addEventListener('input', (e) => { if (e.target.tagName === 'INPUT') render(); });
+  $('#form').addEventListener('submit', (e) => e.preventDefault());
+  $('#more-btn').addEventListener('click', () => {
+    const m = $('#more'); m.hidden = !m.hidden;
+    $('#more-btn').setAttribute('aria-expanded', String(!m.hidden));
+    $('#more-btn').textContent = m.hidden ? '+ More details' : '− Fewer details';
+  });
+  $('#add-driver').addEventListener('click', () => { addDriverRow(); rowsEl.lastElementChild?.querySelectorAll('select')[1].focus(); render(); });
+  rowsEl.addEventListener('click', (e) => { if (e.target.closest('[data-remove]')) { e.target.closest('.driver-row').remove(); render(); } });
+
+  $('#result').addEventListener('click', (e) => {
+    const tab = e.target.closest('[data-tab]');
+    if (tab) { ui.tab = Number(tab.dataset.tab); ui.sub = 'before'; render(); return; }
+    const sub = e.target.closest('[data-sub]');
+    if (sub) { ui.sub = sub.dataset.sub; render(); return; }
+    if (e.target.id === 'copy-md' && current) {
+      const md = renderMarkdown(current);
+      copyText(md, () => toast('Roadmap copied as Markdown'), () => {
+        const box = document.createElement('div'); box.className = 'copybox';
+        box.innerHTML = '<p class="lead">Your browser blocked the clipboard. Select the text and copy it.</p><textarea id="md-fallback" readonly></textarea>';
+        box.querySelector('textarea').value = md; $('#result').prepend(box); box.querySelector('textarea').select();
+      });
+      return;
+    }
+    const btn = e.target.closest('button[data-copy]');
+    if (btn) {
+      copyText(btn.dataset.copy, () => {
+        btn.textContent = 'Copied'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1400);
+      }, () => {
+        const range = document.createRange(); range.selectNodeContents(btn.previousElementSibling);
+        const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        toast('Selected, press Ctrl+C to copy');
+      });
+    }
+  });
+  $('#result').addEventListener('change', (e) => {
+    const cb = e.target.closest('input[data-check]');
+    if (!cb || !current) return;
+    if (cb.checked) checks[cb.dataset.check] = true; else delete checks[cb.dataset.check];
+    store.set(planKey(current), checks);
+    cb.closest('.it').classList.toggle('done', cb.checked);
+  });
+  for (const id of ['#cat-topo', '#cat-sev', '#cat-q']) $(id).addEventListener('input', renderCatalog);
+  $('#cat-dist').addEventListener('change', () => { fillCatalogVersions(); renderCatalog(); });
+  $('#cat-from').addEventListener('change', () => { fillCatalogVersions(); renderCatalog(); });
+  $('#cat-to').addEventListener('change', renderCatalog);
+  addEventListener('hashchange', route);
+
+  // ---------- help tooltips ----------
+  // Each entry: what the field is, where to look, then the commands with their prompt
+  // (mongosh> for mongosh, $ for the OS shell). Copy takes the command without the prompt.
+  const HELP = {
+    dist: ['Which MongoDB build runs today. PSMDB versions carry a build suffix (7.0.14-8); MongoDB Community has none. Run it on any member.', 'mongosh> db.version()\n$ dpkg -l | grep -i mongo\n$ rpm -qa | grep -i mongo'],
+    from: ['The release series and exact version every member runs now. All members should be on the same version before you start. Run it on each member.', 'mongosh> db.version()'],
+    to: ['Where you want to end. The plan adds every intermediate version the documentation requires, one hop at a time. The second list is the exact version to land on.', null],
+    topology: ['Standalone is one mongod. A replica set answers rs.status() with its members. A sharded cluster is reached through mongos, where isdbgrid returns 1. Run it where your application connects.', 'mongosh> rs.status()\nmongosh> db.adminCommand({ isdbgrid: 1 })'],
+    platform: ['Linux packages if mongod was installed with apt or yum. Percona Operator if the cluster runs on Kubernetes with a PerconaServerMongoDB resource. Run it from a workstation with kubectl access.', '$ kubectl get psmdb -A'],
+    fcv: ['Feature compatibility version: which features the data may use. It equals the current series, or the previous one when the last upgrade never ran setFeatureCompatibilityVersion. Run it on the primary, or on a mongos for a sharded cluster.', 'mongosh> db.adminCommand({ getParameter: 1, featureCompatibilityVersion: 1 })'],
+    pm: ['apt on Debian and Ubuntu; yum or dnf on RHEL, Oracle Linux, Rocky, AlmaLinux and Amazon Linux. It picks the install commands. Run it on a database host.', '$ cat /etc/os-release'],
+    arch: ['CPU architecture of the database hosts. From 5.0, x86_64 CPUs need AVX and ARM64 needs ARMv8.2-A. Run it on each database host.', '$ uname -m\n$ grep -m1 -o -w avx /proc/cpuinfo'],
+    os: ['Operating system of the database hosts. Each MongoDB and PSMDB version is built only for some operating systems, and the plan tells you when to upgrade the OS. Run it on each database host.', '$ cat /etc/os-release'],
+    pbm: ['Percona Backup for MongoDB agent version, if you use it. It is checked against the first PBM release that supports each target version. Run it on a host with pbm-agent.', '$ pbm version'],
+    pmm: ['PMM client version, if you use it. PMM 2 and PMM 3 have different minimums. Run it on each database host.', '$ pmm-admin --version'],
+    operator: ['Percona Operator for MongoDB version, if the cluster runs on Kubernetes. Each Operator release certifies a set of PSMDB versions. Run it from a workstation with kubectl access, in the Operator namespace.', "$ kubectl get deploy percona-server-mongodb-operator -o jsonpath='{.spec.template.spec.containers[0].image}'"],
+    drivers: ['The MongoDB drivers your applications use. Each one is checked against MongoDB\'s compatibility table for every version on the path, the current one included. Run it on each mongod or mongos the applications connect to.', 'mongosh> db.getSiblingDB("admin").aggregate([{ $currentOp: { allUsers: true, idleConnections: true } }, { $group: { _id: { d: "$clientMetadata.driver.name", v: "$clientMetadata.driver.version" }, n: { $sum: 1 } } }])'],
+  };
+  let tipEl = null;
+  let hideTimer;
+  function showTip(btn, html, wide) {
+    hideTip();
+    if (html === undefined) {
+      const [text, cmd] = HELP[btn.dataset.key];
+      const lines = cmd ? cmd.split('\n').map((l) => l.trim()).filter(Boolean) : [];
+      const bare = (l) => l.replace(/^(mongosh>|\$) /, '');
+      html = `${esc(text)}${lines.map((l) => `<div class="tc"><code>${esc(l)}</code><button type="button" data-tipcopy="${esc(bare(l))}">Copy</button></div>`).join('')}`;
+    }
+    tipEl = document.createElement('div');
+    tipEl.className = wide ? 'tip wide' : 'tip';
+    tipEl.id = 'tip';
+    tipEl.setAttribute('role', 'tooltip');
+    tipEl.innerHTML = html;
+    document.body.append(tipEl);
+    btn.setAttribute('aria-describedby', 'tip');
+    const r = btn.getBoundingClientRect();
+    const w = tipEl.offsetWidth, h = tipEl.offsetHeight;
+    const left = Math.max(16, Math.min(r.left - 8, innerWidth - w - 16));
+    const top = r.bottom + 8 + h < innerHeight ? r.bottom + 8 : Math.max(8, r.top - h - 8);
+    tipEl.style.left = `${left}px`;
+    tipEl.style.top = `${top}px`;
+    // Keep the tooltip open while the pointer is on it, so its Copy buttons can be used.
+    tipEl.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    tipEl.addEventListener('mouseleave', () => hideTipSoon());
+    tipEl.addEventListener('click', (e) => {
+      const c = e.target.closest('[data-tipcopy]');
+      if (!c) return;
+      e.stopPropagation();
+      copyText(c.dataset.tipcopy, () => { c.textContent = 'Copied'; }, () => {
+        const range = document.createRange(); range.selectNodeContents(c.previousElementSibling);
+        const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      });
+    });
+  }
+  function hideTipSoon() { clearTimeout(hideTimer); hideTimer = setTimeout(hideTip, 250); }
+  function hideTip() { clearTimeout(hideTimer); tipEl?.remove(); tipEl = null; document.querySelectorAll('.help[aria-describedby]').forEach((b) => b.removeAttribute('aria-describedby')); }
+  for (const f of document.querySelectorAll('[data-help]')) {
+    const label = f.querySelector(':scope > label, :scope > .lbl');
+    const row = document.createElement('div');
+    row.className = 'lblrow';
+    label.replaceWith(row);
+    row.append(label);
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'help';
+    b.dataset.key = f.dataset.help;
+    b.textContent = '?';
+    b.setAttribute('aria-label', `What is ${label.textContent.trim()}?`);
+    row.append(b);
+    b.addEventListener('mouseenter', () => showTip(b));
+    b.addEventListener('mouseleave', hideTipSoon);
+    b.addEventListener('focus', () => showTip(b));
+    b.addEventListener('blur', (e) => { if (!tipEl?.contains(e.relatedTarget)) hideTipSoon(); });
+    b.addEventListener('click', (e) => { e.preventDefault(); tipEl ? hideTip() : showTip(b); });
+  }
+  addEventListener('scroll', hideTip, { passive: true });
+  // Expected-output buttons are rendered with the plan: delegate the events.
+  const resEl = $('#result');
+  resEl.addEventListener('mouseover', (e) => { const b = e.target.closest('button.exp'); if (b && !b.contains(e.relatedTarget)) showTip(b, expectedHtml(expStore.get(b.dataset.exp)), true); });
+  resEl.addEventListener('mouseout', (e) => { const b = e.target.closest('button.exp'); if (b && !b.contains(e.relatedTarget)) hideTipSoon(); });
+  resEl.addEventListener('focusin', (e) => { const b = e.target.closest('button.exp'); if (b) showTip(b, expectedHtml(expStore.get(b.dataset.exp)), true); });
+  resEl.addEventListener('focusout', (e) => { if (e.target.closest('button.exp')) hideTip(); });
+  resEl.addEventListener('click', (e) => { const b = e.target.closest('button.exp'); if (b) { e.stopPropagation(); tipEl ? hideTip() : showTip(b, expectedHtml(expStore.get(b.dataset.exp)), true); } }, true);
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') hideTip(); });
+
+  // ---------- boot ----------
+  $('#footer').textContent = `Built ${BUILD.date}. Every check and step links to the MongoDB or Percona page it comes from. Nothing connects to your cluster. Test the plan on a staging environment before production.`;
+  writeForm(store.get('ur:form:v2') ?? EXAMPLE);
+  fillCatalogVersions();
+  render();
+  route();
+})();
+</script>

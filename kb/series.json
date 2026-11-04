@@ -1,0 +1,1352 @@
+{
+  "schema_version": 1,
+  "series": {
+    "mongodb": [
+      {
+        "series": "3.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2015-03-03",
+        "fcv": null,
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "FCV introduced in 3.4; 3.0 and 3.2 have no featureCompatibilityVersion.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "3.2",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2015-12-08",
+        "fcv": null,
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "FCV introduced in 3.4; 3.0 and 3.2 have no featureCompatibilityVersion.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "3.4",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2016-11-29",
+        "fcv": "3.4",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "3.6",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2017-12-05",
+        "fcv": "3.6",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "4.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2018-06-21",
+        "fcv": "4.0",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "4.2",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2019-08-09",
+        "fcv": "4.2",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "4.4",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2020-07-25",
+        "fcv": "4.4",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "5.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2021-07-08",
+        "fcv": "5.0",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "5.1",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2021-11-04",
+        "ga_date_source": "full.json date of 5.1.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v5.1/source/release-notes/5.1.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 5.1 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.1 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "5.2",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2022-01-19",
+        "ga_date_source": "full.json date of 5.2.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v5.2/source/release-notes/5.2.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 5.2 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.2 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "5.3",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2022-03-30",
+        "ga_date_source": "full.json date of 5.3.1",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v5.3/source/release-notes/5.3.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 5.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.3 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst",
+        "full_json_flags": null
+      },
+      {
+        "series": "6.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2022-07-05",
+        "fcv": "6.0",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "6.1",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2022-10-04",
+        "ga_date_source": "full.json date of 6.1.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v6.1/source/release-notes/6.1.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 6.1 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.1 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v6.1/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "6.2",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2023-01-19",
+        "ga_date_source": "full.json date of 6.2.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v6.2/source/release-notes/6.2.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 6.2 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.2 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v6.2/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "6.3",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2023-04-18",
+        "ga_date_source": "full.json date of 6.3.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v6.3/source/release-notes/6.3.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 6.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.3 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v6.3/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "7.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2023-08-15",
+        "fcv": "7.0",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/7.0/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "7.1",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2023-10-04",
+        "ga_date_source": "full.json date of 7.1.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v7.1/source/release-notes/7.1.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 7.1 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.1 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v7.1/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "7.2",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2023-12-14",
+        "ga_date_source": "full.json date of 7.2.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v7.2/source/release-notes/7.2.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 7.2 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.2 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v7.2/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "7.3",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2024-03-19",
+        "ga_date_source": "full.json date of 7.3.0",
+        "fcv": null,
+        "fcv_note": "The self-managed docs never list a rapid-release FCV value (setFeatureCompatibilityVersion tables on the rapid branches list only major values).",
+        "url": "https://github.com/mongodb/docs/blob/v7.3/source/release-notes/7.3.txt",
+        "note": "Rapid release. No self-managed upgrade or downgrade procedure was published for it. full.json flags it continuous_release/development_release.",
+        "quote": "MongoDB 7.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.3 is not supported for use on-premises.",
+        "quote_url": "https://github.com/mongodb/docs/blob/v7.3/source/includes/rapid-release-short.rst",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "8.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2024-10-02",
+        "fcv": "8.0",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.0/",
+        "note": "Major release, supported for Atlas and self-managed.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      },
+      {
+        "series": "8.1",
+        "kind": "rapid",
+        "availability": "atlas-only (binaries downloadable, not supported on-premises)",
+        "ga_date": "2025-04-24",
+        "ga_date_source": "full.json date of 8.1.0",
+        "fcv": null,
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+        "note": "8.1 exists (8.1.0 to 8.1.3 in full.json, flagged continuous_release like 5.1-7.3) but has no release-notes page; its changes are documented inside the 8.2 release notes. Self-managed support for minors starts at 8.2, so 8.1 was Atlas-only.",
+        "quote": "Starting in MongoDB 8.2, minor releases are available to Atlas clusters on Auto Upgrades. They are also available to Enterprise Advanced and Community self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote2": "MongoDB 8.2 also includes changes introduced in MongoDB 8.1.",
+        "quote2_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+        "full_json_flags": {
+          "lts_release": false,
+          "continuous_release": true,
+          "production_release": false,
+          "development_release": true
+        }
+      },
+      {
+        "series": "8.2",
+        "kind": "minor",
+        "availability": "self-managed",
+        "ga_date": "2025-08-15",
+        "ga_date_source": "full.json date of 8.2.0",
+        "ga_date_docs": "September 17, 2026 (8.2 release notes heading; the year is inconsistent with 8.2.1 dated Oct 3, 2025)",
+        "fcv": "8.2",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+        "note": "First minor release supported for self-managed Community and Enterprise. MongoDB stops patching a minor once the next minor ships, so 8.2 is superseded by 8.3. Binary downgrade 8.2 to 8.0 is not supported for Community. mongosync and Live Migration are not supported on minors. 8.2 cannot upgrade directly to 9.0.",
+        "quote": "MongoDB 8.2 is a minor Release, which means that it is supported for both MongoDB Atlas and on-premises deployments.",
+        "quote_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+        "full_json_flags": {
+          "lts_release": true,
+          "continuous_release": false,
+          "production_release": true,
+          "development_release": false
+        }
+      },
+      {
+        "series": "8.3",
+        "kind": "minor",
+        "availability": "self-managed",
+        "ga_date": "2026-05-04",
+        "ga_date_source": "8.3 release notes heading '8.3.0 - May 4, 2026'",
+        "full_json_date": "2026-04-08",
+        "fcv": "8.3",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+        "note": "Last minor of the 8.x cycle and a valid source for 9.0. Supports FCV downgrade to 8.2 and binary downgrade to 8.2 or 8.0.",
+        "quote": "MongoDB 8.3 is the latest minor release. Starting with MongoDB 8.2, minor releases are available for on-premises deployments (Community and EA) for specific use cases.",
+        "quote_url": "https://www.mongodb.com/docs/manual/release-notes/8.3/",
+        "full_json_flags": {
+          "lts_release": true,
+          "continuous_release": false,
+          "production_release": true,
+          "development_release": false
+        }
+      },
+      {
+        "series": "9.0",
+        "kind": "major",
+        "availability": "self-managed",
+        "ga_date": "2026-09-28",
+        "fcv": "9.0",
+        "url": "https://www.mongodb.com/docs/manual/release-notes/9.0/",
+        "note": "Major release. Starting in 9.0 self-managed deployments get only the annual x.5 Feature Update minor release; other 9.x minors are Atlas Auto Upgrades only.",
+        "quote": "Major releases introduce new features and may include backward-incompatible changes. MongoDB supports major releases for both Atlas and self-managed deployments.",
+        "quote_url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "ga_date_source": "kb/releases.json (first x.0.0 entry)"
+      }
+    ],
+    "psmdb": [
+      {
+        "series": "3.0",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2015-Dec-12",
+        "ga_date_source": "repo package file timestamp (no release-notes page online) of 3.0.7-1.0",
+        "fcv": null,
+        "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 3.0."
+      },
+      {
+        "series": "3.2",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2016-May-26",
+        "ga_date_source": "repo package file timestamp (no release-notes page online) of 3.2.6-1.0",
+        "fcv": null,
+        "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 3.2."
+      },
+      {
+        "series": "3.4",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2017-Feb-20",
+        "ga_date_source": "repo package file timestamp (no release-notes page online) of 3.4.2-1.2",
+        "fcv": "3.4",
+        "url": "https://repo.percona.com/percona/yum/release/7/RPMS/x86_64/",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 3.4."
+      },
+      {
+        "series": "3.6",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2018-04-24",
+        "ga_date_source": "release notes of 3.6.3-1.1",
+        "fcv": "3.6",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/release_notes/3.6.3-1.1.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 3.6."
+      },
+      {
+        "series": "4.0",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2018-12-18",
+        "ga_date_source": "release notes of 4.0.4-1",
+        "fcv": "4.0",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/release_notes/4.0.4-1.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 4.0."
+      },
+      {
+        "series": "4.2",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2019-09-09",
+        "ga_date_source": "release notes of 4.2.0-1",
+        "fcv": "4.2",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/release_notes/4.2.0-1.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 4.2."
+      },
+      {
+        "series": "4.4",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2020-08-26",
+        "ga_date_source": "release notes of 4.4.0-1",
+        "fcv": "4.4",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/release_notes/4.4.0-1.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 4.4."
+      },
+      {
+        "series": "5.0",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2021-12-28",
+        "ga_date_source": "release notes of 5.0.5-4",
+        "fcv": "5.0",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/release_notes/5.0.5-4.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 5.0."
+      },
+      {
+        "series": "6.0",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2022-10-31",
+        "ga_date_source": "release notes of 6.0.2-1",
+        "fcv": "6.0",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/release_notes/6.0.2-1.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 6.0."
+      },
+      {
+        "series": "7.0",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2023-12-11",
+        "ga_date_source": "release notes of 7.0.4-2",
+        "fcv": "7.0",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/release_notes/7.0.4-2.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 7.0."
+      },
+      {
+        "series": "8.0",
+        "kind": "major",
+        "availability": "GA",
+        "ga_date": "2024-12-17",
+        "ga_date_source": "release notes of 8.0.4-1",
+        "fcv": "8.0",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/release_notes/8.0.4-1.html",
+        "note": "Percona Server for MongoDB major series, based on MongoDB Community 8.0."
+      },
+      {
+        "series": "8.3",
+        "kind": "minor",
+        "availability": "GA",
+        "ga_date": "2026-10-27",
+        "ga_date_source": "PSMDB 8.3.13-4 release notes",
+        "fcv": "8.3",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.13-4.html",
+        "note": "8.3.7-1, 8.3.8-2 and 8.3.11-3 were technical previews; 8.3.13-4 is GA. There is no PSMDB 8.1 or 8.2 (no psmdb-81/psmdb-82 repos), so the only PSMDB path into 8.3 is from 8.0. Percona publishes no downgrade procedure for 8.3.",
+        "quote": "Percona Server for MongoDB 8.3.13-4 marks the General Availability (GA) of the 8.3 release series. Previous 8.3 releases were available as a technical preview and intended for testing only.",
+        "quote_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.13-4.html",
+        "preview_quote": "Percona Server for MongoDB 8.3.7-1 is available as a technical preview. We recommend that early adopters use this release for testing purposes only and not in production environments.",
+        "preview_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/release_notes/8.3.7-1.html"
+      },
+      {
+        "series": "9.0",
+        "kind": "major",
+        "availability": "preview (testing/experimental repos only, not GA)",
+        "ga_date": null,
+        "fcv": "9.0",
+        "url": "https://repo.percona.com/psmdb-90/yum/testing/9/RPMS/x86_64/",
+        "note": "Release repo https://repo.percona.com/psmdb-90/yum/release/9/RPMS/x86_64/ has no packages on 2026-11-03; testing has 9.0.2-0 and 9.0.4-1. No docs.percona.com 9.0 upgrade page (upgrade-from-83.html returns 404)."
+      }
+    ]
+  },
+  "edges": {
+    "mongodb": [
+      {
+        "from": "3.0",
+        "to": "3.2",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": null,
+        "docs": {
+          "all": "https://github.com/mongodb/docs/blob/v3.2/source/release-notes/3.2-upgrade.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v3.2/source/release-notes/3.2-upgrade.txt",
+        "quote": "To upgrade an existing MongoDB deployment to 3.2, you must be running a 3.0-series release.",
+        "note": "No FCV before 3.4."
+      },
+      {
+        "from": "3.2",
+        "to": "3.4",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "3.4",
+        "fcv_before": null,
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-replica-set.txt",
+        "quote": "To upgrade a replica set to 3.4, all replica set members must be running version 3.2.",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "3.4",
+        "to": "3.6",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "3.6",
+        "fcv_before": "3.4",
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v3.6/source/release-notes/3.6-upgrade-replica-set.txt",
+        "quote": "All replica set members must be running version 3.4. To upgrade a replica set from an earlier MongoDB version, upgrade all members of the replica set to the latest 3.4-series release first",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "3.6",
+        "to": "4.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "4.0",
+        "fcv_before": "3.6",
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v4.0/source/release-notes/4.0-upgrade-replica-set.txt",
+        "quote": "All replica set members must be running version 3.6. To upgrade a replica set from an earlier MongoDB version, upgrade all members of the replica set to the latest 3.6-series release first",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "4.0",
+        "to": "4.2",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "4.2",
+        "fcv_before": "4.0",
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v4.2/source/release-notes/4.2-upgrade-replica-set.txt",
+        "quote": "All replica set members must be running version 4.0. To upgrade a replica set from an earlier MongoDB version, upgrade all members of the replica set to the latest 4.0-series release first",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "4.2",
+        "to": "4.4",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "4.4",
+        "fcv_before": "4.2",
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v4.4/source/release-notes/4.4-upgrade-replica-set.txt",
+        "quote": "All replica set members must be running version 4.2. To upgrade a replica set from an earlier MongoDB version, upgrade all members of the replica set to the latest 4.2-series release first",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "4.4",
+        "to": "5.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "5.0",
+        "fcv_before": "4.4",
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v5.0/source/release-notes/5.0-upgrade-replica-set.txt",
+        "quote": "All replica set members must be running version 4.4. To upgrade a replica set from an earlier MongoDB version, upgrade all members of the replica set to the latest 4.4-series release first",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "5.0",
+        "to": "6.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "6.0",
+        "fcv_before": "5.0",
+        "docs": {
+          "standalone": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-upgrade-standalone.txt",
+          "replset": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-upgrade-replica-set.txt",
+          "sharded": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-upgrade-sharded-cluster.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-upgrade-replica-set.txt",
+        "quote": "All replica set members must be running version 5.0. To upgrade a replica set from an earlier MongoDB version, upgrade all members of the replica set to the latest 5.0-series release first",
+        "quote_note": "Source text uses |oldversion| substitutions; values resolved for readability."
+      },
+      {
+        "from": "6.0",
+        "to": "7.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "7.0",
+        "fcv_before": "6.0",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-upgrade-standalone/",
+          "replset": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-upgrade-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-upgrade-sharded-cluster/"
+        },
+        "url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-upgrade-replica-set/",
+        "quote": "To upgrade a replica set from 5.0-series and earlier, first upgrade all members of the replica set to the latest 6.0-series release, and then follow the procedure to upgrade from MongoDB 6.0 to 7.0."
+      },
+      {
+        "from": "7.0",
+        "to": "8.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "8.0",
+        "fcv_before": "7.0",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-standalone/",
+          "replset": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-sharded-cluster/"
+        },
+        "url": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-replica-set/",
+        "quote": "To upgrade a replica set from 6.0-series and earlier, first upgrade all members of the replica set to the latest 7.0-series release, and then follow the procedure to upgrade from MongoDB 7.0 to 8.0."
+      },
+      {
+        "from": "5.0",
+        "to": "5.1",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 5.1 is a rapid release and is only supported for MongoDB Atlas; MongoDB 5.1 is not supported for use on-premises.",
+        "quote2": "MongoDB 5.1 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.1 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "5.1",
+        "to": "5.2",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 5.2 is a rapid release and is only supported for MongoDB Atlas; MongoDB 5.2 is not supported for use on-premises.",
+        "quote2": "MongoDB 5.2 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.2 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "5.2",
+        "to": "5.3",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 5.3 is a rapid release and is only supported for MongoDB Atlas; MongoDB 5.3 is not supported for use on-premises.",
+        "quote2": "MongoDB 5.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.3 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "5.3",
+        "to": "6.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": "6.0",
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 5.3 is a rapid release and is only supported for MongoDB Atlas; MongoDB 5.3 is not supported for use on-premises.",
+        "quote2": "MongoDB 5.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 5.3 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v5.1/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "5.1",
+        "to": "6.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+        "note": "Go through the remaining rapid releases, or downgrade to the previous major and then upgrade."
+      },
+      {
+        "from": "5.2",
+        "to": "6.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+        "note": "Go through the remaining rapid releases, or downgrade to the previous major and then upgrade."
+      },
+      {
+        "from": "6.0",
+        "to": "6.1",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 6.1 is a rapid release and is only supported for MongoDB Atlas; MongoDB 6.1 is not supported for use on-premises.",
+        "quote2": "MongoDB 6.1 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.1 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v6.1/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "6.1",
+        "to": "6.2",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 6.2 is a rapid release and is only supported for MongoDB Atlas; MongoDB 6.2 is not supported for use on-premises.",
+        "quote2": "MongoDB 6.2 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.2 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v6.2/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "6.2",
+        "to": "6.3",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 6.3 is a rapid release and is only supported for MongoDB Atlas; MongoDB 6.3 is not supported for use on-premises.",
+        "quote2": "MongoDB 6.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.3 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v6.3/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "6.3",
+        "to": "7.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": "7.0",
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 6.3 is a rapid release and is only supported for MongoDB Atlas; MongoDB 6.3 is not supported for use on-premises.",
+        "quote2": "MongoDB 6.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 6.3 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v6.3/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "6.1",
+        "to": "7.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+        "note": "Go through the remaining rapid releases, or downgrade to the previous major and then upgrade."
+      },
+      {
+        "from": "6.2",
+        "to": "7.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+        "note": "Go through the remaining rapid releases, or downgrade to the previous major and then upgrade."
+      },
+      {
+        "from": "7.0",
+        "to": "7.1",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 7.1 is a rapid release and is only supported for MongoDB Atlas; MongoDB 7.1 is not supported for use on-premises.",
+        "quote2": "MongoDB 7.1 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.1 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v7.1/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "7.1",
+        "to": "7.2",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 7.2 is a rapid release and is only supported for MongoDB Atlas; MongoDB 7.2 is not supported for use on-premises.",
+        "quote2": "MongoDB 7.2 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.2 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v7.2/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "7.2",
+        "to": "7.3",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 7.3 is a rapid release and is only supported for MongoDB Atlas; MongoDB 7.3 is not supported for use on-premises.",
+        "quote2": "MongoDB 7.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.3 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v7.3/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "7.3",
+        "to": "8.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": "8.0",
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. No self-managed procedure exists for rapid releases; MongoDB 7.3 is a rapid release and is only supported for MongoDB Atlas; MongoDB 7.3 is not supported for use on-premises.",
+        "quote2": "MongoDB 7.3 is a rapid release and is only supported for MongoDB Atlas. MongoDB 7.3 is not supported for use on-premises.",
+        "quote2_url": "https://github.com/mongodb/docs/blob/v7.3/source/includes/rapid-release-short.rst"
+      },
+      {
+        "from": "7.1",
+        "to": "8.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+        "note": "Go through the remaining rapid releases, or downgrade to the previous major and then upgrade."
+      },
+      {
+        "from": "7.2",
+        "to": "8.0",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+        "note": "Go through the remaining rapid releases, or downgrade to the previous major and then upgrade."
+      },
+      {
+        "from": "8.0",
+        "to": "8.1",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. 8.1 was never supported self-managed: minors became self-managed only from 8.2 (see versions_page). The 8.1 to 8.2 hop happened on Atlas; self-managed users go 8.0 to 8.2 directly.",
+        "quote2": null,
+        "quote2_url": null
+      },
+      {
+        "from": "8.1",
+        "to": "8.2",
+        "kind": "rapid",
+        "support": "atlas-only",
+        "allowed": true,
+        "fcv": "8.2",
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/mongodb-versions/",
+        "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence. To move from a minor release to the next major release, you can: Upgrade through each remaining minor release, and then to the next major release. Downgrade to the previous major release, and then upgrade to the next major release.",
+        "note": "Atlas-managed hop. 8.1 was never supported self-managed: minors became self-managed only from 8.2 (see versions_page). The 8.1 to 8.2 hop happened on Atlas; self-managed users go 8.0 to 8.2 directly.",
+        "quote2": null,
+        "quote2_url": null
+      },
+      {
+        "from": "8.0",
+        "to": "8.2",
+        "kind": "minor",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "8.2",
+        "fcv_before": "8.0",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/manual/release-notes/8.2-upgrade-standalone/",
+          "replset": "https://www.mongodb.com/docs/manual/release-notes/8.2-upgrade-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/manual/release-notes/8.2-upgrade-sharded-cluster/"
+        },
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+        "quote": "To upgrade to MongoDB 8.2 from a 8.0 deployment, the 8.0 deployment must have featureCompatibilityVersion set to 8.0.",
+        "quote2": "To upgrade an existing MongoDB deployment to 8.2, you must be running a 8.0-series release.",
+        "quote2_url": "https://www.mongodb.com/docs/manual/release-notes/8.2-upgrade-replica-set/",
+        "doc_bug": "The 8.2 topology pages say 'The 8.0 replica set must have featureCompatibilityVersion set to \"8.3\"' and then show setFeatureCompatibilityVersion: \"8.0\"; the 8.2 release notes and the expected output say 8.0."
+      },
+      {
+        "from": "8.2",
+        "to": "8.3",
+        "kind": "minor",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "8.3",
+        "fcv_before": "8.2",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-standalone/",
+          "replset": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-sharded-cluster/",
+          "landing": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade/"
+        },
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade/",
+        "quote": "To upgrade to MongoDB 8.3 from a 8.2 deployment, the 8.2 deployment must have featureCompatibilityVersion set to 8.2.",
+        "doc_bug": "The 8.2-to-8.3 topology pages still say 'you must be running a 8.0-series release' and 'The 8.2 replica set must have featureCompatibilityVersion set to \"8.3\"'; the landing page and the setFeatureCompatibilityVersion step use 8.2."
+      },
+      {
+        "from": "8.0",
+        "to": "8.3",
+        "kind": "minor",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "8.3",
+        "fcv_before": "8.0",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-standalone/",
+          "replset": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-sharded-cluster/",
+          "landing": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0/"
+        },
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0/",
+        "quote": "To upgrade to MongoDB 8.3 from a 8.0 deployment, the 8.0 deployment must have featureCompatibilityVersion set to 8.0.",
+        "conflict": {
+          "url": "https://www.mongodb.com/docs/mongodb-versions/",
+          "quote": "In MongoDB versions before 9.0, you cannot skip minor releases. To move between minor releases, upgrade through each one in sequence.",
+          "resolution": "The 8.3 release notes list 'Upgrade 8.0 to 8.3' with standalone, replica set and sharded procedures, so the direct hop is documented. The versions page rule is about minor-to-minor moves (8.2 to 8.3)."
+        }
+      },
+      {
+        "from": "8.2",
+        "to": "9.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": false,
+        "fcv": null,
+        "docs": {},
+        "url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-replica-set/",
+        "quote": "To upgrade an existing MongoDB deployment to 9.0, you must be running a 8.3 or 8.0 release.",
+        "note": "From 8.2 go 8.2 to 8.3 to 9.0. The versions page also allows downgrading to 8.0 first, but 8.2 to 8.0 binary downgrade is not supported for Community and needs MongoDB support for Enterprise."
+      },
+      {
+        "from": "8.0",
+        "to": "9.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "9.0",
+        "fcv_before": "8.0",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0-standalone/",
+          "replset": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0-sharded-cluster/",
+          "landing": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0/"
+        },
+        "url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0/",
+        "quote": "To upgrade to MongoDB 9.0 from a 8.0 deployment, the 8.0 deployment must have featureCompatibilityVersion set to 8.0."
+      },
+      {
+        "from": "8.3",
+        "to": "9.0",
+        "kind": "major",
+        "support": "self-managed",
+        "allowed": true,
+        "fcv": "9.0",
+        "fcv_before": "8.3",
+        "docs": {
+          "standalone": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-standalone/",
+          "replset": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-replica-set/",
+          "sharded": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-sharded-cluster/",
+          "landing": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade/"
+        },
+        "url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade/",
+        "quote": "To upgrade to MongoDB 9.0 from a 8.3 deployment, the 8.3 deployment must have featureCompatibilityVersion set to 8.3."
+      }
+    ],
+    "psmdb": [
+      {
+        "from": "3.0",
+        "to": "3.2",
+        "kind": "major",
+        "allowed": true,
+        "fcv": null,
+        "docs": {
+          "mongodb": "https://github.com/mongodb/docs/blob/v3.2/source/release-notes/3.2-upgrade.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v3.2/source/release-notes/3.2-upgrade.txt",
+        "quote": "To upgrade an existing MongoDB deployment to 3.2, you must be running a 3.0-series release.",
+        "note": "No Percona upgrade page online for this hop; the MongoDB procedure applies."
+      },
+      {
+        "from": "3.2",
+        "to": "3.4",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "3.4",
+        "docs": {
+          "mongodb": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-replica-set.txt"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v3.4/source/release-notes/3.4-upgrade-replica-set.txt",
+        "quote": "To upgrade a replica set to 3.4, all replica set members must be running version 3.2.",
+        "note": "No Percona upgrade page online for this hop; the MongoDB procedure applies."
+      },
+      {
+        "from": "3.4",
+        "to": "3.6",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "3.6",
+        "fcv_before": "3.4",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_34.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_34.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 3.6, you must be running version 3.4.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "3.6",
+        "to": "4.0",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "4.0",
+        "fcv_before": "3.6",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/4.0/install/upgrade-from-36.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.0/install/upgrade-from-36.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 4.0, you must be running version 3.6.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "4.0",
+        "to": "4.2",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "4.2",
+        "fcv_before": "4.0",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/4.2/install/upgrade-from-40.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.2/install/upgrade-from-40.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 4.2, you must be running version 4.0.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "4.2",
+        "to": "4.4",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "4.4",
+        "fcv_before": "4.2",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/upgrade-from-42.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/upgrade-from-42.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 4.4, you must be running version 4.2.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "4.4",
+        "to": "5.0",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "5.0",
+        "fcv_before": "4.4",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/upgrade-from-44.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/upgrade-from-44.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 5.0, you must be running version 4.4.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "5.0",
+        "to": "6.0",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "6.0",
+        "fcv_before": "5.0",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/upgrade-from-50.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/upgrade-from-50.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 6.0, you must be running version 5.0.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "6.0",
+        "to": "7.0",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "7.0",
+        "fcv_before": "6.0",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/upgrade-from-60.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/upgrade-from-60.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 7.0, you must be running version 6.0.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "7.0",
+        "to": "8.0",
+        "kind": "major",
+        "allowed": true,
+        "fcv": "8.0",
+        "fcv_before": "7.0",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-70.html"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/upgrade-from-70.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 8.0, you must be running version 7.0.",
+        "note": "Percona documents one package-swap procedure; MongoDB topology procedures apply for replica sets and sharded clusters."
+      },
+      {
+        "from": "8.0",
+        "to": "8.3",
+        "kind": "minor",
+        "allowed": true,
+        "fcv": "8.3",
+        "fcv_before": "8.0",
+        "docs": {
+          "percona": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/upgrade-from-80.html",
+          "mongodb_standalone": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-standalone/",
+          "mongodb_replset": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-replica-set/",
+          "mongodb_sharded": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-sharded-cluster/"
+        },
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/upgrade-from-80.html",
+        "quote": "To upgrade Percona Server for MongoDB to version 8.3, you must be running version 8.0. Upgrades from earlier versions are not supported.",
+        "percona_page_fcv": "8.0",
+        "fcv_conflict": {
+          "percona_quote": "After the upgrade, Percona Server for MongoDB is started with the feature set of 8.0 version. Assuming that your applications are compatible with the new version, enable 8.3 version features. Run the following command against the admin database: db.adminCommand( { setFeatureCompatibilityVersion: \"8.0\", confirm: true } )",
+          "percona_url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/upgrade-from-80.html",
+          "mongodb_quote": "To upgrade to MongoDB 9.0 from a 8.3 deployment, the 8.3 deployment must have featureCompatibilityVersion set to 8.3.",
+          "mongodb_url": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade/",
+          "mongodb_step_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-upgrade-from-8.0-replica-set/",
+          "resolution": "Confirmed on 2026-11-03: the Percona command sets \"8.0\", which leaves FCV unchanged. The MongoDB 8.0-to-8.3 procedure ends with setFeatureCompatibilityVersion: \"8.3\". Run \"8.3\"; otherwise the later 8.3 to 9.0 hop is blocked."
+        },
+        "note": "Only PSMDB route into 8.3 (no PSMDB 8.1 or 8.2)."
+      },
+      {
+        "from": "8.0",
+        "to": "9.0",
+        "kind": "major",
+        "allowed": false,
+        "status": "not-available",
+        "fcv": "9.0",
+        "fcv_before": "8.0",
+        "docs": {
+          "mongodb_replset": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-from-8.0-replica-set/"
+        },
+        "url": "https://repo.percona.com/psmdb-90/yum/release/9/RPMS/x86_64/",
+        "quote": "To upgrade an existing MongoDB deployment to 9.0, you must be running a 8.0 or 8.3 release.",
+        "note": "Allowed upstream, but PSMDB 9.0 is not GA: the release repo is empty and packages exist only in testing/experimental."
+      },
+      {
+        "from": "8.3",
+        "to": "9.0",
+        "kind": "major",
+        "allowed": false,
+        "status": "not-available",
+        "fcv": "9.0",
+        "fcv_before": "8.3",
+        "docs": {
+          "mongodb_replset": "https://www.mongodb.com/docs/manual/release-notes/9.0-upgrade-replica-set/"
+        },
+        "url": "https://repo.percona.com/psmdb-90/yum/release/9/RPMS/x86_64/",
+        "quote": "To upgrade to MongoDB 9.0 from a 8.3 deployment, the 8.3 deployment must have featureCompatibilityVersion set to 8.3.",
+        "note": "Allowed upstream with FCV 8.3; PSMDB 9.0 not GA yet. A PSMDB 8.3 node left at FCV 8.0 by the Percona page must first set FCV 8.3."
+      }
+    ]
+  },
+  "downgrade": {
+    "policy": {
+      "url": "https://www.mongodb.com/docs/mongodb-versions/#downgrades",
+      "quote": "A cluster can downgrade only to the immediately preceding release, either the previous major version or that major version's Feature Update release, and downgrades cannot be chained across multiple versions."
+    },
+    "mongodb": {
+      "rapid": {
+        "allowed": false,
+        "rule": "Rapid releases are Atlas-only; Atlas Auto Upgrades clusters cannot downgrade. From 7.0 on, FCV cannot be downgraded to or from a rapid release.",
+        "url": "https://github.com/mongodb/docs/blob/v7.0/source/reference/command/setFeatureCompatibilityVersion.txt",
+        "quote": "Starting in MongoDB 7.0, you cannot downgrade your deployment's FCV to or from a rapid release version of MongoDB."
+      },
+      "8.2": {
+        "targets": [
+          "8.0"
+        ],
+        "community": "not supported",
+        "enterprise": "only with MongoDB support",
+        "fcv_downgrade": false,
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.2-downgrade/",
+        "quote": "Binary downgrades are not supported for MongoDB Community Edition. You cannot downgrade your Enterprise deployment's binary version without assistance from support.",
+        "quote2": "You cannot downgrade your deployment's FCV (feature compatibility version) to or from a minor release version of MongoDB.",
+        "quote2_url": "https://www.mongodb.com/docs/manual/release-notes/8.2/",
+        "blocking_features": [
+          {
+            "feature": "validationAction errorAndLog (from 8.1)",
+            "url": "https://www.mongodb.com/docs/manual/release-notes/8.2-compatibility/",
+            "quote": "If you use an errorAndLog validation action on a collection, MongoDB cannot downgrade until you drop the collection, or if you change the validation action for the collection to one supported in older versions."
+          }
+        ]
+      },
+      "8.3": {
+        "targets": [
+          "8.2",
+          "8.0"
+        ],
+        "fcv_downgrade": true,
+        "fcv_values": {
+          "8.2": "8.2",
+          "8.0": "8.0"
+        },
+        "lands_on": "latest patch of the target series",
+        "docs": {
+          "to_8.2": {
+            "landing": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade/",
+            "standalone": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-standalone/",
+            "replset": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-replica-set/",
+            "sharded": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-sharded-cluster/"
+          },
+          "to_8.0": {
+            "landing": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-to-8.0/",
+            "standalone": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-to-8.0-standalone/",
+            "replset": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-to-8.0-replica-set/",
+            "sharded": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-to-8.0-sharded-cluster/"
+          }
+        },
+        "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade/",
+        "quote": "Starting with MongoDB 8.3, the setFeatureCompatibilityVersion supports downgrading the FCV (Feature Compatibility Version) to the previous minor version.",
+        "quote2": "If you need to downgrade from 8.3, downgrade to the latest patch release of 8.0.",
+        "quote2_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-to-8.0/",
+        "blocking_features": [
+          {
+            "feature": "2dsphere index version 4 (default in 8.3)",
+            "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/",
+            "quote": "If you need to downgrade the FCV to anything below 8.3, you must first drop the 2dsphere version 4 indexes."
+          },
+          {
+            "feature": "views or validators using arrayIndexAs / $$IDX",
+            "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/",
+            "quote": "you must update or remove the view or rule before downgrading from MongoDB 8.3 to an earlier version."
+          },
+          {
+            "feature": "views using 8.3 expressions",
+            "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/",
+            "quote": "If you need to downgrade from 8.3, you must first update or drop any views that depend on expressions not supported in the target version."
+          },
+          {
+            "feature": "validated collections",
+            "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/",
+            "quote": "If you attempt to downgrade while validated collections exist, the downgrade fails."
+          },
+          {
+            "feature": "representative query capacity over 16 MB",
+            "url": "https://www.mongodb.com/docs/manual/release-notes/8.3-compatibility/",
+            "quote": "If you downgrade to a version that doesn't support the larger capacity, the limit reverts to 16 MB and MongoDB can lose some representative queries."
+          }
+        ],
+        "note": "Only one step: a deployment downgraded 8.3 to 8.2 cannot then go 8.2 to 8.0 (single-version downgrades only)."
+      }
+    },
+    "psmdb": {
+      "8.3": {
+        "targets": [
+          "8.0"
+        ],
+        "percona_procedure": null,
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/upgrade-from-80.html",
+        "quote": "Make a full backup of your data and configuration files",
+        "note": "Percona's 8.3 docs have no downgrade page (sitemap checked 2026-11-03). Upstream allows 8.3 to 8.2 or 8.0, but there is no PSMDB 8.2, so the only PSMDB target is 8.0 via MongoDB's 'Downgrade 8.3 to 8.0' procedure with FCV \"8.0\". Same blocking features as MongoDB 8.3.",
+        "upstream_url": "https://www.mongodb.com/docs/manual/release-notes/8.3-downgrade-to-8.0/",
+        "upstream_quote": "If you need to downgrade from 8.3, downgrade to the latest patch release of 8.0."
+      }
+    }
+  }
+}

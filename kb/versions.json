@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "majors": [
+    "3.0",
+    "3.2",
+    "3.4",
+    "3.6",
+    "4.0",
+    "4.2",
+    "4.4",
+    "5.0",
+    "6.0",
+    "7.0",
+    "8.0",
+    "9.0"
+  ],
+  "fcv_introduced": "3.4",
+  "setfcv_requires_confirm_from": "7.0",
+  "rapid_release_note": "MongoDB rapid releases (5.1-5.3, 6.1-6.3, 7.1-7.3) are not shipped as PSMDB. A cluster on one of them needs a manual plan.",
+  "docs": {
+    "percona_upgrade": {
+      "min_target": "4.0",
+      "label": "Percona: upgrade PSMDB {from} to {to}",
+      "url": "https://docs.percona.com/percona-server-for-mongodb/{to}/install/upgrade-from-{fromnodot}.html",
+      "max_target": "8.3"
+    },
+    "mongodb_min_target": "7.0",
+    "mongodb_upgrade": {
+      "standalone": "https://www.mongodb.com/docs/manual/release-notes/{to}-upgrade-standalone/",
+      "replset": "https://www.mongodb.com/docs/manual/release-notes/{to}-upgrade-replica-set/",
+      "sharded": "https://www.mongodb.com/docs/manual/release-notes/{to}-upgrade-sharded-cluster/"
+    },
+    "mongodb_compatibility": "https://www.mongodb.com/docs/manual/release-notes/{to}-compatibility/",
+    "mongodb_downgrade": "https://www.mongodb.com/docs/manual/release-notes/{to}-downgrade/",
+    "mongodb_index": "https://www.mongodb.com/docs/manual/release-notes/"
+  },
+  "previews": {
+    "9.0": {
+      "label": "MongoDB GA, PSMDB in testing",
+      "message": "MongoDB 9.0 is GA since 2026-09-28, but Percona Server for MongoDB 9.0 is not released yet: packages exist only in the Percona testing and experimental repositories (checked 2026-11-03). Use this hop to plan and test, not to upgrade production."
+    }
+  }
+}

@@ -1,0 +1,1024 @@
+{
+  "schema_version": 1,
+  "generated": "2026-11-03",
+  "os": {
+    "rhel7": "RHEL 7",
+    "rhel8": "RHEL 8",
+    "rhel9": "RHEL 9",
+    "rhel10": "RHEL 10",
+    "ol7": "Oracle Linux 7",
+    "ol8": "Oracle Linux 8",
+    "ol9": "Oracle Linux 9",
+    "ol10": "Oracle Linux 10",
+    "rocky8": "Rocky Linux 8",
+    "rocky9": "Rocky Linux 9",
+    "rocky10": "Rocky Linux 10",
+    "alma8": "AlmaLinux 8",
+    "alma9": "AlmaLinux 9",
+    "alma10": "AlmaLinux 10",
+    "amzn2": "Amazon Linux 2",
+    "amzn2023": "Amazon Linux 2023",
+    "ubuntu1604": "Ubuntu 16.04",
+    "ubuntu1804": "Ubuntu 18.04",
+    "ubuntu2004": "Ubuntu 20.04",
+    "ubuntu2204": "Ubuntu 22.04",
+    "ubuntu2404": "Ubuntu 24.04",
+    "ubuntu2604": "Ubuntu 26.04",
+    "debian9": "Debian 9",
+    "debian10": "Debian 10",
+    "debian11": "Debian 11",
+    "debian12": "Debian 12",
+    "debian13": "Debian 13",
+    "sles12": "SLES 12",
+    "sles15": "SLES 15",
+    "sles16": "SLES 16"
+  },
+  "support": {
+    "mongodb": {
+      "3.6": {
+        "edition": "Community & Enterprise (single column '3.6 Community & Enterprise')",
+        "x86_64": [
+          "amzn2",
+          "debian9",
+          "rhel8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles12",
+          "ubuntu1804",
+          "ubuntu1604"
+        ],
+        "aarch64": [
+          "ubuntu1604"
+        ],
+        "min_patch": {
+          "amzn2": "3.6.22",
+          "debian9": "3.6.5",
+          "rhel8": "3.6.17",
+          "ol8": "3.6.17",
+          "ubuntu1804": "3.6.20"
+        },
+        "other_listed_x86_64": [
+          "Amazon Linux 2013.03 and later",
+          "Debian 8",
+          "RHEL/CentOS/Oracle Linux 6.2 and later",
+          "Ubuntu 14.04",
+          "Windows",
+          "macOS 10.10 - 12"
+        ],
+        "url": "https://github.com/mongodb/docs/blob/v3.6/source/includes/fact-platform-x86_64.rst",
+        "url_aarch64": "https://github.com/mongodb/docs/blob/v3.6/source/includes/fact-platform-arm64.rst",
+        "quote": "Platform | 3.6 Community & Enterprise ... Amazon Linux 2 | 3.6.22+ ... Debian 9 | 3.6.5+ ... RHEL/CentOS/Oracle Linux 8.0 and later | 3.6.17+ ... Ubuntu 18.04 | 3.6.20+",
+        "quote_aarch64": "Platform | 3.6 Community & Enterprise | 3.4 Community & Enterprise / Ubuntu 16.04 | checkmark | checkmark",
+        "eol_notice_quote": "Debian 7 - Support removed in MongoDB 3.6.6+. SLES 11 - Support removed in MongoDB 3.6.4+. Ubuntu 12.04 - Support removed in MongoDB 3.6.4+.",
+        "enterprise_differences": "None for x86_64/arm64 (one shared column). ppc64le and s390x are in separate tables (fact-platform-ppc64le.rst, fact-platform-s390x.rst), not captured here."
+      },
+      "4.0": {
+        "edition": "Community & Enterprise (single column '4.0 Community & Enterprise')",
+        "x86_64": [
+          "amzn2",
+          "debian9",
+          "rhel8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles12",
+          "ubuntu1804",
+          "ubuntu1604"
+        ],
+        "aarch64": [
+          "ubuntu1604"
+        ],
+        "min_patch": {
+          "rhel8": "4.0.14",
+          "ol8": "4.0.14",
+          "ubuntu1804": "4.0.1"
+        },
+        "other_listed_x86_64": [
+          "Amazon Linux 2013.03 and later",
+          "Debian 8",
+          "RHEL/CentOS/Oracle Linux 6.2 and later",
+          "Ubuntu 14.04",
+          "Windows",
+          "macOS 10.11 and later"
+        ],
+        "url": "https://github.com/mongodb/docs/blob/v4.0/source/includes/fact-platform-x86_64.rst",
+        "url_aarch64": "https://github.com/mongodb/docs/blob/v4.0/source/includes/fact-platform-arm64.rst",
+        "quote": "Platform | 4.0 Community & Enterprise ... Amazon Linux 2 | checkmark ... RHEL/CentOS/Oracle Linux 8.0 and later | 4.0.14+ ... Ubuntu 18.04 | 4.0.1+",
+        "quote_aarch64": "Platform | 4.0 Community & Enterprise ... Ubuntu 16.04 | checkmark",
+        "eol_notice_quote": "Debian 7 - Support removed in MongoDB 4.0+. Ubuntu 12.04 - Support removed in MongoDB 4.0+. Ubuntu 14.04 - MongoDB will end support in future releases.",
+        "enterprise_differences": "None for x86_64/arm64 (one shared column)."
+      },
+      "4.2": {
+        "edition": "Community & Enterprise (single column '4.2 Community & Enterprise'; arm64 has one 'Enterprise only' cell)",
+        "x86_64": [
+          "amzn2",
+          "debian10",
+          "debian9",
+          "rhel8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles15",
+          "sles12",
+          "ubuntu1804",
+          "ubuntu1604"
+        ],
+        "aarch64": [
+          "amzn2",
+          "ubuntu1804"
+        ],
+        "aarch64_enterprise_only": [
+          "ubuntu1604"
+        ],
+        "min_patch": {
+          "debian10": "4.2.1",
+          "rhel8": "4.2.1",
+          "ol8": "4.2.1",
+          "sles15": "4.2.1",
+          "amzn2 (aarch64)": "4.2.13"
+        },
+        "other_listed_x86_64": [
+          "Amazon Linux 2013.03 and later",
+          "RHEL/CentOS/Oracle Linux 6.2 and later",
+          "Windows",
+          "macOS 10.12 and later"
+        ],
+        "url": "https://github.com/mongodb/docs/blob/v4.2/source/includes/fact-platform-x86_64.rst",
+        "url_aarch64": "https://github.com/mongodb/docs/blob/v4.2/source/includes/fact-platform-arm64.rst",
+        "quote": "Platform | 4.2 Community & Enterprise ... Debian 10 | 4.2.1+ ... RHEL/CentOS/Oracle Linux 8.0 and later | 4.2.1+ ... SLES 15 | 4.2.1+ ... Ubuntu 14.04 | (blank)",
+        "quote_aarch64": "Amazon Linux 2 | 4.2.13+ / Ubuntu 18.04 | checkmark / Ubuntu 16.04 | Enterprise only",
+        "eol_notice_quote": "Ubuntu 14.04 - Support removed in MongoDB 4.2+. Debian 8 - Support removed in MongoDB 4.2+. Ubuntu 16.04 ARM64 - Support removed in MongoDB Community 4.2+.",
+        "enterprise_differences": "arm64 Ubuntu 16.04 is 'Enterprise only' (Community dropped it in 4.2). s390x has separate Community and Enterprise tables (fact-platform-s390x-community.rst / -enterprise.rst), not captured."
+      },
+      "4.4": {
+        "edition": "Community (Enterprise rows identical for x86_64; see enterprise_differences)",
+        "x86_64": [
+          "amzn2",
+          "debian10",
+          "debian9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles15",
+          "sles12",
+          "ubuntu2004",
+          "ubuntu1804",
+          "ubuntu1604"
+        ],
+        "aarch64": [
+          "amzn2",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2004",
+          "ubuntu1804"
+        ],
+        "aarch64_enterprise_only": [
+          "ubuntu1604"
+        ],
+        "min_patch": {
+          "amzn2 (aarch64)": "4.4.4",
+          "rhel8/rocky8/alma8 (aarch64)": "4.4.4"
+        },
+        "other_listed_x86_64": [
+          "RHEL/CentOS/Oracle Linux 6.2+"
+        ],
+        "url": "https://github.com/mongodb/docs/blob/v5.0/source/includes/platform-support.rst",
+        "quote": "Platform | Architecture | Edition | 8.0 | 7.0 | 6.0 | 5.0 | 4.4 ... RHEL/CentOS/Oracle Linux 6.2+ | x86_64 | Community | | | | | checkmark ... Amazon Linux 2 | arm64 | Community | | checkmark | checkmark | checkmark | 4.4.4+",
+        "source_note": "The v4.4 branch production-notes uses '.. sharedinclude:: server/platform-support/platform-support.rst' (not retrievable from mongodb/docs); the 4.4 column is taken from the v5.0 branch table, which still carries a 4.4 column.",
+        "enterprise_differences": "arm64 Ubuntu 16.04 has only an Enterprise row for 4.4. Enterprise also has ppc64le (RHEL 8, RHEL/CentOS 7) and s390x (RHEL/CentOS 7) rows."
+      },
+      "5.0": {
+        "edition": "Community (Enterprise rows identical for x86_64/arm64)",
+        "x86_64": [
+          "amzn2",
+          "debian11",
+          "debian10",
+          "debian9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles15",
+          "sles12",
+          "ubuntu2004",
+          "ubuntu1804"
+        ],
+        "aarch64": [
+          "amzn2",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2004",
+          "ubuntu1804"
+        ],
+        "min_patch": {
+          "debian11": "5.0.8"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v5.0/source/includes/platform-support.rst",
+        "quote": "Debian 11 | x86_64 | Community | | checkmark | checkmark | 5.0.8+ ... RHEL/Rocky/Alma/Oracle Linux 8.0+ | x86_64 | Community | checkmark | checkmark | checkmark | checkmark | checkmark",
+        "cross_check": "Same 5.0 column in the v6.0 and v7.0 branch tables (v7.0 branch file last changed 2025-04-16).",
+        "enterprise_differences": "Enterprise adds ppc64le (RHEL 8, RHEL/CentOS 7) and s390x (RHEL 8 5.0.9+, RHEL/CentOS 7). Community also has an s390x RHEL/CentOS 7 row for 5.0."
+      },
+      "6.0": {
+        "edition": "Community (Enterprise rows identical for x86_64/arm64)",
+        "x86_64": [
+          "amzn2",
+          "debian11",
+          "debian10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "ol9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles15",
+          "sles12",
+          "ubuntu2204",
+          "ubuntu2004",
+          "ubuntu1804"
+        ],
+        "aarch64": [
+          "amzn2",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2204",
+          "ubuntu2004",
+          "ubuntu1804"
+        ],
+        "min_patch": {
+          "rhel9/rocky9/alma9/ol9 (x86_64)": "6.0.4",
+          "ubuntu2204": "6.0.4"
+        },
+        "url": "https://github.com/mongodb/docs/blob/v6.0/source/includes/platform-support.rst",
+        "quote": "RHEL/Rocky/Alma/Oracle Linux 9.0+ | x86_64 | Community | checkmark | checkmark | 6.0.4+ | ... Ubuntu 22.04 | x86_64 | Community | checkmark | checkmark | 6.0.4+ | ... Amazon Linux 2023 | x86_64 | Community | checkmark | checkmark | (blank) |",
+        "cross_check": "The 6.0 column is identical in the v7.0/v8.0 branch tables. Amazon Linux 2023 is not listed for 6.0.",
+        "enterprise_differences": "Enterprise adds ppc64le (RHEL 8; RHEL/CentOS 7 6.0.7+) and s390x (RHEL 8, RHEL/CentOS 7)."
+      },
+      "7.0": {
+        "edition": "Community; the Enterprise page has the same x86_64/arm64 rows",
+        "x86_64": [
+          "amzn2023",
+          "amzn2",
+          "debian12",
+          "debian11",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "ol10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "ol9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "rhel7",
+          "ol7",
+          "sles15",
+          "sles12",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "aarch64": [
+          "amzn2023",
+          "amzn2",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "url": "https://www.mongodb.com/docs/community-platform-support/",
+        "quote": "Platform | Architecture | 9.x | 8.x | 7.x ... Amazon Linux 2 | x86_64 | | | ✅ ... RHEL/Oracle Linux 7.0+ [1] | x86_64 | | | ✅[3] ... Debian 11 | x86_64 | | | ✅",
+        "footnote_quote": "[3] MongoDB version 7.0 is built and tested against RHEL 7.9. Earlier versions of MongoDB are tested against RHEL 7 and assume forward compatibility.",
+        "confirmed_by": [
+          {
+            "url": "https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-red-hat/",
+            "quote": "RHEL / CentOS Stream / Oracle / Rocky / AlmaLinux 10 ... RHEL / CentOS / Oracle 7"
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-debian/",
+            "quote": "Starting in Debian 12, apt-based installation of MongoDB 7.0 Community from the MongoDB repository fails because the repository key is SHA-1, which Debian 12 rejects."
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-amazon/",
+            "quote": "Amazon Linux 2023 / Amazon Linux 2"
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-suse/",
+            "quote": "SLES 15 / SLES 12"
+          }
+        ],
+        "enterprise_differences": "Enterprise adds ppc64le (RHEL 8) and s390x (RHEL 8; RHEL 9 '7.0.20+').",
+        "enterprise_url": "https://www.mongodb.com/docs/enterprise-platform-support/",
+        "doc_issues": "The older v7.0 GitHub branch table (2025-04-16) has no RHEL 10 row; the live page lists RHEL 10 under 7.x."
+      },
+      "8.0": {
+        "edition": "Community; the Enterprise page has the same x86_64/arm64 rows",
+        "x86_64": [
+          "amzn2023",
+          "debian12",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "ol10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "ol9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "sles15",
+          "ubuntu2404",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "aarch64": [
+          "amzn2023",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2404",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "url": "https://www.mongodb.com/docs/community-platform-support/",
+        "quote": "Platform | Architecture | 9.x | 8.x | 7.x ... Amazon Linux 2 | x86_64 | | | ✅ ... Ubuntu 24.04 | x86_64 | ✅ | ✅ | ... Ubuntu 20.04 | x86_64 | | ✅ | ✅",
+        "enterprise_differences": "Enterprise adds ppc64le and s390x: RHEL/Rocky/Alma 8 (✅) and RHEL/Rocky/Alma 9 ('8.0.7+'); footnote [2]: TCMalloc on those architectures is the legacy version.",
+        "enterprise_url": "https://www.mongodb.com/docs/enterprise-platform-support/",
+        "column": "8.x",
+        "confirmed_by": [
+          {
+            "url": "https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-red-hat/",
+            "quote": "MongoDB 8.0 Community Edition supports ... RHEL / CentOS Stream / Oracle / Rocky / AlmaLinux 10 / 9 / 8"
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-ubuntu/",
+            "quote": "24.04 LTS (\"Noble\") 22.04 LTS (\"Jammy\") 20.04 LTS (\"Focal\")"
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-debian/",
+            "quote": "MongoDB 8.0 Community Edition supports the following 64-bit Debian releases on x86_64 architecture: Debian 12 \"Bookworm\""
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-amazon/",
+            "quote": "Amazon Linux 2023"
+          },
+          {
+            "url": "https://www.mongodb.com/docs/v8.0/tutorial/install-mongodb-on-suse/",
+            "quote": "SLES 15"
+          }
+        ],
+        "doc_issues": "The v8.0 GitHub branch table (last change 2025-04-16) has no RHEL 10 row for 8.0; the live page and the v8.0 RHEL install page list RHEL 10."
+      },
+      "8.2": {
+        "edition": "Community; the Enterprise page has the same x86_64/arm64 rows",
+        "x86_64": [
+          "amzn2023",
+          "debian12",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "ol10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "ol9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "sles15",
+          "ubuntu2404",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "aarch64": [
+          "amzn2023",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2404",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "url": "https://www.mongodb.com/docs/community-platform-support/",
+        "quote": "Platform | Architecture | 9.x | 8.x | 7.x ... Amazon Linux 2 | x86_64 | | | ✅ ... Ubuntu 24.04 | x86_64 | ✅ | ✅ | ... Ubuntu 20.04 | x86_64 | | ✅ | ✅",
+        "enterprise_differences": "Enterprise adds ppc64le and s390x: RHEL/Rocky/Alma 8 (✅) and RHEL/Rocky/Alma 9 ('8.0.7+'); footnote [2]: TCMalloc on those architectures is the legacy version.",
+        "enterprise_url": "https://www.mongodb.com/docs/enterprise-platform-support/",
+        "column": "8.x",
+        "note": "Taken from the shared 8.x column; there is no 8.2-specific table. /docs/v8.2/ pages redirect to /docs/manual/ (9.0)."
+      },
+      "8.3": {
+        "edition": "Community; the Enterprise page has the same x86_64/arm64 rows",
+        "x86_64": [
+          "amzn2023",
+          "debian12",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "ol10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "ol9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "sles15",
+          "ubuntu2404",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "aarch64": [
+          "amzn2023",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2404",
+          "ubuntu2204",
+          "ubuntu2004"
+        ],
+        "url": "https://www.mongodb.com/docs/community-platform-support/",
+        "quote": "Platform | Architecture | 9.x | 8.x | 7.x ... Amazon Linux 2 | x86_64 | | | ✅ ... Ubuntu 24.04 | x86_64 | ✅ | ✅ | ... Ubuntu 20.04 | x86_64 | | ✅ | ✅",
+        "enterprise_differences": "Enterprise adds ppc64le and s390x: RHEL/Rocky/Alma 8 (✅) and RHEL/Rocky/Alma 9 ('8.0.7+'); footnote [2]: TCMalloc on those architectures is the legacy version.",
+        "enterprise_url": "https://www.mongodb.com/docs/enterprise-platform-support/",
+        "column": "8.x",
+        "note": "Taken from the shared 8.x column; /docs/v8.3/administration/production-notes/ only links to the platform-support pages. /docs/v8.3/tutorial/install-mongodb-on-*/ return 404."
+      },
+      "9.0": {
+        "edition": "Community; the Enterprise page has the same x86_64/arm64 rows",
+        "x86_64": [
+          "amzn2023",
+          "debian12",
+          "debian13",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "ol10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "ol9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ol8",
+          "sles15",
+          "sles16",
+          "ubuntu2604",
+          "ubuntu2404",
+          "ubuntu2204"
+        ],
+        "aarch64": [
+          "amzn2023",
+          "rhel10",
+          "rocky10",
+          "alma10",
+          "rhel9",
+          "rocky9",
+          "alma9",
+          "rhel8",
+          "rocky8",
+          "alma8",
+          "ubuntu2604",
+          "ubuntu2404",
+          "ubuntu2204"
+        ],
+        "min_patch": {
+          "ubuntu2604": "9.0.4"
+        },
+        "url": "https://www.mongodb.com/docs/community-platform-support/",
+        "quote": "Debian 13 | x86_64 | ✅ | | ... SLES 16 | x86_64 | ✅ | | ... Ubuntu 26.04 | x86_64 | 9.0.4+ | | ... Ubuntu 20.04 | x86_64 | | ✅ | ✅",
+        "enterprise_differences": "Enterprise adds ppc64le and s390x for RHEL/Rocky/Alma 10, 9 and 8.",
+        "enterprise_url": "https://www.mongodb.com/docs/enterprise-platform-support/"
+      }
+    },
+    "psmdb": {
+      "3.6": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "ubuntu1604",
+          "ubuntu1804",
+          "ubuntu2004",
+          "debian9",
+          "sles12"
+        ],
+        "aarch64": null,
+        "other_listed": [
+          "RHEL 6 (Active)",
+          "SLES 11 (Active1)",
+          "Ubuntu 14.04 (EOL)",
+          "Debian 8 (EOL)"
+        ],
+        "rule": "OS rows with status 'Active' in an archived official lifecycle table",
+        "sources": [
+          {
+            "url": "http://web.archive.org/web/20201027091841/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Software → Platform ↓ | ... | PSMDB 3.6 ... RHEL 8 | 01-may-2029 | ... | Active ... Debian 10 | 01-jul-2024 | ... | NA ... SLES 12 1 | ... | Active1"
+          }
+        ],
+        "footnote_quote": "1: These platforms are only provided with 64-bit packages."
+      },
+      "4.0": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "ubuntu1604",
+          "ubuntu1804",
+          "ubuntu2004",
+          "debian9",
+          "debian10",
+          "sles12"
+        ],
+        "aarch64": null,
+        "other_listed": [
+          "RHEL 6 (Active)",
+          "SLES 11 (Active1)",
+          "Debian 8 (EOL)"
+        ],
+        "rule": "OS rows with status 'Active' in an archived official lifecycle table",
+        "sources": [
+          {
+            "url": "http://web.archive.org/web/20201027091841/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "PSMDB 4.0 ... RHEL 8 Active, Ubuntu 20.04 LTS Active, Debian 10 Active, SLES 12 Active1, Ubuntu 14.04 LTS NA"
+          }
+        ]
+      },
+      "4.2": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "ubuntu1604",
+          "ubuntu1804",
+          "ubuntu2004",
+          "debian9",
+          "debian10",
+          "debian11",
+          "sles12"
+        ],
+        "aarch64": null,
+        "other_listed": [
+          "RHEL 6 (Active in 2020)",
+          "SLES 11 (Active1 in 2020)"
+        ],
+        "rule": "Union of OS rows with status 'Active' across archived official lifecycle tables",
+        "sources": [
+          {
+            "url": "http://web.archive.org/web/20201027091841/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "PSMDB 4.2 ... RHEL 6 Active, RHEL 7 Active, RHEL 8 Active, Ubuntu 16.04/18.04/20.04 Active, Debian 9/10 Active, SLES 11/12 Active1"
+          },
+          {
+            "url": "http://web.archive.org/web/20220804223954/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Debian 11 | TBD | ... PSMDB 4.2 Active"
+          },
+          {
+            "url": "http://web.archive.org/web/20230522154819/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Ubuntu 22.04 LTS | 01-Apr-2027 | ... PSMDB 4.2 EOL (never shown Active, so not included)"
+          }
+        ]
+      },
+      "4.4": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "ubuntu1604",
+          "ubuntu1804",
+          "ubuntu2004",
+          "ubuntu2204",
+          "debian9",
+          "debian10",
+          "debian11",
+          "sles12",
+          "sles15"
+        ],
+        "aarch64": [],
+        "aarch64_note": "Docker images only, no ARM64 packages.",
+        "other_listed": [
+          "RHEL 6 (Active in 2020)"
+        ],
+        "rule": "Union of OS rows with status 'Active' across archived official lifecycle tables",
+        "sources": [
+          {
+            "url": "http://web.archive.org/web/20201027091841/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "PSMDB 4.4 ... RHEL 6/7/8 Active, Ubuntu 16.04/18.04/20.04 Active, Debian 9/10 Active, SLES 12 Active1, SLES 15 Active1"
+          },
+          {
+            "url": "http://web.archive.org/web/20220804223954/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Debian 11 | TBD | ... PSMDB 4.4 Active"
+          },
+          {
+            "url": "http://web.archive.org/web/20240403212046/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Ubuntu 22.04 LTS | 01-Apr-2027 | ... PSMDB 4.4 Active; RHEL 9 | ... PSMDB 4.4 NA"
+          },
+          {
+            "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/system-requirements.html",
+            "quote": "ARM64: Percona Server for MongoDB requires the ARMv8.2-A or later microarchitecture. Currently, only Docker images are available."
+          }
+        ],
+        "system_requirements_quote": "Percona Server for MongoDB has the same system requirements as the MongoDB Community Edition."
+      },
+      "5.0": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "ubuntu1804",
+          "ubuntu2004",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian10",
+          "debian11"
+        ],
+        "aarch64": [
+          "rhel8",
+          "ubuntu2004",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian11"
+        ],
+        "aarch64_note": "Derived: the Oct 2024 lifecycle snapshot says ARM64 packages exist 'for all supported operating systems' for PSMDB 5.0 through 7.0; the list is the 5.0 Active rows of that snapshot. The 5.0 system-requirements page (last updated Feb 28, 2024) still says 'Currently, only Docker images are available.'",
+        "rule": "Union of OS rows with status 'Active' across archived official lifecycle tables",
+        "sources": [
+          {
+            "url": "http://web.archive.org/web/20220804223954/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "PSMDB 5.0 ... RHEL 7 Active, RHEL 8 Active, Ubuntu 18.04/20.04 Active, Debian 10/11 Active, Ubuntu 16.04 EOL, Debian 9 EOL"
+          },
+          {
+            "url": "http://web.archive.org/web/20230522154819/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Ubuntu 22.04 LTS | 01-Apr-2027 | ... PSMDB 5.0 Active"
+          },
+          {
+            "url": "http://web.archive.org/web/20241001184419/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Ubuntu 24.04 LTS | 01-Apr-2029 | ... PSMDB 5.0 Active; RHEL 9 ... PSMDB 5.0 NA. Packages for ARM 64 architecture are available for all supported operating systems for both Percona Server for MongoDB version 5.0 through 7.0"
+          }
+        ]
+      },
+      "6.0": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "rhel9",
+          "amzn2023",
+          "ubuntu1804",
+          "ubuntu2004",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian10",
+          "debian11"
+        ],
+        "aarch64": [
+          "rhel8",
+          "rhel9",
+          "ubuntu2004",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian11"
+        ],
+        "aarch64_note": "Derived from the Oct 2024 snapshot statement ('available for all supported operating systems ... 5.0 through 7.0') and the 6.0 Active rows of that snapshot. Amazon Linux 2023 arrived later and its ARM64 status is not stated.",
+        "min_patch": {
+          "amzn2023": "6.0.20-17"
+        },
+        "rule": "Union of OS rows with status 'Active' across archived official lifecycle tables",
+        "sources": [
+          {
+            "url": "http://web.archive.org/web/20230522154819/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "PSMDB 6.0 ... RHEL 7/8/9 Active, Ubuntu 18.04/20.04/22.04 Active, Debian 10/11 Active"
+          },
+          {
+            "url": "http://web.archive.org/web/20240403212046/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "RHEL 9 | 01-May-2032 | ... PSMDB 6.0 Active1 (footnote text not present in the snapshot)"
+          },
+          {
+            "url": "http://web.archive.org/web/20241001184419/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Ubuntu 24.04 LTS | 01-Apr-2029 | ... PSMDB 6.0 Active; Debian 12 ... PSMDB 6.0 NA"
+          },
+          {
+            "url": "http://web.archive.org/web/20250604153721/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "Amazon Linux 2023 1, 2 | 30-June-2029 | ... PSMDB 6.0 Active. Amazon Linux 2023 is available starting with ... PSMDB 6.0.20-17"
+          },
+          {
+            "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/amazon-linux.html",
+            "quote": "6.0.20-17 | 2023.6.x and earlier / 6.0.21-18 | 2023.7.x"
+          }
+        ]
+      },
+      "7.0": {
+        "x86_64": [
+          "rhel7",
+          "rhel8",
+          "rhel9",
+          "rocky8",
+          "rocky9",
+          "ol8",
+          "ol9",
+          "amzn2023",
+          "ubuntu2004",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian11",
+          "debian12"
+        ],
+        "aarch64": [
+          "rhel8",
+          "rhel9",
+          "rocky8",
+          "rocky9",
+          "ol8",
+          "ol9",
+          "amzn2023",
+          "ubuntu2204",
+          "ubuntu2404"
+        ],
+        "aarch64_note": "Derived from the live page: every PSMDB 7.x row except Debian ('Debian 11 and Debian 12 are not available for ARM64 (AARCH64) architecture.'). Historic rows (RHEL 7, Ubuntu 20.04) are left out of aarch64 because their ARM64 status is not stated.",
+        "live_status": {
+          "rhel8": "Active",
+          "rhel9": "Active",
+          "rhel10": "N/A",
+          "rocky8": "Active",
+          "rocky9": "Active",
+          "rocky10": "N/A",
+          "alma10": "N/A",
+          "ol8": "Active",
+          "ol9": "Active",
+          "ol10": "N/A",
+          "amzn2023": "Active",
+          "ubuntu2204": "Active",
+          "ubuntu2404": "Active",
+          "debian11": "Inactive",
+          "debian12": "Active",
+          "debian13": "N/A"
+        },
+        "dropped": {
+          "debian11": "Debian 11 is no longer supported since PSMDB 7.0.43-23"
+        },
+        "min_patch": {
+          "amzn2023": "7.0.16-10"
+        },
+        "rule": "Union of 'Active' rows: live page plus archived snapshots (RHEL 7, Ubuntu 20.04, Debian 11 come from snapshots)",
+        "sources": [
+          {
+            "url": "https://www.percona.com/release-lifecycle-percona-software-for-mongodb/",
+            "quote": "Software → OS ↓ | OS EOL ↓ | PSMDB 7.x | PSMDB 8.x ... RHEL 10 | 31-May-2035 | N/A | Active ... Debian 11 3, 6 | 31-Aug-2026 | Inactive | N/A"
+          },
+          {
+            "url": "https://www.percona.com/release-lifecycle-percona-software-for-mongodb/",
+            "quote": "Debian 11 is no longer supported since PSMDB 7.0.43-23, PBM 2.16.0, and PCSM 1.0.0."
+          },
+          {
+            "url": "http://web.archive.org/web/20240403212046/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "RHEL 7 | 30-Jun-2024 | ... PSMDB 7.0 Active; Ubuntu 20.04 LTS ... Active; Debian 10 ... PSMDB 7.0 NA"
+          },
+          {
+            "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/amazon-linux.html",
+            "quote": "7.0.16-10 | 2023.6.x and earlier / 7.0.18-11 | 2023.7.x and newer"
+          }
+        ],
+        "max_patch": {
+          "rhel7": "7.0.12-7",
+          "ubuntu2004": "7.0.18-11",
+          "debian11": "7.0.40-22"
+        },
+        "max_patch_source": "https://www.percona.com/release-lifecycle-percona-software-for-mongodb/"
+      },
+      "8.0": {
+        "x86_64": [
+          "rhel8",
+          "rhel9",
+          "rhel10",
+          "rocky8",
+          "rocky9",
+          "rocky10",
+          "alma10",
+          "ol8",
+          "ol9",
+          "ol10",
+          "amzn2023",
+          "ubuntu2004",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian12",
+          "debian13"
+        ],
+        "aarch64": [
+          "rhel8",
+          "rhel9",
+          "rhel10",
+          "rocky8",
+          "rocky9",
+          "rocky10",
+          "alma10",
+          "ol8",
+          "ol9",
+          "ol10",
+          "amzn2023",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian13"
+        ],
+        "aarch64_note": "Derived from the live page: every PSMDB 8.x row except Debian 11/12 (footnote). Debian 13 is not excluded by the footnote.",
+        "live_status": {
+          "rhel8": "Active",
+          "rhel9": "Active",
+          "rhel10": "Active",
+          "rocky8": "Active",
+          "rocky9": "Active",
+          "rocky10": "Active",
+          "alma10": "Active",
+          "ol8": "Active",
+          "ol9": "Active",
+          "ol10": "Active",
+          "amzn2023": "Active",
+          "ubuntu2204": "Active",
+          "ubuntu2404": "Active",
+          "debian11": "N/A",
+          "debian12": "Active",
+          "debian13": "Active"
+        },
+        "min_patch": {
+          "amzn2023": "8.0.4-2"
+        },
+        "rule": "Union of 'Active' rows: live 'PSMDB 8.x' column plus archived snapshots",
+        "conflicts": "Snapshots of Mar/Jun 2025 show 'Ubuntu 20.04 LTS ... Active' and 'Debian 11 ... Active' for PSMDB 8.0, but the live 8.x column shows Debian 11 as 'N/A' (Builds were never available) and has no Ubuntu 20.04 row.",
+        "sources": [
+          {
+            "url": "https://www.percona.com/release-lifecycle-percona-software-for-mongodb/",
+            "quote": "RHEL 10 | 31-May-2035 | N/A | Active ... AlmaLinux 10 4 | 31-May-2035 | N/A | Active ... Debian 13 3 | 30-Jun-2030 | N/A | Active"
+          },
+          {
+            "url": "http://web.archive.org/web/20250329180940/https://www.percona.com/services/policies/percona-software-support-lifecycle",
+            "quote": "PSMDB 8.0 ... Ubuntu 20.04 LTS | 01-Apr-2025 | Active ... Debian 11 | 30-Jun-2026 | Active"
+          },
+          {
+            "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/amazon-linux.html",
+            "quote": "8.0.4-2 | 2023.6.x and older / 8.0.8-3 | 2023.7.x and newer"
+          }
+        ],
+        "max_patch": {
+          "ubuntu2004": "8.0.8-3"
+        },
+        "max_patch_source": "https://www.percona.com/release-lifecycle-percona-software-for-mongodb/"
+      },
+      "8.3": {
+        "x86_64": [
+          "rhel8",
+          "rhel9",
+          "rhel10",
+          "rocky8",
+          "rocky9",
+          "rocky10",
+          "alma10",
+          "ol8",
+          "ol9",
+          "ol10",
+          "amzn2023",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian12",
+          "debian13"
+        ],
+        "aarch64": [
+          "rhel8",
+          "rhel9",
+          "rhel10",
+          "rocky8",
+          "rocky9",
+          "rocky10",
+          "alma10",
+          "ol8",
+          "ol9",
+          "ol10",
+          "amzn2023",
+          "ubuntu2204",
+          "ubuntu2404",
+          "debian13"
+        ],
+        "aarch64_note": "Derived as for 8.0 (live footnote excludes only Debian 11/12).",
+        "live_status": {
+          "rhel8": "Active",
+          "rhel9": "Active",
+          "rhel10": "Active",
+          "rocky8": "Active",
+          "rocky9": "Active",
+          "rocky10": "Active",
+          "alma10": "Active",
+          "ol8": "Active",
+          "ol9": "Active",
+          "ol10": "Active",
+          "amzn2023": "Active",
+          "ubuntu2204": "Active",
+          "ubuntu2404": "Active",
+          "debian11": "N/A",
+          "debian12": "Active",
+          "debian13": "Active"
+        },
+        "min_patch": {
+          "amzn2023": "8.3.7-1"
+        },
+        "rule": "Live 'PSMDB 8.x' column only (PSMDB 8.3 GA 27-Oct-2026, no archived history)",
+        "sources": [
+          {
+            "url": "https://www.percona.com/release-lifecycle-percona-software-for-mongodb/",
+            "quote": "Percona Server for MongoDB 8.3 | 27-Oct-2026 | 31-Oct-2029 ... Software → OS ↓ | OS EOL ↓ | PSMDB 7.x | PSMDB 8.x"
+          },
+          {
+            "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/amazon-linux.html",
+            "quote": "8.3.7-1 | 2023.11.x and newer"
+          }
+        ]
+      }
+    }
+  },
+  "notes": [
+    "MongoDB 7.0+ OS lists come from the live pages https://www.mongodb.com/docs/community-platform-support/ and /enterprise-platform-support/ (columns 9.x, 8.x, 7.x). The 8.x column is shared by 8.0, 8.2 and 8.3; the docs have no per-minor table. The 8.0 and 7.0 lists match the versioned install pages (/docs/v8.0/tutorial/install-mongodb-on-*/ and /docs/v7.0/...).",
+    "/docs/manual/ is 9.0 ('Version 9.0 (current)'). /docs/v8.2/, /docs/v6.0/, /docs/v5.0/, /docs/v4.4/ and /docs/v9.0/ production-notes URLs redirect to /docs/manual/. Production notes for manual, v8.3, v8.0 and v7.0 contain no OS table; they link to the platform-support pages.",
+    "MongoDB 3.6-6.0 lists come from the mongodb/docs GitHub branches: v3.6/v4.0/v4.2 source/includes/fact-platform-{x86_64,arm64}.rst; v5.0 and v6.0 source/includes/platform-support.rst (the v5.0 file carries the 4.4 column).",
+    "MongoDB Rocky/Alma/Oracle Linux ids are included only where the row label names them. Oracle Linux appears only in x86_64 rows, and only with the Red Hat Compatible Kernel: 'MongoDB only supports Oracle Linux running the Red Hat Compatible Kernel (RHCK). MongoDB does not support the Unbreakable Enterprise Kernel (UEK).' Rocky/Alma footnote: 'MongoDB on-premises products released for RHEL version 8.0+ are compatible with and supported on Rocky Linux version 8.0+ and AlmaLinux version 8.0+, contingent upon those distributions meeting their obligation to deliver full RHEL compatibility.'",
+    "Notable MongoDB drops: RHEL/Oracle Linux 7, Amazon Linux 2, SLES 12 and Debian 11 are listed for 7.x but not 8.x. Ubuntu 18.04 and Debian 10 stop after 6.0. Ubuntu 20.04 stops after 8.x (not in 9.x). Amazon Linux 2023 first appears for 7.0 (not in the 6.0 column). RHEL 9 starts at 6.0.4, Ubuntu 22.04 at 6.0.4, Ubuntu 24.04 at 8.0, Debian 13 and SLES 16 at 9.0, Ubuntu 26.04 at 9.0.4.",
+    "MongoDB minimum CPU: 5.0+ needs AVX on x86_64 and ARMv8.2-A on arm64 (production notes): 'Starting in MongoDB 5.0, mongod, mongos, and the legacy mongo shell no longer support x86_64 platforms which do not meet this minimum microarchitecture requirement.'",
+    "MongoDB 9.0 Linux kernel warning (production notes): 'running MongoDB with a Linux kernel version from 6.19 through 7.0.13 can cause MongoDB to crash ... MongoDB detects these kernel versions and stops during startup.'",
+    "MongoDB ids 'rhel6', 'amzn1', 'debian8', 'ubuntu1404' and 'sles11' have no normalized id in this file; they are listed under other_listed_x86_64 or other_listed.",
+    "Extra ids beyond the requested list (rhel10 clones and new releases): rocky10, alma10, ol10, ubuntu2604, sles16. They are added because the official tables list them.",
+    "PSMDB: the system-requirements pages (4.4-8.3) give CPU requirements only, no OS table. The OS table lives at https://www.percona.com/release-lifecycle-percona-software-for-mongodb/ (linked from the lifecycle page https://www.percona.com/services/policies/percona-software-support-lifecycle), and today it only has 'PSMDB 7.x' and 'PSMDB 8.x' columns. PSMDB 3.6-6.0 lists come from Wayback Machine snapshots of the official lifecycle page (web.archive.org URLs in sources).",
+    "PSMDB lifecycle states (official definitions): Active = 'Actively releasing new builds'; Extended Support = 'New builds only for critical bug fixes or security issues'; EOL = 'No new builds, existing downloads available'; NA = 'Builds were never available on this platform'. The x86_64 lists here keep OSes that were 'Active' for that series in at least one official table.",
+    "PSMDB Rocky/Oracle Linux: 'We support and test Percona Software for MongoDB on Rocky Linux and Oracle Linux, following the same Application Binary Interface (ABI) compatibility policy as RHEL.' AlmaLinux has a row only for version 10. Older snapshots have RHEL rows only, so clones are not listed for PSMDB 3.6-6.0.",
+    "PSMDB Amazon Linux 2023: 'Amazon Linux 2023 is available starting with the following product versions: PSMDB 6.0.20-17, PSMDB 7.0.16-10, PSMDB 8.0.4-2'. Per-version AL2023 compatibility tables are on /install/amazon-linux.html; each PSMDB build only works on specific AL2023 releases.",
+    "PSMDB 8.2 and 9.0 do not exist: the lifecycle table lists PSMDB 3.2-8.0 and 8.3, and docs.percona.com has no 8.2 or 9.0 system-requirements page (404). MongoDB 8.2 docs have been removed (redirect to manual).",
+    "PSMDB 6.0 RHEL 9 cell reads 'Active1' in the Apr 2024 snapshot; the footnote text is not present in that snapshot."
+  ],
+  "os_description": {
+    "rhel7": "RHEL 7 (MongoDB tables: 'RHEL/CentOS/Oracle Linux 7.0+' or 'RHEL/Oracle Linux 7.0+'; Percona: 'RHEL 7')",
+    "rhel8": "RHEL 8 (MongoDB 8.x/9.x tables: 'RHEL/Rocky/Alma/Oracle Linux 8.0+' on x86_64, 'RHEL/Rocky/Alma 8' on arm64; 3.6-4.2 tables: 'RHEL/CentOS/Oracle Linux 8.0 and later'; Percona: 'RHEL 8')",
+    "rhel9": "RHEL 9 (MongoDB: 'RHEL/Rocky/Alma/Oracle Linux 9.0+' x86_64, 'RHEL/Rocky/Alma 9' or 'RHEL/CentOS/Rocky/Alma 9' arm64; Percona: 'RHEL 9')",
+    "rhel10": "RHEL 10 (MongoDB: 'RHEL/Rocky/Alma/Oracle Linux 10' x86_64, 'RHEL/Rocky/Alma 10' arm64; Percona: 'RHEL 10')",
+    "ol7": "Oracle Linux 7 (RHCK only), listed inside the MongoDB 'RHEL/CentOS/Oracle Linux 7.0+' row",
+    "ol8": "Oracle Linux 8 (RHCK only); MongoDB row 'RHEL/.../Oracle Linux 8.0+' (x86_64 only); Percona row 'Oracle Linux 8'",
+    "ol9": "Oracle Linux 9 (RHCK only); MongoDB row 'RHEL/Rocky/Alma/Oracle Linux 9.0+' (x86_64 only); Percona row 'Oracle Linux 9'",
+    "ol10": "Oracle Linux 10 (RHCK only); extra id, not in the requested list. MongoDB row 'RHEL/Rocky/Alma/Oracle Linux 10' (x86_64 only); Percona row 'Oracle Linux 10'",
+    "rocky8": "Rocky Linux 8 (MongoDB rows naming Rocky; Percona row 'Rocky Linux 8')",
+    "rocky9": "Rocky Linux 9 (MongoDB rows naming Rocky; Percona row 'Rocky Linux 9')",
+    "rocky10": "Rocky Linux 10; extra id, not in the requested list",
+    "alma8": "AlmaLinux 8 (MongoDB rows naming Alma; no Percona row)",
+    "alma9": "AlmaLinux 9 (MongoDB rows naming Alma; no Percona row)",
+    "alma10": "AlmaLinux 10; extra id, not in the requested list (MongoDB rows naming Alma; Percona row 'AlmaLinux 10')",
+    "amzn2": "Amazon Linux 2 (MongoDB: 'Amazon Linux 2' / 'Amazon Linux V2')",
+    "amzn2023": "Amazon Linux 2023",
+    "ubuntu1604": "Ubuntu 16.04 LTS",
+    "ubuntu1804": "Ubuntu 18.04 LTS",
+    "ubuntu2004": "Ubuntu 20.04 LTS",
+    "ubuntu2204": "Ubuntu 22.04 LTS",
+    "ubuntu2404": "Ubuntu 24.04 LTS",
+    "ubuntu2604": "Ubuntu 26.04 LTS; extra id, not in the requested list",
+    "debian9": "Debian 9",
+    "debian10": "Debian 10",
+    "debian11": "Debian 11",
+    "debian12": "Debian 12",
+    "debian13": "Debian 13",
+    "sles12": "SLES 12",
+    "sles15": "SLES 15",
+    "sles16": "SLES 16; extra id, not in the requested list"
+  }
+}

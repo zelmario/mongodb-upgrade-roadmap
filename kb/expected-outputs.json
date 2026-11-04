@@ -1,0 +1,1071 @@
+{
+  "schema_version": 1,
+  "patterns": [
+    {
+      "id": "op-get-spec-image",
+      "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) -o jsonpath='\\{\\.spec\\.image\\}\\{\"\\\\n\"\\}\\{\\.spec\\.backup\\.image\\}\\{\"\\\\n\"\\}\\{\\.spec\\.pmm\\.image\\}\\{\"\\\\n\"\\}'$",
+      "output": "percona/percona-server-mongodb:{to_full}\npercona/percona-backup-mongodb:2.15.0\npercona/pmm-client:2.44.1-1",
+      "note": "Copy each line that differs from deploy/cr.yaml into spec.image, spec.backup.image and spec.pmm.image. If you run PMM 3, check that the Operator did not move the client to 2.x.",
+      "source": "lab: Operator 1.23.1 on k3d, 7.0.43-23 to 8.0.32-14"
+    },
+    {
+      "id": "grep-processmanagement-community",
+      "match": "^grep -n -A3 processManagement /etc/mongod\\.conf\\.community /etc/mongod\\.conf$",
+      "output": "/etc/mongod.conf.community:12:processManagement:\n/etc/mongod.conf.community-13-  timeZoneInfo: /usr/share/zoneinfo\n/etc/mongod.conf:12:processManagement:\n/etc/mongod.conf-13-  fork: true\n/etc/mongod.conf-14-  pidFilePath: /var/run/mongod.pid\n/etc/mongod.conf-15-  timeZoneInfo: /usr/share/zoneinfo",
+      "note": "Remove the fork and pidFilePath lines from /etc/mongod.conf so it matches the Community default. fork is overridden by the unit (MONGODB_CONFIG_OVERRIDE_NOFORK=1), but the pid file path makes mongod fail.",
+      "source": "lab: PSMDB 7.0.45-24 replica set switched to MongoDB Community on Rocky Linux 8"
+    },
+    {
+      "id": "pbm-list",
+      "match": "^pbm list$",
+      "output": "Backup snapshots:\n  2026-11-04T02:51:06Z <logical> [restore_to_time: 2026-11-04T02:51:09Z]",
+      "note": "Your backup taken before the upgrade must be listed. 'No backups found' means there is nothing to restore from.",
+      "source": "https://docs.percona.com/percona-backup-mongodb/reference/pbm-commands.html"
+    },
+    {
+      "id": "which-mongosh-mongo",
+      "match": "^which mongosh mongo$",
+      "output": "/usr/bin/mongo",
+      "note": "Only /usr/bin/mongo on 4.4 and 5.0 hosts: use mongo for the shell commands. From 6.0 you get /usr/bin/mongosh.",
+      "source": "lab: PSMDB 4.4.29-28 replica set on Rocky Linux 8"
+    },
+    {
+      "id": "cpuinfo-x86-64-v3",
+      "match": "^grep -o -w -E 'avx2\\|bmi1\\|bmi2\\|fma' /proc/cpuinfo \\| sort -u$",
+      "output": "avx2\nbmi1\nbmi2\nfma",
+      "note": "All four lines must appear on every node. A missing flag means the CPU cannot run the UBI 10 images.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/System-Requirements.html"
+    },
+    {
+      "id": "op-apply-cr",
+      "match": "^kubectl apply -f deploy/cr\\.yaml -n ",
+      "output": "perconaservermongodb.psmdb.percona.com/my-cluster-name configured",
+      "note": "'configured' means the change was accepted. The Pods restart after the Operator's next check.",
+      "source": "lab: Operator 1.23.1 on k3d, 7.0.43-23 to 8.0.32-14"
+    },
+    {
+      "id": "op-get-deployments",
+      "match": "^kubectl get deployments? percona-server-mongodb-operator -n ",
+      "output": "NAME                              READY   UP-TO-DATE   AVAILABLE   AGE\npercona-server-mongodb-operator   1/1     1            1           15m",
+      "note": "READY 1/1 means the new Operator Pod runs.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html"
+    },
+    {
+      "id": "op-get-image-state",
+      "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) -o jsonpath='\\{\\.spec\\.image\\} \\{\\.status\\.state\\} \\{\\.status\\.mongoVersion\\}.*$",
+      "output": "percona/percona-server-mongodb:{to_full} ready {to_full}",
+      "note": "While the Pods restart the state is initializing. The upgrade is done when the image and mongoVersion show the new version and the state is ready. If the image does not change within a few minutes, check upgradeOptions.schedule.",
+      "source": "lab: Operator 1.23.1 on k3d, 7.0.43-23 to 8.0.32-14"
+    },
+    {
+      "id": "yum-remove-psmdb",
+      "match": "^sudo yum remove -y 'percona-server-mongodb\\*' percona-mongodb-mongosh$",
+      "output": "Removing:\n percona-server-mongodb          x86_64 ...\n percona-server-mongodb-mongos   x86_64 ...\n percona-server-mongodb-server   x86_64 ...\n percona-server-mongodb-tools    x86_64 ...\n percona-mongodb-mongosh         x86_64 ...\n...\nwarning: /etc/mongod.conf saved as /etc/mongod.conf.rpmsave\n...\nComplete!",
+      "note": "The rpmsave warning appears only if you changed /etc/mongod.conf. The next steps put it back.",
+      "source": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/upgrade-from-mongodb.html"
+    },
+    {
+      "id": "remove-telemetry-agent",
+      "match": "^sudo (apt|yum) remove -y percona-telemetry-agent$",
+      "output": null,
+      "note": "One Removing (apt) or Erasing (yum) line for percona-telemetry-agent. 'Unable to locate package' or 'No match' means it was not installed.",
+      "source": "https://docs.percona.com/percona-server-for-mongodb/8.0/telemetry.html"
+    },
+    {
+      "id": "chown-keyfile-awk",
+      "match": "^kf=\\$\\(awk ",
+      "output": "",
+      "note": "No output means success, or that the config has no keyFile.",
+      "source": "lab: PSMDB 7.0.45-24 replica set switched to MongoDB Community on Ubuntu 22.04"
+    },
+    {
+      "id": "chown-mongodb",
+      "match": "^sudo chown -R mongodb:mongodb ",
+      "output": "",
+      "note": "No output means success.",
+      "source": "lab: PSMDB 7.0.45-24 replica set switched to MongoDB Community on Ubuntu 22.04"
+    },
+    {
+      "id": "apt-install-mongodb-org-confold",
+      "match": "^sudo apt-get install -y -o Dpkg::Options::=\\\"--force-confold\\\" mongodb-org$",
+      "output": "Setting up mongodb-mongosh (2.14.1) ...\nSetting up mongodb-org-shell ({to}.x) ...\nSetting up mongodb-database-tools (100.20.1) ...\nSetting up mongodb-org-mongos ({to}.x) ...\nSetting up mongodb-org-server ({to}.x) ...\nConfiguration file '/etc/mongod.conf'\n ==> Modified (by you or by a script) since installation.\n ==> Package distributor has shipped an updated version.\n ==> Keeping old config file as default.\nAdding system user `mongodb' (UID 107) ...\n...\nSetting up mongodb-org ({to}.x) ...",
+      "note": "Setting up mongodb-org means the install finished. 'Adding system user mongodb' is why the next step changes the owner of the data, log and keyfile.",
+      "source": "lab: PSMDB 7.0.45-24 replica set switched to MongoDB Community on Ubuntu 22.04"
+    },
+    {
+      "id": "percona-release-show",
+      "match": "^sudo percona-release show$",
+      "source": "lab: PSMDB sharded cluster on Rocky Linux 8, 6.0.29-23 to 7.0.45-24 to 8.0.34-15",
+      "output": "The following repositories are enabled on your system:\nprel - release\npsmdb-{from_nodot} - release\npsmdb-{to_nodot} - release\ntelemetry - release\n\nThe following products are installed on your system:\n...",
+      "note": "If psmdb-{from_nodot} is still listed after the upgrade, disable it so a later yum or apt upgrade does not pull packages from it. After the repository list, the output shows the Percona packages installed per product. yum adds the architecture to each line (| x86_64)."
+    },
+    {
+      "id": "rpm-q-tools-mongosh",
+      "match": "^rpm -q percona-server-mongodb-tools percona-mongodb-mongosh$",
+      "source": "lab: PSMDB 6.0 to 8.0 upgrade",
+      "output": null,
+      "note": "Prints one package per line with its version. The tools version should match the server version you upgraded to."
+    },
+    {
+      "id": "diff-rpmnew",
+      "match": "^diff /etc/mongod\\.conf /etc/mongod\\.conf\\.rpmnew$",
+      "source": "lab: PSMDB 6.0 to 8.0 upgrade",
+      "output": null,
+      "note": "Lines starting with < are in your config only; lines with > are in the new default only. No output means they are identical. 'No such file' means no .rpmnew was created."
+    },
+    {
+      "id": "percona-release-disable",
+      "match": "^sudo percona-release disable (psmdb-\\d+|telemetry)$",
+      "output": null,
+      "note": "On apt it runs apt-get update and prints its Hit lines, ending in 'Reading package lists...'. On yum it prints '<*> All done!'. After it, percona-release show no longer lists the repository.",
+      "source": "lab: PSMDB to MongoDB Community switch on Ubuntu 22.04 and Rocky Linux 8"
+    },
+    {
+      "id": "yum-install-psmdb-pinned",
+      "match": "^sudo yum install( -y)? percona-server-mongodb-(mongos-)?\\d",
+      "output": "Dependencies resolved.\nUpgrading:\n percona-server-mongodb         x86_64 {to_full}.{el} psmdb-{to_nodot}-release-x86_64 8.2 k\n percona-server-mongodb-mongos  x86_64 {to_full}.{el} psmdb-{to_nodot}-release-x86_64  26 M\n percona-server-mongodb-server  x86_64 {to_full}.{el} psmdb-{to_nodot}-release-x86_64  61 M\n...\nUpgraded:\n  percona-server-mongodb-{to_full}.{el}.x86_64\n  percona-server-mongodb-mongos-{to_full}.{el}.x86_64\n  percona-server-mongodb-server-{to_full}.{el}.x86_64\n\nComplete!",
+      "note": "Complete! and the version you asked for in the Upgraded lines mean it is installed. On a major upgrade yum also prints 'warning: /etc/mongod.conf created as /etc/mongod.conf.rpmnew': your file is kept. On a host that runs only mongos, installing the mongos package upgrades the same three packages. Without -y, yum stops at 'Is this ok [y/N]' and a pasted block goes on with the old binary. On 6.0, percona-server-mongodb-tools is upgraded too, because the 6.0 package depends on the same tools version.",
+      "source": "lab: PSMDB sharded cluster on Rocky Linux 8, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "apt-install-psmdb-pinned",
+      "match": "^sudo apt install( -y)?( -o \\S+)? percona-server-mongodb=\\d",
+      "output": "The following NEW packages will be installed:\n  percona-server-mongodb-shell\nThe following packages will be upgraded:\n  percona-server-mongodb percona-server-mongodb-mongos\n  percona-server-mongodb-server percona-server-mongodb-tools\n4 upgraded, 1 newly installed, 0 to remove and 73 not upgraded.\n...\nSetting up percona-server-mongodb-server ({to_full}.{codename}) ...\nSetting up percona-server-mongodb-mongos ({to_full}.{codename}) ...\nSetting up percona-server-mongodb ({to_full}.{codename}) ...",
+      "note": "The version in the Setting up lines is the one you asked for. The package counts depend on what is already installed. --force-confold keeps your /etc/mongod.conf and saves the new default as /etc/mongod.conf.dpkg-dist. Without it, apt stops at 'mongod.conf (Y/I/N/O/D/Z) [default=N]': answer N, because Y installs the default file without your replication and security settings. An 'unmet dependencies' error on percona-server-mongodb-tools means the tools package needs the same version as the server.",
+      "source": "lab: 3-node PSMDB replica set on Ubuntu 22.04, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "apt-install-mongodb-pinned",
+      "match": "^sudo apt-get install -y mongodb-org=\\d",
+      "output": null,
+      "note": "apt lists the packages it upgrades and ends with Setting up ... lines; yum ends with Complete!. The versions shown must be the one you asked for.",
+      "source": "lab: Ubuntu 24.04 container, MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "yum-install-mongodb-pinned",
+      "match": "^sudo yum install -y mongodb-org-\\d",
+      "output": null,
+      "note": "apt lists the packages it upgrades and ends with Setting up ... lines; yum ends with Complete!. The versions shown must be the one you asked for.",
+      "source": "lab: Rocky Linux 8 container, PSMDB 8.0.34 / 8.3.13-4 and MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "apt-get-update",
+      "match": "^sudo apt-get update$",
+      "output": "Hit:1 http://repo.percona.com/prel/apt {codename} InRelease\nHit:4 http://repo.percona.com/psmdb-80/apt {codename} InRelease\n...\nReading package lists...\nBuilding dependency tree...\nReading state information...\n34 packages can be upgraded. Run 'apt list --upgradable' to see them.",
+      "note": "A Hit or Get line for repo.percona.com/psmdb-XX shows the Percona repository is in use. Errors mention 'Err:' or 'NO_PUBKEY'.",
+      "source": "lab: Ubuntu 24.04 container, PSMDB 8.0.34 / 8.3.13-4 packages",
+      "variants": [
+        {
+          "dist": [
+            "mongodb-community"
+          ],
+          "output": "Hit:2 https://repo.mongodb.org/apt/ubuntu {codename}/mongodb-org/{from} InRelease\nGet:4 https://repo.mongodb.org/apt/ubuntu {codename}/mongodb-org/{to} InRelease\n...\nReading package lists...",
+          "note": "A Hit or Get line for repo.mongodb.org .../mongodb-org/{to} shows the new repository is in use. Errors mention 'Err:' or 'NO_PUBKEY'.",
+          "source": "lab: 3-node MongoDB Community replica set on Ubuntu 22.04, 7.0.45 to 8.0.34"
+        }
+      ],
+      "after": [
+        {
+          "prev": "rm /etc/apt/sources\\.list\\.d/mongodb-org-",
+          "output": "Get:4 https://repo.mongodb.org/apt/ubuntu {codename}/mongodb-org/{to} InRelease\n...\nReading package lists...",
+          "note": "Only the new mongodb-org/{to} repository is listed now.",
+          "source": "lab: 3-node MongoDB Community replica set on Ubuntu 22.04, 7.0.45 to 8.0.34"
+        }
+      ]
+    },
+    {
+      "id": "apt-gnupg-curl",
+      "match": "^sudo apt-get install gnupg curl$",
+      "output": null,
+      "source": "https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/",
+      "note": "Installs gnupg and curl, or says they are already the newest version. Either is fine."
+    },
+    {
+      "id": "curl-gpg-dearmor",
+      "match": "^curl -fsSL https://pgp\\.mongodb\\.com/\\S+ \\| sudo gpg( --yes)? -o \\S+ --dearmor$",
+      "output": "",
+      "source": "https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/",
+      "note": "No output means the key was saved. --yes overwrites a key file that is already there (on a patch upgrade or a rerun); without it gpg asks 'Overwrite? (y/N)' and a pasted block fails."
+    },
+    {
+      "id": "echo-tee-sources",
+      "match": "^echo \\\"deb .*\\\" \\| sudo tee /etc/apt/sources\\.list\\.d/\\S+$",
+      "output": null,
+      "source": "https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/",
+      "note": "tee prints back the deb line it wrote to the sources list file."
+    },
+    {
+      "id": "printf-tee-yum-repo",
+      "match": "^printf '\\[mongodb-.*\\| sudo tee /etc/yum\\.repos\\.d/\\S+$",
+      "output": null,
+      "source": "https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-red-hat/",
+      "note": "tee prints back the repository file it wrote ([mongodb-...] section with baseurl, gpgcheck and gpgkey)."
+    },
+    {
+      "id": "rs-status-bare",
+      "match": "^rs\\.status\\(\\)$",
+      "source": "lab: PSMDB 8.3.13-4 replica set",
+      "output": "{\n  set: 'rs0',\n  members: [\n    { _id: 0, name: 'host1:27017', health: 1, stateStr: 'PRIMARY', ... },\n    { _id: 1, name: 'host2:27017', health: 1, stateStr: 'SECONDARY', ... },\n    { _id: 2, name: 'host3:27017', health: 1, stateStr: 'SECONDARY', ... }\n  ],\n  ok: 1\n}",
+      "note": "Every member shows health: 1 and stateStr PRIMARY or SECONDARY (output shortened)."
+    },
+    {
+      "id": "sysctl-max-map-count",
+      "match": "^sysctl vm\\.max_map_count$",
+      "source": "lab: PSMDB 8.3.13-4 replica set",
+      "output": "vm.max_map_count = 1048576",
+      "note": "The current limit. A low value leads to a startup warning about the connection limit."
+    },
+    {
+      "id": "mongodump-version",
+      "match": "^mongodump --version$",
+      "source": "lab: PSMDB and MongoDB Community replica sets on Ubuntu 22.04 and Rocky Linux 8",
+      "output": "mongodump version: 100.19.1\ngit version: ...\nGo version: ...",
+      "note": "The first line is the Database Tools version. PSMDB from 7.0.45-24, 8.0.34-15 and 8.3.13-4 ships tools with their own 100.x numbering; earlier PSMDB releases print the server version (for example 8.0.32-14). If it still prints the version you upgraded from, the tools were not upgraded.",
+      "variants": [
+        {
+          "dist": [
+            "mongodb-community"
+          ],
+          "output": "mongodump version: 100.20.1\ngit version: ...\nGo version: ...",
+          "note": "The first line is the MongoDB Database Tools version (100.x, released separately from the server).",
+          "source": "lab: 3-node MongoDB Community replica set on Ubuntu 22.04, 7.0.45 to 8.0.34"
+        }
+      ]
+    },
+    {
+      "id": "pbm-status",
+      "match": "^pbm status$",
+      "source": "https://docs.percona.com/percona-backup-mongodb/reference/pbm-commands.html",
+      "output": null,
+      "note": "Look at the Cluster section: every pbm-agent should be listed with [OK] and the same version."
+    },
+    {
+      "id": "pbm-backup",
+      "match": "^pbm backup$",
+      "source": "https://docs.percona.com/percona-backup-mongodb/reference/pbm-commands.html",
+      "output": null,
+      "note": "It prints the backup name it starts. Run pbm status until the backup shows as done."
+    },
+    {
+      "id": "fcv-get",
+      "match": "^(> )?db\\.adminCommand\\(\\s*\\{\\s*getParameter:\\s*1,\\s*featureCompatibilityVersion:\\s*1\\s*\\}\\s*\\)$",
+      "output": "{\n  featureCompatibilityVersion: { version: '{fcv}' },\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793730151, i: 1 })\n}",
+      "note": "featureCompatibilityVersion.version is the FCV now in effect: '{fcv}' at this point of the plan. If you also see targetVersion, a previous change did not finish.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "fcv-set",
+      "match": "^(> )?db\\.adminCommand\\(\\s*\\{\\s*setFeatureCompatibilityVersion:\\s*\\\"[\\d.]+\\\"\\s*(,\\s*confirm:\\s*true\\s*)?\\}\\s*\\)$",
+      "output": "{\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793731972, i: 1 })\n}",
+      "note": "ok: 1 means the FCV was set. On 7.0+ a missing confirm: true fails with \"Please re-run this command with 'confirm: true'\", and a value the binaries do not support fails with \"Invalid feature compatibility version value\".",
+      "source": "lab: PSMDB 8.0.32 replica set, member upgraded to 8.3.13-4 with yum"
+    },
+    {
+      "id": "rs-health",
+      "match": "^rs\\.status\\(\\);\\s*rs\\.printSecondaryReplicationInfo\\(\\);\\s*rs\\.printReplicationInfo\\(\\)$",
+      "output": "{\n  set: 'rs0',\n  myState: 1,\n  members: [\n    { _id: 0, name: 'host1:27017', health: 1, stateStr: 'SECONDARY', ... },\n    { _id: 1, name: 'host2:27017', health: 1, stateStr: 'PRIMARY', ... },\n    { _id: 2, name: 'host3:27017', health: 1, stateStr: 'SECONDARY', ... }\n  ],\n  ok: 1\n}\nsource: host1:27017\n{\n  syncedTo: 'Tue Nov 03 2026 18:24:11 GMT+0000 (Coordinated Universal Time)',\n  replLag: '0 secs (0 hrs) behind the primary '\n}\n...\nlog length start to end\n'2736 secs (0.76 hrs)'",
+      "note": "Every member shows health: 1 and PRIMARY or SECONDARY, replLag is a few seconds at most, and the oplog window (log length start to end) is longer than your maintenance window.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "replsetgetstatus",
+      "match": "^db\\.adminCommand\\(\\s*\\{\\s*replSetGetStatus:\\s*1\\s*\\}\\s*\\)$",
+      "output": "{\n  set: 'rs0',\n  date: ISODate('2026-11-03T18:53:31.533Z'),\n  myState: 1,\n  term: Long('2'),\n  majorityVoteCount: 2,\n  votingMembersCount: 3,\n  ...\n  members: [ { _id: 0, name: 'host4:27017', health: 1, stateStr: 'SECONDARY', ... }, ... ],\n  ok: 1\n}",
+      "note": "Every member has health: 1 and stateStr PRIMARY or SECONDARY. Wait for a restarted member to be SECONDARY before you continue.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "rs-stepdown",
+      "match": "^rs\\.stepDown\\(\\)$",
+      "output": "{\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793731950, i: 1 })\n}",
+      "note": "ok: 1 means the primary stepped down. Run rs.status() a few seconds later: another member is PRIMARY. Older shells may print a network error instead because the connection is closed, which is expected.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "rs-conf-assign",
+      "match": "^cfg = rs\\.conf\\(\\);$",
+      "output": "{\n  _id: 'rs0',\n  version: 5,\n  term: 2,\n  members: [\n    {\n      _id: 0,\n      host: 'host1:27017',\n      arbiterOnly: false,\n      ...\n      votes: 1\n    },\n    ...\n  ],\n  protocolVersion: Long('1'),\n  ...\n}",
+      "note": "mongosh prints the current replica set configuration that is now stored in cfg.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "rs-conf-pv-assign",
+      "match": "^cfg\\.protocolVersion=1;$",
+      "output": "1",
+      "note": "mongosh echoes the assigned value, 1.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "rs-reconfig",
+      "match": "^rs\\.reconfig\\(cfg\\);$",
+      "output": "{\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793731029, i: 1 })\n}",
+      "note": "ok: 1 means the new configuration was accepted; rs.conf().version goes up by one.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "rs-pv",
+      "match": "^rs\\.conf\\(\\)\\.protocolVersion$",
+      "output": "Long('1')",
+      "note": "1 means protocol version 1 (pv1). 0 means pv0, which you must change before upgrading to 4.0.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "rs-gle-defaults",
+      "match": "^rs\\.conf\\(\\)\\.settings\\.getLastErrorDefaults$",
+      "output": "{ w: 1, wtimeout: 0 }",
+      "note": "{ w: 1, wtimeout: 0 } is the default. Any other value is a custom default write concern that is ignored from 5.0, so set it with setDefaultRWConcern instead.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "grep-sharding",
+      "match": "^grep -n -A2 'sharding:' /etc/mongod\\.conf$",
+      "output": "54:sharding:\n55-  clusterRole: shardsvr",
+      "note": "On a shard member you see clusterRole: shardsvr, on a config server clusterRole: configsvr. A commented #sharding: line, or nothing, means the node is not part of a sharded cluster.",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "grep-tls",
+      "match": "^grep -n -A8 (-E '\\^\\\\s\\*\\(tls\\|ssl\\):'|'tls:') /etc/mongod\\.conf$",
+      "output": "",
+      "note": "No output means TLS is not configured in mongod.conf. If you see a net.tls block (or net.ssl in older files), check that CAFile is set when certificateKeyFile (or PEMKeyFile) is used, since newer versions require it.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-processmanagement",
+      "match": "^grep -n -A3 processManagement /etc/mongo[ds]\\.conf$",
+      "output": "5:processManagement:\n6-  fork: true\n7-  pidFilePath: /var/run/mongod.pid",
+      "note": "Any output means the section is there: remove the processManagement: line and the lines under it. No output means it is not set.",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "grep-journal",
+      "match": "^grep -n (-E 'nojournal\\|journal'|journal) /etc/mongod\\.conf$",
+      "output": "22:#      journalCompressor: snappy",
+      "note": "Lines that start with # are comments and are harmless. An active storage.journal.enabled or nojournal line must be removed before the upgrade.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-http",
+      "match": "^grep -n -E 'http\\|rest\\|jsonp' /etc/mongod\\.conf$",
+      "output": "3:#   http://docs.mongodb.org/manual/reference/configuration-options/\n16:#  More info for wiredTiger: https://docs.mongodb.com/v4.4/reference/configuration-options/#storage-wiredtiger-options\n29:#  More info for inMemory: https://www.percona.com/doc/percona-server-for-mongodb/4.4/inmemory.html#configuring-percona-memory-engine",
+      "note": "Matches inside comments (lines starting with #, such as documentation URLs) are harmless. Only an active net.http, rest or jsonp setting must be removed.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-concurrentread",
+      "match": "^grep -n ConcurrentRead /etc/mongod\\.conf$",
+      "output": "37:#    wiredTigerConcurrentReadTransactions: 128",
+      "note": "A commented line is harmless. An active wiredTigerConcurrentReadTransactions setting must be renamed or removed.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-snmp",
+      "match": "^grep -n -i snmp /etc/mongod\\.conf$",
+      "output": "64:#snmp:",
+      "note": "A commented #snmp: line is harmless. An active snmp: section must be removed before 7.0.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-mongod-conf-generic",
+      "match": "^grep (-[a-zA-Z0-9]+ )*(-E |-- )?('[^']*'|\\S+) /etc/mongo[ds]\\.conf( /etc/mongo[ds]\\.conf)?$",
+      "output": "",
+      "note": "No output means the option is not set and nothing needs to change. Any printed line that does not start with # is a setting you must change or remove.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-cpu-option",
+      "match": "^grep -rn -- '--cpu' .*$",
+      "output": "",
+      "note": "No output means no service file passes the removed --cpu option.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "grep-avx",
+      "match": "^grep -m1 -o -w avx /proc/cpuinfo$",
+      "output": "avx",
+      "note": "avx means the CPU supports AVX, which MongoDB 5.0+ x86_64 builds require. No output means 5.0+ will not start on this CPU.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "open-files-limit",
+      "match": "^for p in \\$\\(pidof mongod\\); do grep 'open files' /proc/\\$p/limits; done(; grep -n maxIncomingConnections /etc/mongod\\.conf)?$",
+      "output": "Max open files            64000                64000                files",
+      "note": "The soft and hard limits should be 64000 or more. A maxIncomingConnections line appears only if it is set in mongod.conf.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "thp-tcmalloc",
+      "match": "^cat /sys/kernel/mm/transparent_hugepage/",
+      "output": "[always] madvise never\nalways defer [defer+madvise] madvise never\n0\n1",
+      "note": "For 8.0 on x86_64 and ARM64: [always], [defer+madvise], 0 and 1.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "uname",
+      "match": "^uname -r$",
+      "output": null,
+      "note": "Prints the Linux kernel release, for example 4.18.0-... on RHEL 8 or 5.14.0-... on RHEL 9. MongoDB 8.0 needs kernel 4.18 or later.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "amazon-linux-release",
+      "match": "^cat /etc/amazon-linux-release$",
+      "output": "Amazon Linux release 2023.12.20261102 (Amazon Linux)",
+      "note": "Shows the Amazon Linux release. On other distributions you get 'No such file or directory', which means the check does not apply.",
+      "source": "lab: amazonlinux:2023 container"
+    },
+    {
+      "id": "which-shells",
+      "match": "^which mongo mongosh mongodump$",
+      "output": "which: no mongo in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)\n/usr/bin/mongosh\n/usr/bin/mongodump",
+      "note": "'no mongo' is expected on 6.0+: the legacy mongo shell is gone, use mongosh. Scripts that call mongo must be updated.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "mongod-version",
+      "match": "^mongod --version$",
+      "output": "db version v8.3.13-4\nBuild Info: {\n    \"version\": \"8.3.13-4\",\n    \"gitVersion\": \"d1257e9c95acafe2c6a3316e33000ec4c5f0d3f6\",\n    \"openSSLVersion\": \"OpenSSL 1.1.1k  FIPS 25 Mar 2021\",\n    \"modules\": [],\n    ...\n}",
+      "note": "The db version line must show the version you just installed.",
+      "source": "lab: PSMDB 8.0.32 replica set, member upgraded to 8.3.13-4 with yum"
+    },
+    {
+      "id": "mongodb-cr-users",
+      "match": "^db\\.getSiblingDB\\(\\\"admin\\\"\\)\\.system\\.users\\.countDocuments\\(.*MONGODB-CR.*\\)$",
+      "output": "0",
+      "note": "0 means no user still has MONGODB-CR credentials. Any other number is how many users you must upgrade to SCRAM first.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "storage-engine",
+      "match": "^db\\.serverStatus\\(\\)\\.storageEngine\\.name$",
+      "output": "wiredTiger",
+      "note": "wiredTiger (or inMemory) is fine. mmapv1 must be migrated before 4.2.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "flush-router-config",
+      "match": "^db\\.adminCommand\\(\\{\\s*flushRouterConfig:\\s*1\\s*\\}\\)$",
+      "output": "{\n  flushed: true,\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793731742, i: 1 })\n}",
+      "note": "flushed: true means this mongos refreshed its routing table. Run it on every mongos.",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "mirror-reads",
+      "match": "^db\\.adminCommand\\(\\{\\s*getParameter:\\s*1,\\s*mirrorReads:\\s*1\\s*\\}\\)$",
+      "output": "{\n  mirrorReads: { samplingRate: 0.01, maxTimeMS: 1000 },\n  ok: 1,\n  ...\n}",
+      "note": "samplingRate 0.01 is the default (1% of reads are mirrored to secondaries). On 8.3 (lab) the output also has a targetedMirroring field.",
+      "source": "lab: PSMDB 6.0, 7.0 and 8.0 replica sets"
+    },
+    {
+      "id": "ttl-nan",
+      "match": "^db\\.getMongo\\(\\)\\.getDBNames\\(\\)\\.forEach\\(.*isNaN\\(i\\.expireAfterSeconds\\).*$",
+      "output": "",
+      "note": "No output means no TTL index has a NaN expireAfterSeconds. Each printed line is db, collection and index name to fix.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "system-buckets-all-dbs",
+      "match": "^db\\.getMongo\\(\\)\\.getDBNames\\(\\)\\.forEach\\(d => db\\.getSiblingDB\\(d\\)\\.getCollectionInfos\\(\\{ \\$and: .*system\\\\\\.buckets.*print\\(d, c\\.name\\)\\)\\)$",
+      "output": "",
+      "note": "No output means no database has a system.buckets collection without time series options. Each line it prints is <database> <collection> to drop or rename.",
+      "source": "https://www.mongodb.com/docs/v8.0/release-notes/8.0-upgrade-replica-set/#remove-invalid-systembuckets-collections"
+    },
+    {
+      "id": "views-on-buckets",
+      "match": "^db\\.getMongo\\(\\)\\.getDBNames\\(\\)\\.forEach\\(.*system\\\\\\.buckets.*$",
+      "output": "",
+      "note": "No output means there are no views on system.buckets collections. Each printed line is a view to drop before 7.0.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "opcounters-deprecated",
+      "match": "^db\\.serverStatus\\(\\)\\.opcounters\\.deprecated$",
+      "output": "",
+      "note": "No output means the server reports no deprecated opcode counters (the field does not exist on recent versions). A document with non-zero counts means old drivers still use legacy opcodes.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "default-rwconcern",
+      "match": "^db\\.adminCommand\\(\\{\\s*getDefaultRWConcern:\\s*1\\s*\\}\\)$",
+      "output": "{\n  defaultReadConcern: { level: 'local' },\n  defaultWriteConcern: { w: 'majority', wtimeout: 0 },\n  defaultWriteConcernSource: 'implicit',\n  defaultReadConcernSource: 'implicit',\n  ok: 1,\n  ...\n}",
+      "note": "Source 'implicit' means the 5.0+ defaults apply (w: 'majority'). 'global' means someone set a cluster-wide default.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "currentop-drivers",
+      "match": "^(db\\.getMongo\\(\\)\\.setReadPref\\([^)]*\\);\\s*)?db\\.getSiblingDB\\(\\\"admin\\\"\\)\\.aggregate\\(\\[\\{ \\$currentOp:.*clientMetadata\\.driver.*$",
+      "output": "[\n  { _id: { name: 'MongoDB Internal Client', version: '8.3.13-4' }, n: 3 },\n  { _id: { name: 'NetworkInterfaceTL-ReplNetwork', version: '8.3.13-4' }, n: 1 },\n  { _id: null, n: 46 },\n  { _id: { name: 'nodejs|mongosh', version: '7.5.0|2.13.0' }, n: 4 },\n  ...\n]",
+      "note": "Each entry is a driver name and version with its connection count. Check application drivers (not MongoDB Internal Client or NetworkInterfaceTL) against the driver compatibility table. _id: null are internal threads. _id: null counts clients that sent no driver metadata, the legacy mongo shell among them.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "concurrency-algorithm",
+      "match": "^db\\.adminCommand\\(\\{\\s*getParameter:\\s*1,\\s*storageEngineConcurrencyAdjustmentAlgorithm:\\s*1\\s*\\}\\)$",
+      "output": "{\n  storageEngineConcurrencyAdjustmentAlgorithm: 'throughputProbing',\n  ok: 1,\n  ...\n}",
+      "note": "throughputProbing means dynamic ticket adjustment (7.0+ default) is on. fixedConcurrentTransactions means static tickets.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "system-buckets-non-ts",
+      "match": "^db\\.getCollectionInfos\\(\\s*\\{\\s*\\$and:.*system\\\\\\.buckets.*\\}\\s*\\)$",
+      "output": "[]",
+      "note": "[] means there are no system.buckets collections without time series options. Anything listed must be dropped or renamed before 8.0.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "null-undefined",
+      "match": "^db\\.coll\\.countDocuments\\(\\{\\s*field:\\s*\\{\\s*\\$type:\\s*\\\"undefined\\\"\\s*\\}\\s*\\}\\)$",
+      "output": "0",
+      "note": "0 means no document stores undefined in that field. Replace coll and field with your own names.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "tcmalloc-release-rate",
+      "match": "^db\\.adminCommand\\(\\{\\s*getParameter:\\s*1,\\s*tcmallocReleaseRate:\\s*1\\s*\\}\\)$",
+      "output": "{\n  tcmallocReleaseRate: Long('0'),\n  ok: 1,\n  ...\n}",
+      "note": "Shows the current tcmallocReleaseRate value.",
+      "source": "lab: PSMDB 8.3.13-4 replica set",
+      "variants": [
+        {
+          "phase": "before",
+          "output": "{\n  tcmallocReleaseRate: 1,\n  ok: 1,\n  ...\n}",
+          "note": "Before the upgrade you see the value of the version you run (1 on 7.0.45 in the lab)."
+        }
+      ]
+    },
+    {
+      "id": "serverstatus-queues",
+      "match": "^db\\.serverStatus\\(\\)\\.queues$",
+      "output": "{\n  execution: {\n    usesThroughputProbing: true,\n    ...\n    read: {\n      normalPriority: {\n        out: 0,\n        available: 8,\n        totalTickets: 8,\n        ...",
+      "note": "On 8.0+ ticket metrics are under queues.execution. If your monitoring reads wiredTiger.concurrentTransactions, update it.",
+      "source": "lab: PSMDB 8.3.13-4 replica set",
+      "variants": [
+        {
+          "to": [
+            "8.0"
+          ],
+          "output": "{\n  execution: {\n    write: {\n      out: 0,\n      available: 8,\n      totalTickets: 8,\n      ...\n    },\n    read: {\n      out: 0,\n      available: 8,\n      totalTickets: 8,\n      ...",
+          "source": "lab: Operator 1.23.1 on k3d, PSMDB 8.0.32-14"
+        }
+      ]
+    },
+    {
+      "id": "sharding-pool-min",
+      "match": "^db\\.adminCommand\\(\\{\\s*getParameter:\\s*1,\\s*ShardingTaskExecutorPoolMinSize:\\s*1\\s*\\}\\)$",
+      "output": "{\n  ShardingTaskExecutorPoolMinSize: 1,\n  ok: 1,\n  ...\n}",
+      "note": "Shows the minimum connection pool size per host. 1 is the default.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "txn-current-open",
+      "match": "^db\\.serverStatus\\(\\)\\.transactions\\.currentOpen$",
+      "output": "Long('0')",
+      "note": "The number of transactions open right now.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "encryption-at-rest",
+      "match": "^db\\.serverStatus\\(\\)\\.encryptionAtRest$",
+      "output": "{ encryptionEnabled: false }",
+      "note": "encryptionEnabled: true means data-at-rest encryption is on and you must carry the key setup (Vault or KMIP) to the target. If it prints nothing, the field does not exist on this version and encryption is not configured through it.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "psmdb-version",
+      "match": "^db\\.adminCommand\\(\\{buildInfo:1\\}\\)\\.psmdbVersion$",
+      "output": "8.3.13-4",
+      "note": "A version string means this is Percona Server for MongoDB. No output means MongoDB Community.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "initial-sync-method",
+      "match": "^db\\.adminCommand\\(\\{\\s*getParameter:\\s*1,\\s*initialSyncMethod:\\s*1\\s*\\}\\)$",
+      "output": "{\n  initialSyncMethod: 'logical',\n  ok: 1,\n  ...\n}",
+      "note": "logical is the default. fileCopyBased means a file copy based initial sync is configured.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "ldap-opts",
+      "match": "^db\\.adminCommand\\(\\{\\s*getCmdLineOpts:\\s*1\\s*\\}\\)\\.parsed\\.security\\.ldap$",
+      "output": "",
+      "note": "No output means LDAP is not configured. A document means LDAP settings exist and must be carried over.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "shards-not-replsets",
+      "match": "^db\\.getSiblingDB\\(\\\"config\\\"\\)\\.shards\\.find\\(\\{ host: \\{ \\$not: .*\\} \\}\\)$",
+      "output": "",
+      "note": "No output means every shard is a replica set (host looks like 'osh0/host:port').",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "sh-status",
+      "match": "^sh\\.status\\(\\)$",
+      "output": "shardingVersion\n{ _id: 1, clusterId: ObjectId('6aea2aeefcc85669987148bc') }\n---\nshards\n[ { _id: 'osh0', host: 'osh0/host5:27017', state: 1, ... } ]\n---\nactive mongoses\n[ { '8.0.32-14': 1 } ]\n---\nbalancer\n{\n  'Currently enabled': 'yes',\n  'Failed balancer rounds in last 5 attempts': 0,\n  'Currently running': 'no',\n  'Migration Results for the last 24 hours': 'No recent migrations'\n}\n...",
+      "note": "All shards have state: 1, active mongoses show the expected version, and the balancer section shows its state.",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "balancer-state",
+      "match": "^sh\\.getBalancerState\\(\\)$",
+      "output": "true",
+      "note": "true means the balancer is enabled, false means it is stopped. Before the upgrade it is normally true; after sh.stopBalancer() it must be false.",
+      "source": "lab: PSMDB 8.0.32 sharded",
+      "after": [
+        {
+          "prev": "stopBalancer\\(|setBalancerState\\(\\s*false",
+          "output": "false",
+          "note": "false means the balancer is stopped. You can continue with the next step."
+        },
+        {
+          "prev": "startBalancer\\(|setBalancerState\\(\\s*true",
+          "output": "true",
+          "note": "true means the balancer is running again."
+        }
+      ]
+    },
+    {
+      "id": "balancer-stop-start",
+      "match": "^sh\\.(stopBalancer|startBalancer)\\(\\)$",
+      "output": "{\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793731749, i: 6 })\n}",
+      "note": "ok: 1 means it worked. Confirm with sh.getBalancerState() (false after stop, true after start).",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "balancer-set-state",
+      "match": "^sh\\.setBalancerState\\((true|false)\\)$",
+      "output": "{\n  ok: 1,\n  '$clusterTime': { ... },\n  operationTime: Timestamp({ t: 1793731753, i: 4 })\n}",
+      "note": "ok: 1 means it worked. Confirm with sh.getBalancerState().",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "balancer-stop-start-placeholder",
+      "match": "^sh\\.stopBalancer\\(\\) \\.\\.\\. sh\\.startBalancer\\(\\)$",
+      "output": null,
+      "note": "Two separate commands: run sh.stopBalancer() before the work and sh.startBalancer() after it. Each returns ok: 1.",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "shutdown",
+      "match": "^db\\.(adminCommand\\(\\s*\\{\\s*shutdown:\\s*1\\s*\\}\\s*\\)|shutdownServer\\(\\))$",
+      "output": "MongoNetworkError: connection 1 to 127.0.0.1:27017 closed",
+      "note": "The connection error is expected: the server shut down. Check with systemctl status mongod or the log.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "start-with-placeholders",
+      "match": "^(mongod|mongos) --(configsvr|shardsvr|configdb) .*<.*$",
+      "output": null,
+      "note": "Replace the <...> placeholders with your values. On success the process keeps running and the log shows \"Waiting for connections\"; check with mongosh or the log file.",
+      "source": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/"
+    },
+    {
+      "id": "service-stop",
+      "match": "^sudo service mongod stop$",
+      "output": "Redirecting to /bin/systemctl stop mongod.service",
+      "note": "On systemd hosts the service command just forwards to systemctl. No error after this line means success.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "service-start",
+      "match": "^sudo service mongod start$",
+      "output": "Redirecting to /bin/systemctl start mongod.service",
+      "note": "On systemd hosts the service command just forwards to systemctl. No error after this line means success; check with systemctl status mongod.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "systemctl",
+      "match": "^(\\$ )?(sudo )?systemctl (stop|start|restart) mongo[ds](\\.service)?$",
+      "output": "",
+      "note": "No output is normal. It does not prove mongod is running: with the 8.0 and later packages, start prints nothing even when mongod exits right away (for example on a config option it no longer accepts). Run systemctl is-active mongod (or mongos): it must print active.",
+      "source": "lab: PSMDB 8.0.34-15 replica set and sharded cluster"
+    },
+    {
+      "id": "systemctl-stop-backup-conf",
+      "match": "^sudo systemctl stop mongod && sudo cp /etc/mongod\\.conf /etc/mongod\\.conf\\.bkp$",
+      "output": "",
+      "note": "No output means success. systemctl status mongod then shows Active: inactive (dead).",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "file-ops",
+      "match": "^(sed -i\\.bak '/fork: true/d' /etc/mongod\\.conf|sudo mv /etc/mongod\\.conf /etc/mongod\\.conf\\.bkp)$",
+      "output": "",
+      "note": "No output means success.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "chown",
+      "match": "^(sudo )?chown -R mongod:mongod <[^>]+> <[^>]+>$",
+      "output": "",
+      "note": "No output means success. Replace the <...> placeholders with your dbPath and log directory.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "chown-start",
+      "match": "^sudo chown -R mongod:mongod <dbPath> <logPath> && sudo systemctl start mongod$",
+      "output": "",
+      "note": "No output means success. Check with systemctl status mongod.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "percona-release-enable",
+      "match": "^(\\$ )?(sudo )?percona-release enable psmdb-\\d+( release)?$",
+      "output": "* Enabling the Percona Server for MongoDB {version} repository\n<*> All done!",
+      "note": "The Enabling line names the series you asked for. On Debian/Ubuntu the line is followed by apt index lines such as 'Get:... repo.percona.com/psmdb-XX/apt ... InRelease' instead of '<*> All done!'.",
+      "source": "lab: PSMDB 8.0.32 replica set, member upgraded to 8.3.13-4 with yum"
+    },
+    {
+      "id": "apt-update",
+      "match": "^(\\$ )?(sudo )?apt update$",
+      "output": "Hit:1 http://repo.percona.com/prel/apt {codename} InRelease\nHit:4 http://repo.percona.com/psmdb-80/apt {codename} InRelease\n...\nReading package lists...\nBuilding dependency tree...\nReading state information...\n34 packages can be upgraded. Run 'apt list --upgradable' to see them.",
+      "note": "A Hit or Get line for repo.percona.com/psmdb-XX shows the Percona repository is in use. Errors mention 'Err:' or 'NO_PUBKEY'.",
+      "source": "lab: Ubuntu 24.04 container, PSMDB 8.0.34 / 8.3.13-4 packages"
+    },
+    {
+      "id": "apt-install-psmdb",
+      "match": "^(\\$ )?(sudo )?apt(-get)? install( -y)? percona-server-mongodb$",
+      "output": "The following packages will be upgraded:\n  percona-server-mongodb percona-server-mongodb-mongos\n  percona-server-mongodb-server\n3 upgraded, 0 newly installed, 0 to remove and 25 not upgraded.\n...\nUnpacking percona-server-mongodb-server ({to_full}.{codename}) over ({to_full}.{codename}) ...\nSetting up percona-server-mongodb-server ({to_full}.{codename}) ...\nSetting up percona-server-mongodb-mongos ({to_full}.{codename}) ...\nSetting up percona-server-mongodb ({to_full}.{codename}) ...",
+      "note": "The 'Setting up percona-server-mongodb-server (X.Y...)' line must show the target version. On a fresh install the summary says 'newly installed' instead of 'upgraded'.",
+      "source": "lab: Ubuntu 24.04 container, PSMDB 8.0.34 / 8.3.13-4 packages"
+    },
+    {
+      "id": "apt-chain-psmdb",
+      "match": "^sudo percona-release enable psmdb-\\S+ release && sudo apt update && sudo apt install percona-server-mongodb$",
+      "output": "* Enabling the Percona Server for MongoDB {to} repository\n...\n3 upgraded, 0 newly installed, 0 to remove and 25 not upgraded.\n...\nSetting up percona-server-mongodb-server ({to_full}.{codename}) ...\nSetting up percona-server-mongodb-mongos ({to_full}.{codename}) ...\nSetting up percona-server-mongodb ({to_full}.{codename}) ...",
+      "note": "The Enabling line names the series, and the 'Setting up percona-server-mongodb-server' line shows the installed version.",
+      "source": "lab: Ubuntu 24.04 container, PSMDB 8.0.34 / 8.3.13-4 packages"
+    },
+    {
+      "id": "yum-install-psmdb",
+      "match": "^(\\$ )?(sudo )?yum install( -y)? percona-server-mongodb$",
+      "output": "Upgrading:\n percona-server-mongodb         x86_64 {to_full}.el8 psmdb-{to_nodot}-release-x86_64 8.2 k\n percona-server-mongodb-mongos  x86_64 {to_full}.el8 psmdb-{to_nodot}-release-x86_64  47 M\n percona-server-mongodb-server  x86_64 {to_full}.el8 psmdb-{to_nodot}-release-x86_64  99 M\n...\nUpgraded:\n  percona-server-mongodb-{to_full}.el8.x86_64\n  percona-server-mongodb-mongos-{to_full}.el8.x86_64\n  percona-server-mongodb-server-{to_full}.el8.x86_64\n\nComplete!",
+      "note": "'Complete!' and the Upgraded (or Installed) list with the target version mean success. In containers an SELinux 'semodule: Failed!' message can appear and is harmless when SELinux is off. yum asks 'Is this ok [y/N]': answer y. If you answer N, nothing is installed and mongod is already stopped: run the install again before you start mongod.",
+      "source": "lab: PSMDB 8.0.32 replica set, member upgraded to 8.3.13-4 with yum"
+    },
+    {
+      "id": "yum-chain-psmdb",
+      "match": "^sudo percona-release enable psmdb-\\S+ release && sudo yum install percona-server-mongodb$",
+      "output": "* Enabling the Percona Server for MongoDB {to} repository\n<*> All done!\n...\nInstalled:\n  percona-mongodb-mongosh-2.13.0-1.el8.x86_64\n  percona-server-mongodb-{to_full}.el8.x86_64\n  percona-server-mongodb-mongos-{to_full}.el8.x86_64\n  percona-server-mongodb-server-{to_full}.el8.x86_64\n  percona-server-mongodb-tools-100.19.1-2.el8.x86_64\n  ...\n\nComplete!",
+      "note": "'Complete!' and percona-server-mongodb-server with the target version in the Installed list mean success.",
+      "source": "lab: Rocky Linux 8 container, PSMDB 8.0.34 / 8.3.13-4 and MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "legacy-34-36-packages",
+      "match": "^sudo (apt-get|yum) (remove|install) (percona-server-mongodb|Percona-Server-MongoDB)-3[46]\\*?$",
+      "output": null,
+      "note": "Legacy 3.4/3.6 packages (no lab output; these repositories target old OS releases). yum ends with 'Complete!' and lists Removed: or Installed: packages; apt ends with 'Removing ...' or 'Setting up percona-server-mongodb-36...' lines.",
+      "source": "https://docs.percona.com/percona-server-for-mongodb/3.6/install/upgrade_from_34.html"
+    },
+    {
+      "id": "pkg-list-psmdb",
+      "match": "^dpkg -l \\| grep -i percona-server-mongodb \\|\\| rpm -qa \\| grep -i Percona-Server-MongoDB$",
+      "output": "percona-server-mongodb-tools-8.0.32-14.el8.x86_64\npercona-server-mongodb-mongos-8.0.32-14.el8.x86_64\npercona-server-mongodb-8.0.32-14.el8.x86_64\npercona-server-mongodb-server-8.0.32-14.el8.x86_64",
+      "note": "Lists installed PSMDB packages with versions. On RHEL you may also see 'dpkg: command not found' first, which is harmless. On Debian/Ubuntu lines look like 'ii  percona-server-mongodb-server  8.0.34-15.{codename} ...'.",
+      "source": "lab: PSMDB 8.0.32 replica set"
+    },
+    {
+      "id": "dpkg-grep-mongod",
+      "match": "^sudo dpkg -l \\| grep mongod$",
+      "output": "ii  mongodb-database-tools           100.20.1    amd64  mongodb-database-tools package provides tools ...\nii  mongodb-mongosh                  2.14.1      amd64  MongoDB Shell CLI REPL Package\nii  mongodb-org                      8.0.34      amd64  MongoDB open source document-oriented database system (metapackage)\nii  mongodb-org-database             8.0.34      amd64  MongoDB open source document-oriented database system (metapackage)\nii  mongodb-org-database-tools-extra 8.0.34      amd64  Extra MongoDB database tools\nii  mongodb-org-mongos               8.0.34      amd64  MongoDB sharded cluster query router\nii  mongodb-org-server               8.0.34      amd64  MongoDB database server\nii  mongodb-org-shell                8.0.34      amd64  MongoDB shell client\nii  mongodb-org-tools                8.0.34      amd64  MongoDB tools",
+      "note": "Each 'ii' line is an installed package. These are the names you must remove before installing Percona Server for MongoDB.",
+      "source": "lab: Ubuntu 24.04 container, MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "rpm-grep-mongo",
+      "match": "^sudo rpm -qa \\| grep mongo$",
+      "output": "mongodb-org-mongos-8.0.34-1.el8.x86_64\nmongodb-database-tools-100.20.1-1.x86_64\nmongodb-org-database-8.0.34-1.el8.x86_64\nmongodb-org-8.0.34-1.el8.x86_64\nmongodb-org-server-8.0.34-1.el8.x86_64\nmongodb-mongosh-2.14.1-1.el8.x86_64\nmongodb-org-database-tools-extra-8.0.34-1.el8.x86_64\nmongodb-org-tools-8.0.34-1.el8.x86_64",
+      "note": "Each line is an installed MongoDB package. These are the names you must remove before installing Percona Server for MongoDB.",
+      "source": "lab: Rocky Linux 8 container, PSMDB 8.0.34 / 8.3.13-4 and MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "apt-remove-mongodb-org",
+      "match": "^sudo apt remove mongodb-org mongodb-org-mongos mongodb-org-server mongodb-org-shell mongodb-org-tools$",
+      "output": "The following packages will be REMOVED:\n  mongodb-org mongodb-org-database mongodb-org-mongos mongodb-org-server\n  mongodb-org-shell mongodb-org-tools\n0 upgraded, 0 newly installed, 6 to remove and 34 not upgraded.\nAfter this operation, 396 MB disk space will be freed.\nRemoving mongodb-org (8.0.34) ...\n...\nRemoving mongodb-org-tools (8.0.34) ...",
+      "note": "Removing lines for each package mean success. mongodb-mongosh and mongodb-database-tools stay installed until 'apt autoremove'; remove mongodb-mongosh before installing percona-mongodb-mongosh, both own /usr/bin/mongosh.",
+      "source": "lab: Ubuntu 24.04 container, MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "yum-remove-mongodb-org",
+      "match": "^sudo yum remove mongodb-org mongodb-org-database .*mongodb-database-tools$",
+      "output": "No match for argument: mongodb-org-shell\nDependencies resolved.\n...\nRemove  11 Packages\n...\nRemoved:\n  mongodb-database-tools-100.20.1-1.x86_64\n  mongodb-mongosh-2.14.1-1.el8.x86_64\n  mongodb-org-8.0.34-1.el8.x86_64\n  mongodb-org-server-8.0.34-1.el8.x86_64\n  ...\n\nComplete!",
+      "note": "'Complete!' means success. 'No match for argument: mongodb-org-shell' is harmless: 6.0+ has no separate shell package.",
+      "source": "lab: Rocky Linux 8 container, PSMDB 8.0.34 / 8.3.13-4 and MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "apt-psmdb-to-mongodb-org",
+      "match": "^sudo apt remove -y percona-server-mongodb .*percona-mongodb-mongosh$",
+      "output": "The following packages were automatically installed and are no longer required:\n  libsasl2-modules-gssapi-mit logrotate percona-telemetry-agent\nThe following packages will be REMOVED:\n  percona-mongodb-mongosh percona-server-mongodb percona-server-mongodb-mongos\n  percona-server-mongodb-server percona-server-mongodb-tools\n...\nRemoving percona-server-mongodb ({from}...) ...\nRemoving percona-server-mongodb-server ({from}...) ...\nRemoving percona-mongodb-mongosh (...) ...\nRemoving percona-server-mongodb-mongos ({from}...) ...\nRemoving percona-server-mongodb-tools (...) ...",
+      "note": "One Removing line per package. /etc/mongod.conf and the data stay. percona-telemetry-agent is removed in the last step. Without -y, apt stops at 'Do you want to continue? [Y/n]' and a pasted block aborts.",
+      "source": "lab: PSMDB 7.0.45-24 replica set switched to MongoDB Community on Ubuntu 22.04"
+    },
+    {
+      "id": "yum-psmdb-to-mongodb-org",
+      "match": "^sudo yum remove percona-server-mongodb\\* && sudo yum install -y mongodb-org$",
+      "output": "Removed:\n  percona-mongodb-mongosh-2.13.0-1.el8.x86_64\n  percona-server-mongodb-8.0.34-15.el8.x86_64\n  percona-server-mongodb-mongos-8.0.34-15.el8.x86_64\n  percona-server-mongodb-server-8.0.34-15.el8.x86_64\n  percona-server-mongodb-tools-100.19.1-2.el8.x86_64\n  ...\nComplete!\n...\nInstalled:\n  mongodb-mongosh-2.14.1-1.el8.x86_64\n  mongodb-org-8.0.34-1.el8.x86_64\n  mongodb-org-server-8.0.34-1.el8.x86_64\n  ...\nComplete!",
+      "note": "Two 'Complete!' lines: one for the removal and one for the install. mongodb-org-server must show the target version.",
+      "source": "lab: Rocky Linux 8 container, PSMDB 8.0.34 / 8.3.13-4 and MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "apt-install-mongodb-org",
+      "match": "^sudo apt-get install -y mongodb-org$",
+      "output": "Setting up mongodb-mongosh (2.14.1) ...\nSetting up mongodb-org-shell ({to}.x) ...\nSetting up mongodb-database-tools (100.20.1) ...\nSetting up mongodb-org-mongos ({to}.x) ...\nSetting up mongodb-org-server ({to}.x) ...\n...\nSetting up mongodb-org ({to}.x) ...",
+      "note": "The final 'Setting up mongodb-org (X.Y.Z) ...' line means success. 'Conflicts' or 'trying to overwrite' errors mean old packages are still installed.",
+      "source": "lab: PSMDB 7.0.45-24 replica set switched to MongoDB Community on Ubuntu 22.04"
+    },
+    {
+      "id": "keyrings",
+      "match": "^ls /usr/share/keyrings/ \\| grep mongodb-server$",
+      "output": "mongodb-server-8.0.gpg",
+      "note": "A mongodb-server-X.Y.gpg file means the MongoDB apt repository key is installed. No output means it is not (or this is a yum host).",
+      "source": "lab: Ubuntu 24.04 container, MongoDB 8.0.34 packages"
+    },
+    {
+      "id": "package-holds",
+      "match": "^dpkg --get-selections \\| grep -E 'mongodb\\.\\*hold' ; grep -n exclude /etc/yum\\.conf /etc/dnf/dnf\\.conf$",
+      "output": "percona-server-mongodb\t\t\t\thold\npercona-server-mongodb-server\t\t\thold",
+      "note": "Lines ending in 'hold' (apt) or an exclude= line (yum/dnf) mean the packages are pinned and the upgrade will skip them; remove the hold first. No output means nothing is pinned. 'No such file' or 'command not found' lines for the other package manager are harmless.",
+      "source": "lab: Ubuntu 24.04 container, PSMDB 8.0.34 / 8.3.13-4 packages",
+      "variants": [
+        {
+          "dist": [
+            "mongodb-community"
+          ],
+          "output": "mongodb-org-server\t\t\t\thold\nmongodb-org-mongos\t\t\t\thold"
+        }
+      ]
+    },
+    {
+      "id": "systemctl-is-active",
+      "match": "^(sudo )?systemctl is-active mongo[ds]$",
+      "output": "active",
+      "note": "failed or inactive means the service is not running: read journalctl -u mongod -n 50.",
+      "source": "lab: PSMDB sharded cluster on Rocky Linux 8, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "tools-mongosh-rpm",
+      "match": "^rpm -q percona-server-mongodb-tools percona-mongodb-mongosh$",
+      "output": "percona-server-mongodb-tools-100.19.1-2.{el}.x86_64\npercona-mongodb-mongosh-2.13.0-1.{el}.x86_64",
+      "note": "If tools still shows the version you upgraded from (for example 6.0.29-23) or mongosh an old 1.x, run the fix.",
+      "source": "lab: PSMDB sharded cluster on Rocky Linux 8, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "tools-mongosh-dpkg",
+      "match": "^dpkg -l percona-server-mongodb-tools percona-mongodb-mongosh$",
+      "output": "ii  percona-mongodb-mongosh       2.13.0.{codename}       amd64  MongoDB Shell CLI REPL Package\nii  percona-server-mongodb-tools  100.19.1-2.{codename}   amd64  MongoDB tools package",
+      "note": "ii means installed. If mongosh is still an old version (2.8.3 in the lab), run the fix.",
+      "source": "lab: 3-node PSMDB replica set on Ubuntu 22.04, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "tools-mongosh-install",
+      "match": "^sudo (yum|apt) install -y (percona-server-mongodb-tools )?percona-mongodb-mongosh$",
+      "output": null,
+      "note": "yum ends with Complete!, apt with Setting up percona-mongodb-mongosh ... Run mongodump --version and mongosh --version afterwards.",
+      "source": "lab: PSMDB sharded cluster on Rocky Linux 8, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "diff-dpkg-dist",
+      "match": "^diff /etc/mongod\\.conf /etc/mongod\\.conf\\.dpkg-dist$",
+      "output": "< replication:\n<   replSetName: rs0\n< security:\n<   keyFile: /etc/mongodb-keyfile\n...",
+      "note": "Lines with < are your settings, lines with > the new default. Keep your file; delete the .dpkg-dist copy when you are done.",
+      "source": "lab: 3-node PSMDB replica set on Ubuntu 22.04, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "mongod-version-member",
+      "match": "^mongo[ds] --version \\| head -1$",
+      "output": "db version v{to_full}",
+      "note": "mongod prints 'db version v...', mongos 'mongos version v...'. It must be the version you installed. If it is the old one, the install did not run: install again and restart the service.",
+      "source": "lab: 3-node PSMDB replica set on Ubuntu 22.04, 6.0.29-23 to 7.0.45-24 to 8.0.34-15"
+    },
+    {
+      "id": "multiline-fragment",
+      "match": "^(db\\.getCollectionInfos\\(|db\\.adminCommand\\(|\\{|\\}|\\)|\\]|\\$and: \\[|\\{ name: \\{ \\$regex: .*\\} \\},|\\{ 'options\\.timeseries': \\{ \\$exists: false \\} \\}|setFeatureCompatibilityVersion: \\\"[\\d.]+\\\",|confirm: true)$",
+      "output": null,
+      "note": "This line is part of a multi-line command. Paste the whole block; the output appears after the closing parenthesis and matches the single-line form of the same command.",
+      "source": "lab: PSMDB 8.3.13-4 replica set"
+    },
+    {
+      "id": "op-versions-mongod",
+      "match": "^curl -s https://check\\.percona\\.com/versions/v1/psmdb-operator/.* \\| jq -r '\\.versions\\[\\]\\.matrix\\.mongod \\| keys\\[\\]'$",
+      "output": "6.0.19-16\n6.0.21-18\n...\n7.0.43-23\n8.0.12-4\n8.0.17-6\n8.0.19-7\n8.0.26-11\n8.0.32-14",
+      "note": "Each line is a Percona Server for MongoDB image version this Operator version supports. Your target must be in the list.",
+      "source": "lab: live query to check.percona.com (Operator 1.23.1)"
+    },
+    {
+      "id": "op-versions-matrix",
+      "match": "^curl -s https://check\\.percona\\.com/versions/v1/psmdb-operator/\\S+ \\| jq -r '\\.versions\\[\\]\\.matrix'$",
+      "output": "{\n  \"mongod\": {\n    \"6.0.19-16\": {\n      \"imagePath\": \"percona/percona-server-mongodb:6.0.19-16-multi\",\n      \"imageHash\": \"c8ff08c4...\",\n      \"status\": \"available\",\n      \"critical\": false\n    },\n    ...\n  },\n  \"backup\": { ... },\n  \"pmm\": { ... },\n  ...\n}",
+      "note": "Look up the mongod, backup and pmm images for this Operator version; status 'recommended' marks the suggested image.",
+      "source": "lab: live query to check.percona.com (Operator 1.23.1)"
+    },
+    {
+      "id": "op-get-psmdb-and-pods",
+      "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>); kubectl get pods,pvc .*$",
+      "output": "NAME              ENDPOINT                                           STATUS   AGE\nmy-cluster-name   my-cluster-name-mongos.default.svc.cluster.local   ready    5m26s",
+      "note": "STATUS must be ready. In the pods and PVC list that follows, every pod is Running with all containers READY (for example 2/2) and every PVC is Bound.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/kubectl.html"
+    },
+    {
+      "id": "op-get-backup",
+      "match": "^kubectl get psmdb-backup -n (?:\\{namespace\\}|<namespace>)$",
+      "output": "NAME      CLUSTER           STORAGE      DESTINATION                           TYPE      SIZE       STATUS   COMPLETED   AGE\nbackup1   my-cluster-name   s3-us-west   s3://my-bucket/2025-09-23T10:34:59Z   logical   105.44MB   ready    43m         43m",
+      "note": "Wait until your new backup shows STATUS ready before you upgrade.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/backups-ondemand.html"
+    },
+    {
+      "id": "op-apply-backup",
+      "match": "^kubectl apply -n (?:\\{namespace\\}|<namespace>) -f deploy/backup/backup\\.yaml$",
+      "output": null,
+      "note": "kubectl prints one line with the backup object name ending in 'created'. Then watch kubectl get psmdb-backup until it is ready.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/backups-ondemand.html"
+    },
+    {
+      "id": "op-crd-storedversions",
+      "match": "^kubectl get crd perconaservermongodbs\\.psmdb\\.percona\\.com -o yaml \\| yq \\.status\\.storedVersions; kubectl patch customresourcedefinitions .*$",
+      "output": "- v1-11-0\n- v1\ncustomresourcedefinition.apiextensions.k8s.io/perconaservermongodbs.psmdb.percona.com patched",
+      "note": "If storedVersions lists anything besides v1, the patch removes it and prints 'patched'.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-manual.html"
+    },
+    {
+      "id": "op-crd-storedversions-get",
+      "match": "^kubectl get crd perconaservermongodbs\\.psmdb\\.percona\\.com -o jsonpath='\\{\\.status\\.storedVersions\\}.*$",
+      "output": null,
+      "note": "Prints the stored versions as a JSON list. Only v1 should be present before upgrading the Operator.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html"
+    },
+    {
+      "id": "op-apply-crd",
+      "match": "^kubectl apply --server-side -f https://raw\\.githubusercontent\\.com/percona/percona-server-mongodb-operator/v(?:\\{operator_to\\}|\\d+\\.\\d+\\.\\d+)/deploy/crd\\.yaml$",
+      "output": "customresourcedefinition.apiextensions.k8s.io/perconaservermongodbs.psmdb.percona.com serverside-applied\ncustomresourcedefinition.apiextensions.k8s.io/perconaservermongodbbackups.psmdb.percona.com serverside-applied\ncustomresourcedefinition.apiextensions.k8s.io/perconaservermongodbrestores.psmdb.percona.com serverside-applied",
+      "note": "One 'serverside-applied' line per CRD means success. (The doc shows these lines for bundle.yaml, which includes the same CRDs.)",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/kubectl.html"
+    },
+    {
+      "id": "op-apply-rbac",
+      "match": "^kubectl apply -n (?:\\{namespace\\}|<namespace>) -f https://raw\\.githubusercontent\\.com/.*/deploy/rbac\\.yaml$",
+      "output": null,
+      "note": "kubectl prints one line per Role, ServiceAccount and RoleBinding ending in 'configured' or 'unchanged'. Any 'Error from server' line means it failed.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-manual.html"
+    },
+    {
+      "id": "op-patch-operator-image",
+      "match": "^kubectl patch deployment percona-server-mongodb-operator .*$",
+      "output": "deployment.apps/nginx-deployment patched",
+      "note": "Doc example from a generic Deployment: you get the same line with deployment.apps/percona-server-mongodb-operator. Then wait for the rollout.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+    },
+    {
+      "id": "op-rollout-deploy",
+      "match": "^kubectl rollout status deployments? percona-server-mongodb-operator -n (?:\\{namespace\\}|<namespace>)$",
+      "output": "Waiting for rollout to finish: 2 out of 3 new replicas have been updated...\ndeployment \"nginx-deployment\" successfully rolled out",
+      "note": "Doc example from a generic Deployment: wait for 'deployment \"percona-server-mongodb-operator\" successfully rolled out'.",
+      "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+    },
+    {
+      "id": "op-rollout-sts",
+      "match": "^kubectl rollout status sts (?:\\{cluster\\}|my-cluster-name)-(rs0|cfg|mongos) -n (?:\\{namespace\\}|<namespace>)$",
+      "output": "waiting for statefulset rolling update to complete 0 pods at revision zk-5db4499664...\nWaiting for 1 pods to be ready...\nwaiting for statefulset rolling update to complete 1 pods at revision zk-5db4499664...\nWaiting for 1 pods to be ready...\nwaiting for statefulset rolling update to complete 2 pods at revision zk-5db4499664...\nWaiting for 1 pods to be ready...\nstatefulset rolling update complete 3 pods at revision zk-5db4499664...",
+      "note": "Doc example from a generic StatefulSet: the command returns when you see 'statefulset rolling update complete N pods at revision ...'. (mongos can be a Deployment in some Operator versions.)",
+      "source": "https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/"
+    },
+    {
+      "id": "op-helm-upgrade",
+      "match": "^helm upgrade (--install )?\\S+ percona/psmdb-operator(-crds)? .*$",
+      "output": "Release \"myrelease\" has been upgraded. Happy Helming!\nNAME: myrelease\nLAST DEPLOYED: Wed Oct 27 15:12:05 2021\nNAMESPACE: default\nSTATUS: deployed\nREVISION: 2",
+      "note": "Doc example from Helm: look for 'has been upgraded' (or 'Release ... does not exist. Installing it now.' with --install) and STATUS: deployed.",
+      "source": "https://helm.sh/docs/topics/registries/"
+    },
+    {
+      "id": "op-helm-get-values",
+      "match": "^helm get values my-op -a -n (?:\\{namespace\\}|<namespace>) > my-values\\.yaml$",
+      "output": "",
+      "note": "No output: the values are written to my-values.yaml. Check that the file is not empty.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-helm.html"
+    },
+    {
+      "id": "op-exec-mongosh-fcv",
+      "match": "^kubectl exec -n (?:\\{namespace\\}|<namespace>) (?:\\{cluster\\}|my-cluster-name)-(rs0-0|mongos-0) -c (mongod|mongos) -- (bash -c ')?mongosh .*featureCompatibilityVersion.*$",
+      "output": "{ version: '{fcv}' }",
+      "note": "The FCV now in effect. 'requires authentication' means the credential variables expanded on your workstation: keep the bash -c '...' wrapper.",
+      "source": "lab: Operator 1.23.1 on k3d, 7.0.43-23 to 8.0.32-14"
+    },
+    {
+      "id": "op-exec-mongosh-balancer",
+      "match": "^kubectl exec -n (?:\\{namespace\\}|<namespace>) (?:\\{cluster\\}|my-cluster-name)-mongos-0 -c mongos -- mongosh .*sh\\.getBalancerState\\(\\).*$",
+      "output": "true",
+      "note": "true means the balancer is enabled, false means it is stopped. After the upgrade it should be true again.",
+      "source": "lab: PSMDB 8.0.32 sharded"
+    },
+    {
+      "id": "op-patch-psmdb",
+      "match": "^(# or: )?kubectl patch psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) --type=merge (?:--patch|-p) .*$",
+      "output": "perconaservermongodb.psmdb.percona.com/my-cluster-name patched",
+      "note": "'(no change)' instead of 'patched' means the value was already set.",
+      "source": "lab: Operator 1.23.1 on k3d, 7.0.43-23 to 8.0.32-14"
+    },
+    {
+      "id": "op-diff-cr",
+      "match": "^kubectl diff -f deploy/cr\\.yaml -n (?:\\{namespace\\}|<namespace>)$",
+      "output": "",
+      "note": "No output means the file matches the cluster. Lines starting with - are the cluster and + your file. Lab example of a file out of sync: '-    image: percona/pmm-client:2.44.1-1' '+    image: percona/pmm-client:3.9.1' and '-    setFCV: true' '+    setFCV: false', plus a generation line.",
+      "source": "lab: Operator 1.23.1 on k3d, 7.0.43-23 to 8.0.32-14"
+    },
+    {
+      "id": "op-get-psmdb-status",
+      "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) -o jsonpath='\\{\\.status\\.state\\} \\{\\.status\\.mongoVersion\\}.*$",
+      "output": null,
+      "note": "Prints the cluster state and the running PSMDB version on one line. Wait for state ready and the version you expect.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/kubectl.html"
+    },
+    {
+      "id": "op-get-mongoversion",
+      "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) -o jsonpath='\\{\\.status\\.mongoVersion\\}.*$",
+      "output": null,
+      "note": "Prints the running Percona Server for MongoDB version, for example the full X.Y.Z-N image version.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/kubectl.html"
+    },
+    {
+      "id": "op-get-operator-image-and-cr",
+      "match": "^kubectl get deploy percona-server-mongodb-operator .*jsonpath='\\{\\.spec\\.template\\.spec\\.containers\\[0\\]\\.image\\}.*$",
+      "output": null,
+      "note": "Prints the Operator image (percona/percona-server-mongodb-operator:<version>). The second command, when present, prints crVersion, the database image and the running mongoVersion.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html"
+    },
+    {
+      "id": "op-get-psmdb-spec",
+      "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) -o jsonpath='\\{\\.spec\\..*$",
+      "output": null,
+      "note": "Prints the value of the requested spec field(s) on one line. An empty line means the field is not set and the Operator default applies.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/kubectl.html"
+    },
+    {
+      "id": "op-get-psmdb-all",
+      "match": "^kubectl get psmdb -A -o custom-columns=.*$",
+      "output": null,
+      "note": "One row per cluster in all namespaces with the requested columns. Every cluster's CRVERSION must be within the range the new Operator supports.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-operator.html"
+    },
+    {
+      "id": "op-crd-labels",
+      "match": "^kubectl get crd perconaservermongodbs\\.psmdb\\.percona\\.com --show-labels$",
+      "output": null,
+      "note": "Shows the CRD with a LABELS column. Helm-managed CRDs carry app.kubernetes.io/managed-by=Helm; that tells you whether to upgrade CRDs with Helm or kubectl.",
+      "source": "https://docs.percona.com/percona-operator-for-mongodb/update-crd-helm.html"
+    },
+    {
+      "id": "op-get-nodes-arch",
+      "match": "^kubectl get nodes -o jsonpath=.*architecture.*$",
+      "output": null,
+      "note": "One line per node with its name and architecture (amd64 or arm64). Every node must use an architecture the target image supports.",
+      "source": "https://kubernetes.io/docs/reference/kubectl/jsonpath/"
+    },
+    {
+      "id": "op-kubectl-version",
+      "match": "^kubectl version$",
+      "output": null,
+      "note": "Prints 'Client Version:' and 'Server Version:'. The Server Version must be in the supported Kubernetes range for the target Operator version.",
+      "source": "https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/"
+    }
+  ],
+  "unmatched": []
+}

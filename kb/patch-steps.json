@@ -1,0 +1,673 @@
+{
+  "schema_version": 1,
+  "generated": "2026-11-03",
+  "mongodb": {
+    "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/",
+    "series": "9.0 (manual is 9.0: 'This page describes upgrade procedures for the MongoDB 9.0 release series.')",
+    "prerequisites": [
+      {
+        "text": "Ensure you have an up-to-date backup of your data set.",
+        "doc_heading": "Backup",
+        "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#backup"
+      },
+      {
+        "text": "Consult the release notes and the driver documentation for special considerations or compatibility issues specific to your MongoDB release.",
+        "doc_heading": "Compatibility Considerations",
+        "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#compatibility-considerations"
+      },
+      {
+        "text": "If your installation includes replica sets, set the upgrade to occur during a predefined maintenance window.",
+        "doc_heading": "Maintenance Window",
+        "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#maintenance-window"
+      },
+      {
+        "text": "Before you upgrade production, use the same procedure to upgrade a staging environment that reproduces production, and ensure the production configuration is compatible with all changes.",
+        "doc_heading": "Staging Environment Check",
+        "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#staging-environment-check"
+      },
+      {
+        "text": "For deployments that use authentication, first upgrade all of your MongoDB Drivers.",
+        "doc_heading": "Steps",
+        "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#steps"
+      },
+      {
+        "text": "Before upgrading the binaries, confirm that featureCompatibilityVersion has been fully upgraded on all relevant components. If the prior FCV upgrade did not complete successfully, restarting the binary with a higher version can cause the node to crash. Replica sets: run the command on each member; all members must return the series version. Sharded clusters: do the same check on all config servers and shards (each member of replica set shards, or directly on standalone shards). Wait for all members to report the required FCV before the binary upgrade.",
+        "cmd": "db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } )",
+        "doc_heading": "Check Feature Compatibility Version (FCV)",
+        "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#check-feature-compatibility-version-fcv",
+        "expected_output": "\"featureCompatibilityVersion\" : { \"version\" : \"9.0\" }",
+        "applies_to": "9.0 (manual), 8.3, 8.0 pages. Not on the 7.0 page or 3.6-6.0 sources."
+      }
+    ],
+    "order": {
+      "text": "Upgrade each mongod and mongos binary separately, in this order: drivers first (if authentication is used), then standalone instances, then replica sets that are not part of a sharded cluster, then sharded clusters.",
+      "doc_heading": "Steps",
+      "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#steps",
+      "variants": "7.0+ order: standalone, replica sets, sharded clusters. 3.6-6.0 order: sharded clusters, standalone instances, replica sets (GitHub sources)."
+    },
+    "standalone": {
+      "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-a-mongodb-instance",
+      "steps": [
+        {
+          "text": "Preferred: upgrade the instance with the operating system's package management tool and the official MongoDB packages.",
+          "doc_heading": "Upgrade a MongoDB Instance",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-a-mongodb-instance",
+          "quote": "Upgrade the instance using the operating system's package management tool and the official MongoDB packages. This is the preferred approach."
+        },
+        {
+          "text": "Alternative: upgrade by replacing the existing binaries.",
+          "doc_heading": "Replace the Existing Binaries",
+          "substeps": [
+            {
+              "text": "Download the binaries for the latest MongoDB patch release from the MongoDB Download Page and store them in a temporary location. They uncompress to the directory structure used by the MongoDB installation."
+            },
+            {
+              "text": "Shutdown the instance."
+            },
+            {
+              "text": "Replace the existing MongoDB binaries with the downloaded binaries."
+            },
+            {
+              "text": "Make any required configuration file changes."
+            },
+            {
+              "text": "Restart the instance."
+            }
+          ],
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#replace-the-existing-binaries"
+        }
+      ]
+    },
+    "replset": {
+      "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-replica-sets",
+      "steps": [
+        {
+          "text": "Before you upgrade, ensure all cluster members are running. Otherwise the upgrade does not complete until all members are started.",
+          "doc_heading": "Upgrade Replica Sets",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-replica-sets",
+          "quote": "Before you upgrade or downgrade a cluster, ensure all cluster members are running. If you do not, the upgrade or downgrade will not complete until all members are started."
+        },
+        {
+          "text": "Upgrade each secondary separately: upgrade the secondary's mongod binary (see Upgrade a MongoDB Instance), then wait for it to recover to SECONDARY before upgrading the next one. It may briefly show STARTUP2 or RECOVERING; this is normal.",
+          "cmd": "rs.status()",
+          "doc_heading": "Upgrade Secondaries",
+          "substeps": [
+            {
+              "text": "Preferred: upgrade the instance with the operating system's package management tool and the official MongoDB packages.",
+              "doc_heading": "Upgrade a MongoDB Instance",
+              "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-a-mongodb-instance",
+              "quote": "Upgrade the instance using the operating system's package management tool and the official MongoDB packages. This is the preferred approach."
+            },
+            {
+              "text": "Alternative: upgrade by replacing the existing binaries.",
+              "doc_heading": "Replace the Existing Binaries",
+              "substeps": [
+                {
+                  "text": "Download the binaries for the latest MongoDB patch release from the MongoDB Download Page and store them in a temporary location. They uncompress to the directory structure used by the MongoDB installation."
+                },
+                {
+                  "text": "Shutdown the instance."
+                },
+                {
+                  "text": "Replace the existing MongoDB binaries with the downloaded binaries."
+                },
+                {
+                  "text": "Make any required configuration file changes."
+                },
+                {
+                  "text": "Restart the instance."
+                }
+              ],
+              "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#replace-the-existing-binaries"
+            }
+          ],
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-secondaries"
+        },
+        {
+          "text": "Step down the primary to start the normal failover procedure, with the rs.stepDown() helper in mongosh or the replSetStepDown database command. During failover the set cannot accept writes, typically for 10-20 seconds. Stepping down is preferable to shutting the primary down directly because it expedites failover.",
+          "cmd": "rs.stepDown()",
+          "doc_heading": "Upgrade the Primary",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-the-primary"
+        },
+        {
+          "text": "Call rs.status() from mongosh until another member has assumed the PRIMARY state.",
+          "cmd": "rs.status()",
+          "doc_heading": "Upgrade the Primary",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-the-primary"
+        },
+        {
+          "text": "Shut down the original primary and upgrade its instance (see Upgrade a MongoDB Instance).",
+          "doc_heading": "Upgrade the Primary",
+          "substeps": [
+            {
+              "text": "Preferred: upgrade the instance with the operating system's package management tool and the official MongoDB packages.",
+              "doc_heading": "Upgrade a MongoDB Instance",
+              "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-a-mongodb-instance",
+              "quote": "Upgrade the instance using the operating system's package management tool and the official MongoDB packages. This is the preferred approach."
+            },
+            {
+              "text": "Alternative: upgrade by replacing the existing binaries.",
+              "doc_heading": "Replace the Existing Binaries",
+              "substeps": [
+                {
+                  "text": "Download the binaries for the latest MongoDB patch release from the MongoDB Download Page and store them in a temporary location. They uncompress to the directory structure used by the MongoDB installation."
+                },
+                {
+                  "text": "Shutdown the instance."
+                },
+                {
+                  "text": "Replace the existing MongoDB binaries with the downloaded binaries."
+                },
+                {
+                  "text": "Make any required configuration file changes."
+                },
+                {
+                  "text": "Restart the instance."
+                }
+              ],
+              "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#replace-the-existing-binaries"
+            }
+          ],
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-the-primary"
+        }
+      ]
+    },
+    "sharded": {
+      "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-sharded-clusters",
+      "steps": [
+        {
+          "text": "Disable the cluster's balancer. The linked page runs this from mongosh connected to any mongos; sh.getBalancerState() returns false when disabled.",
+          "cmd": "sh.stopBalancer()",
+          "doc_heading": "Upgrade Sharded Clusters",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-sharded-clusters",
+          "cmd_source": "https://www.mongodb.com/docs/manual/tutorial/manage-sharded-cluster-balancer/#disable-the-balancer"
+        },
+        {
+          "text": "Upgrade the config servers. To upgrade the config server replica set, use the Upgrade Replica Sets procedure.",
+          "doc_heading": "Upgrade Sharded Clusters",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-sharded-clusters"
+        },
+        {
+          "text": "Upgrade each shard: a replica set shard with the Upgrade Replica Sets procedure, a standalone shard with Upgrade a MongoDB Instance.",
+          "doc_heading": "Upgrade Sharded Clusters",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-sharded-clusters"
+        },
+        {
+          "text": "Once the config servers and the shards have been upgraded, upgrade each mongos instance (Upgrade a MongoDB Instance). You can upgrade the mongos instances in any order.",
+          "doc_heading": "Upgrade Sharded Clusters",
+          "substeps": [
+            {
+              "text": "Preferred: upgrade the instance with the operating system's package management tool and the official MongoDB packages.",
+              "doc_heading": "Upgrade a MongoDB Instance",
+              "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-a-mongodb-instance",
+              "quote": "Upgrade the instance using the operating system's package management tool and the official MongoDB packages. This is the preferred approach."
+            },
+            {
+              "text": "Alternative: upgrade by replacing the existing binaries.",
+              "doc_heading": "Replace the Existing Binaries",
+              "substeps": [
+                {
+                  "text": "Download the binaries for the latest MongoDB patch release from the MongoDB Download Page and store them in a temporary location. They uncompress to the directory structure used by the MongoDB installation."
+                },
+                {
+                  "text": "Shutdown the instance."
+                },
+                {
+                  "text": "Replace the existing MongoDB binaries with the downloaded binaries."
+                },
+                {
+                  "text": "Make any required configuration file changes."
+                },
+                {
+                  "text": "Restart the instance."
+                }
+              ],
+              "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#replace-the-existing-binaries"
+            }
+          ],
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-sharded-clusters"
+        },
+        {
+          "text": "Re-enable the balancer.",
+          "cmd": "sh.startBalancer()",
+          "doc_heading": "Upgrade Sharded Clusters",
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-sharded-clusters",
+          "cmd_source": "https://www.mongodb.com/docs/manual/tutorial/manage-sharded-cluster-balancer/#enable-the-balancer"
+        }
+      ]
+    },
+    "fcv": {
+      "text": "The patch-upgrade page has no setFeatureCompatibilityVersion step and does not explicitly say that patch upgrades leave FCV unchanged. The 8.0+ pages add a pre-check that FCV is already fully upgraded to the series version before you swap binaries.",
+      "quote": "Before upgrading the binaries, confirm that the featureCompatibilityVersion has been fully upgraded on all relevant components of your deployment. If the prior FCV upgrade did not complete successfully, restarting the binary with a higher version can cause the node to crash.",
+      "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#check-feature-compatibility-version-fcv",
+      "related": {
+        "url": "https://www.mongodb.com/docs/mongodb-versions/#feature-compatibility-version",
+        "quote": "Upgrading the MongoDB binaries and enabling the new version's features are two separate steps."
+      }
+    },
+    "downgrade": {
+      "text": "The patch-upgrade page does not cover downgrading to an earlier patch release. It only mentions downgrade in the 'ensure all members are running' warning. The MongoDB Versions and Upgrade Paths page says patch releases are backward compatible within their series and that a (major/feature) downgrade normally lands on the latest patch of the target version; it gives no procedure for patch-to-patch downgrade.",
+      "quote": "Patch releases contain fixes and are backward compatible only within their own major and minor release series. You should always run the latest patch release for your major and minor version.",
+      "url": "https://www.mongodb.com/docs/mongodb-versions/#patch-releases",
+      "related": [
+        {
+          "url": "https://www.mongodb.com/docs/mongodb-versions/#downgrades",
+          "quote": "With very few exceptions, a downgrade lands on the latest patch release of the target version."
+        },
+        {
+          "url": "https://www.mongodb.com/docs/manual/tutorial/upgrade-revision/#upgrade-replica-sets",
+          "quote": "Before you upgrade or downgrade a cluster, ensure all cluster members are running."
+        }
+      ]
+    },
+    "variants": {
+      "8.3": {
+        "url": "https://www.mongodb.com/docs/v8.3/tutorial/upgrade-revision/",
+        "differences": "Same steps as 9.0, including the FCV check. Package link points to 'Install MongoDB'.",
+        "doc_issues": "The v8.3 page says 'This page describes upgrade procedures for the MongoDB 8.0 release series' and its FCV example and headings say 8.0 ('To upgrade a 8.0 replica set')."
+      },
+      "8.0": {
+        "url": "https://www.mongodb.com/docs/v8.0/tutorial/upgrade-revision/",
+        "differences": "Same steps as 9.0, including the FCV check (expects \"version\" : \"8.0\"). Package link points to '8.0 Upgrade Procedures'."
+      },
+      "8.2": {
+        "note": "No 8.2 page: /docs/v8.2/ URLs redirect to /docs/manual/ (9.0)."
+      },
+      "7.0": {
+        "url": "https://www.mongodb.com/docs/v7.0/tutorial/upgrade-revision/",
+        "differences": "No 'Check Feature Compatibility Version (FCV)' section. Warning says 'Before you upgrade or downgrade a replica set, ensure all replica set members are running.' Otherwise the same order and steps."
+      },
+      "3.6-6.0": {
+        "urls": {
+          "3.6": "https://github.com/mongodb/docs/blob/v3.6/source/tutorial/upgrade-revision.txt",
+          "4.0": "https://github.com/mongodb/docs/blob/v4.0/source/tutorial/upgrade-revision.txt",
+          "4.2": "https://github.com/mongodb/docs/blob/v4.2/source/tutorial/upgrade-revision.txt",
+          "4.4": "https://github.com/mongodb/docs/blob/v4.4/source/tutorial/upgrade-revision.txt",
+          "5.0": "https://github.com/mongodb/docs/blob/v5.0/source/tutorial/upgrade-revision.txt",
+          "6.0": "https://github.com/mongodb/docs/blob/v6.0/source/tutorial/upgrade-revision.txt"
+        },
+        "differences": [
+          "Title 'Upgrade to the Latest Revision of MongoDB' (3.6-4.4), 'Upgrade to the Latest Self-Managed Patch Release of MongoDB' (5.0-6.0).",
+          "Order: 'Upgrade sharded clusters' comes before standalone instances and replica sets.",
+          "No FCV check.",
+          "4.0-6.0 add a Change Streams note: 'Starting in MongoDB 4.0.7, change streams use a version 1 v1 resume tokens.' Clients resuming with v1 tokens against not-yet-upgraded members can fail until the upgrade completes.",
+          "4.0-4.4 add a '3-Member PSA Architecture' section about disabling read concern majority (removed in 5.0).",
+          "3.6-4.4 use the legacy mongo shell for rs.status() / rs.stepDown(); 5.0+ use mongosh.",
+          "3.6: in the sharded procedure the mongos step reads 'Upgrade each mongos instance' without 'Once the config servers and the shards have been upgraded'."
+        ],
+        "quote": "Revisions provide security patches, bug fixes, and new or changed features that generally do not contain any backward breaking changes. Always upgrade to the latest revision in your release series."
+      }
+    }
+  },
+  "psmdb": {
+    "4.4": {
+      "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/minor-upgrade.html",
+      "prerequisites": [],
+      "steps": [
+        {
+          "text": "Stop the mongod service.",
+          "cmd_apt": "$ sudo systemctl stop mongod",
+          "cmd_yum": "$ sudo systemctl stop mongod",
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/minor-upgrade.html"
+        },
+        {
+          "text": "Install the latest version packages. Use the command relevant to your operating system. The minor-upgrade page only links to the install guides; the commands below are copied from the 'Install the latest version' tab of the apt and yum pages, which assume the psmdb-44 repository is enabled.",
+          "cmd_apt": "$ sudo apt install percona-server-mongodb",
+          "cmd_yum": "$ sudo yum install percona-server-mongodb",
+          "cmd_source": {
+            "apt": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/apt.html",
+            "yum": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/yum.html"
+          },
+          "repo_setup": {
+            "cmd_apt": "$ sudo percona-release enable psmdb-44 release\n$ sudo apt update",
+            "cmd_yum": "$ sudo percona-release enable psmdb-44 release"
+          },
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/minor-upgrade.html"
+        },
+        {
+          "text": "Start the mongod service.",
+          "cmd_apt": "$ sudo systemctl start mongod",
+          "cmd_yum": "$ sudo systemctl start mongod",
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/minor-upgrade.html"
+        }
+      ],
+      "topology_note": {
+        "text": "For replica sets and sharded clusters the page says to use the rolling restart method: upgrade the nodes one by one while the cluster stays operational. It does not spell out member order (secondaries first, step down) or the balancer.",
+        "quote": "To upgrade a replica set or a sharded cluster, use the rolling restart method. It allows you to perform the upgrade with minimum downtime. You upgrade the nodes one by one, while the whole cluster / replica set remains operational.",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/4.4/install/minor-upgrade.html"
+      },
+      "downgrade": "Not mentioned on the page.",
+      "fcv": "Not mentioned on the page."
+    },
+    "5.0": {
+      "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/minor-upgrade.html",
+      "prerequisites": [
+        {
+          "text": "If you use data-at-rest encryption, check the upgrade considerations for the KMIP server and for the Vault server.",
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/minor-upgrade.html",
+          "links": [
+            "https://docs.percona.com/percona-server-for-mongodb/5.0/kmip.html#upgrade-considerations",
+            "https://docs.percona.com/percona-server-for-mongodb/5.0/vault.html#upgrade-considerations"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "text": "Stop the mongod service.",
+          "cmd_apt": "$ sudo systemctl stop mongod",
+          "cmd_yum": "$ sudo systemctl stop mongod",
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Install the latest version packages. Use the command relevant to your operating system. The minor-upgrade page only links to the install guides; the commands below are copied from the 'Install the latest version' tab of the apt and yum pages, which assume the psmdb-50 repository is enabled.",
+          "cmd_apt": "$ sudo apt install percona-server-mongodb",
+          "cmd_yum": "$ sudo yum install percona-server-mongodb",
+          "cmd_source": {
+            "apt": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/apt.html",
+            "yum": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/yum.html"
+          },
+          "repo_setup": {
+            "cmd_apt": "$ sudo percona-release enable psmdb-50 release\n$ sudo apt update",
+            "cmd_yum": "$ sudo percona-release enable psmdb-50 release"
+          },
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Start the mongod service.",
+          "cmd_apt": "$ sudo systemctl start mongod",
+          "cmd_yum": "$ sudo systemctl start mongod",
+          "doc_heading": "Minor upgrade of Percona Server for MongoDB",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/minor-upgrade.html"
+        }
+      ],
+      "topology_note": {
+        "text": "For replica sets and sharded clusters the page says to use the rolling restart method: upgrade the nodes one by one while the cluster stays operational. It does not spell out member order (secondaries first, step down) or the balancer.",
+        "quote": "To upgrade a replica set or a sharded cluster, use the rolling restart method. It allows you to perform the upgrade with minimum downtime. You upgrade the nodes one by one, while the whole cluster / replica set remains operational.",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/5.0/install/minor-upgrade.html"
+      },
+      "downgrade": "Not mentioned on the page.",
+      "fcv": "Not mentioned on the page."
+    },
+    "6.0": {
+      "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html",
+      "prerequisites": [
+        {
+          "text": "If you use data-at-rest encryption with a KMIP server, check the upgrade considerations.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html#upgrade-considerations",
+          "links": [
+            "https://docs.percona.com/percona-server-for-mongodb/6.0/kmip.html#upgrade-considerations"
+          ]
+        },
+        {
+          "text": "On Amazon Linux 2023, PSMDB works only on specific Amazon Linux versions. Make sure you run a compatible Amazon Linux 2023 version before upgrading; update the OS with the AWS update instructions if needed.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html#upgrade-considerations",
+          "al2023_compat": [
+            {
+              "psmdb": "6.0.20-17",
+              "amazon_linux_2023": "2023.6.x and earlier"
+            },
+            {
+              "psmdb": "6.0.21-18",
+              "amazon_linux_2023": "2023.7.x"
+            }
+          ],
+          "quote": "We build and test Percona Server for MongoDB only on the latest versions of Amazon Linux 2023. Because of the way Amazon Linux updates their libraries, Percona Server for MongoDB works only on specific Amazon Linux versions."
+        }
+      ],
+      "steps": [
+        {
+          "text": "Stop the mongod service.",
+          "cmd_apt": "$ sudo systemctl stop mongod",
+          "cmd_yum": "$ sudo systemctl stop mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Install the latest version packages. Use the command relevant to your operating system. The minor-upgrade page only links to the install guides; the commands below are copied from the 'Install the latest version' tab of the apt and yum pages, which assume the psmdb-60 repository is enabled.",
+          "cmd_apt": "$ sudo apt install percona-server-mongodb",
+          "cmd_yum": "$ sudo yum install percona-server-mongodb",
+          "cmd_source": {
+            "apt": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/apt.html",
+            "yum": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/yum.html"
+          },
+          "repo_setup": {
+            "cmd_apt": "$ sudo percona-release enable psmdb-60 release\n$ sudo apt update",
+            "cmd_yum": "$ sudo percona-release enable psmdb-60 release"
+          },
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Start the mongod service.",
+          "cmd_apt": "$ sudo systemctl start mongod",
+          "cmd_yum": "$ sudo systemctl start mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html"
+        }
+      ],
+      "topology_note": {
+        "text": "For replica sets and sharded clusters the page says to use the rolling restart method: upgrade the nodes one by one while the cluster stays operational. It does not spell out member order (secondaries first, step down) or the balancer.",
+        "quote": "To upgrade a replica set or a sharded cluster, use the rolling restart method. It allows you to perform the upgrade with minimum downtime. You upgrade the nodes one by one, while the whole cluster / replica set remains operational.",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/6.0/install/minor-upgrade.html"
+      },
+      "downgrade": "Not mentioned on the page.",
+      "fcv": "Not mentioned on the page."
+    },
+    "7.0": {
+      "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html",
+      "prerequisites": [
+        {
+          "text": "If you use data-at-rest encryption with a KMIP server, check the upgrade considerations.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html#upgrade-considerations",
+          "links": [
+            "https://docs.percona.com/percona-server-for-mongodb/7.0/kmip.html#upgrade-considerations"
+          ]
+        },
+        {
+          "text": "On Amazon Linux 2023, PSMDB works only on specific Amazon Linux versions. Make sure you run a compatible Amazon Linux 2023 version before upgrading; update the OS with the AWS update instructions if needed.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html#upgrade-considerations",
+          "al2023_compat": [
+            {
+              "psmdb": "7.0.16-10",
+              "amazon_linux_2023": "2023.6.x and earlier"
+            },
+            {
+              "psmdb": "7.0.18-11",
+              "amazon_linux_2023": "2023.7.x and newer"
+            }
+          ],
+          "quote": "We build and test Percona Server for MongoDB only on the latest versions of Amazon Linux 2023. Because of the way Amazon Linux updates their libraries, Percona Server for MongoDB works only on specific Amazon Linux versions."
+        }
+      ],
+      "steps": [
+        {
+          "text": "Stop the mongod service.",
+          "cmd_apt": "sudo systemctl stop mongod",
+          "cmd_yum": "sudo systemctl stop mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Install the latest version packages. Use the command relevant to your operating system. The minor-upgrade page only links to the install guides; the commands below are copied from the 'Install the latest version' tab of the apt and yum pages, which assume the psmdb-70 repository is enabled.",
+          "cmd_apt": "sudo apt install percona-server-mongodb",
+          "cmd_yum": "sudo yum install percona-server-mongodb",
+          "cmd_source": {
+            "apt": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/apt.html",
+            "yum": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/yum.html"
+          },
+          "repo_setup": {
+            "cmd_apt": "sudo percona-release enable psmdb-70 release\nsudo apt update",
+            "cmd_yum": "sudo percona-release enable psmdb-70 release"
+          },
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Start the mongod service.",
+          "cmd_apt": "sudo systemctl start mongod",
+          "cmd_yum": "sudo systemctl start mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html"
+        }
+      ],
+      "topology_note": {
+        "text": "For replica sets and sharded clusters the page says to use the rolling restart method: upgrade the nodes one by one while the cluster stays operational. It does not spell out member order (secondaries first, step down) or the balancer.",
+        "quote": "To upgrade a replica set or a sharded cluster, use the rolling restart method. It allows you to perform the upgrade with minimum downtime. You upgrade the nodes one by one, while the whole cluster / replica set remains operational.",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/7.0/install/minor-upgrade.html"
+      },
+      "downgrade": "Not mentioned on the page.",
+      "fcv": "Not mentioned on the page."
+    },
+    "8.0": {
+      "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html",
+      "prerequisites": [
+        {
+          "text": "If you use data-at-rest encryption with a KMIP server, check the upgrade considerations.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html#upgrade-considerations",
+          "links": [
+            "https://docs.percona.com/percona-server-for-mongodb/8.0/kmip.html#upgrade-considerations"
+          ]
+        },
+        {
+          "text": "On Amazon Linux 2023, PSMDB works only on specific Amazon Linux versions. Make sure you run a compatible Amazon Linux 2023 version before upgrading; update the OS with the AWS update instructions if needed.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html#upgrade-considerations",
+          "al2023_compat": [
+            {
+              "psmdb": "8.0.4-2",
+              "amazon_linux_2023": "2023.6.x and older"
+            },
+            {
+              "psmdb": "8.0.8-3",
+              "amazon_linux_2023": "2023.7.x and newer"
+            }
+          ],
+          "quote": "We build and test Percona Server for MongoDB only on the latest versions of Amazon Linux 2023. Because of the way Amazon Linux updates their libraries, Percona Server for MongoDB works only on specific Amazon Linux versions."
+        }
+      ],
+      "steps": [
+        {
+          "text": "Stop the mongod service.",
+          "cmd_apt": "sudo systemctl stop mongod",
+          "cmd_yum": "sudo systemctl stop mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Install the latest version packages. Use the command relevant to your operating system. The minor-upgrade page only links to the install guides; the commands below are copied from the 'Install the latest version' tab of the apt and yum pages, which assume the psmdb-80 repository is enabled.",
+          "cmd_apt": "sudo apt install percona-server-mongodb",
+          "cmd_yum": "sudo yum install percona-server-mongodb",
+          "cmd_source": {
+            "apt": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/apt.html",
+            "yum": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/yum.html"
+          },
+          "repo_setup": {
+            "cmd_apt": "sudo percona-release enable psmdb-80 release\nsudo apt update",
+            "cmd_yum": "sudo percona-release enable psmdb-80 release"
+          },
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html"
+        },
+        {
+          "text": "Start the mongod service.",
+          "cmd_apt": "sudo systemctl start mongod",
+          "cmd_yum": "sudo systemctl start mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html"
+        }
+      ],
+      "topology_note": {
+        "text": "For replica sets and sharded clusters the page says to use the rolling restart method: upgrade the nodes one by one while the cluster stays operational. It does not spell out member order (secondaries first, step down) or the balancer.",
+        "quote": "To upgrade a replica set or a sharded cluster, use the rolling restart method. It allows you to perform the upgrade with minimum downtime. You upgrade the nodes one by one, while the whole cluster / replica set remains operational.",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.0/install/minor-upgrade.html"
+      },
+      "downgrade": "Not mentioned on the page.",
+      "fcv": "Not mentioned on the page."
+    },
+    "8.3": {
+      "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html",
+      "prerequisites": [
+        {
+          "text": "If you use data-at-rest encryption with a KMIP server, check the upgrade considerations.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html#upgrade-considerations",
+          "links": [
+            "https://docs.percona.com/percona-server-for-mongodb/8.3/kmip.html#upgrade-considerations"
+          ]
+        },
+        {
+          "text": "On Amazon Linux 2023, PSMDB works only on specific Amazon Linux versions. Make sure you run a compatible Amazon Linux 2023 version before upgrading; update the OS with the AWS update instructions if needed.",
+          "doc_heading": "Upgrade considerations",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html#upgrade-considerations",
+          "al2023_compat": [
+            {
+              "psmdb": "8.3.7-1",
+              "amazon_linux_2023": "2023.11.x and newer"
+            }
+          ],
+          "quote": "We build and test Percona Server for MongoDB only on the latest versions of Amazon Linux 2023. Because of the way Amazon Linux updates their libraries, Percona Server for MongoDB works only on specific Amazon Linux versions."
+        }
+      ],
+      "steps": [
+        {
+          "text": "Stop the mongod service.",
+          "cmd_apt": "sudo systemctl stop mongod",
+          "cmd_yum": "sudo systemctl stop mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html"
+        },
+        {
+          "text": "Install the latest version packages. Use the command relevant to your operating system. The minor-upgrade page only links to the install guides; the commands below are copied from the 'Install the latest version' tab of the apt and yum pages, which assume the psmdb-83 repository is enabled.",
+          "cmd_apt": "sudo apt install percona-server-mongodb",
+          "cmd_yum": "sudo yum install percona-server-mongodb",
+          "cmd_source": {
+            "apt": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/apt.html",
+            "yum": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/yum.html"
+          },
+          "repo_setup": {
+            "cmd_apt": "sudo percona-release enable psmdb-83 release\nsudo apt update",
+            "cmd_yum": "sudo percona-release enable psmdb-83 release"
+          },
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html"
+        },
+        {
+          "text": "Start the mongod service.",
+          "cmd_apt": "sudo systemctl start mongod",
+          "cmd_yum": "sudo systemctl start mongod",
+          "doc_heading": "Procedure",
+          "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html"
+        }
+      ],
+      "topology_note": {
+        "text": "For replica sets and sharded clusters the page says to use the rolling restart method: upgrade the nodes one by one while the cluster stays operational. It does not spell out member order (secondaries first, step down) or the balancer.",
+        "quote": "To upgrade a replica set or a sharded cluster, use the rolling restart method. It allows you to perform the upgrade with minimum downtime. You upgrade the nodes one by one, while the whole cluster / replica set remains operational.",
+        "url": "https://docs.percona.com/percona-server-for-mongodb/8.3/install/minor-upgrade.html"
+      },
+      "downgrade": "Not mentioned on the page.",
+      "fcv": "Not mentioned on the page."
+    },
+    "_missing": {
+      "3.6": "No install/minor-upgrade.html (404). The 3.6 docs only have upgrade_from_34.html and upgrade_from_mongodb.html.",
+      "4.0": "No install/minor-upgrade.html (404). Only upgrade-from-36.html and upgrade-from-mongodb.html.",
+      "4.2": "No install/minor-upgrade.html (404). Only upgrade-from-40.html and upgrade-from-mongodb.html.",
+      "8.2": "PSMDB 8.2 does not exist (not in the Percona lifecycle table).",
+      "9.0": "PSMDB 9.0 does not exist yet (not in the Percona lifecycle table; docs 404)."
+    },
+    "_notes": [
+      "4.4, 5.0 and 6.0 pages prefix commands with '$ '; 7.0, 8.0 and 8.3 do not. cmd values keep the prefix exactly as written.",
+      "The 8.0 page was last updated December 2, 2025."
+    ]
+  }
+}
