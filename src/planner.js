@@ -197,7 +197,7 @@ function cveFindings(input, path, kb, landing, distribution, targetDistribution)
       // The upstream fix only helps if this distribution shipped a release of the series that includes it.
       const rel = a.fixed_in ? releasesFor(kb, dist, a.major).filter((r) => (r.channel ?? 'release') === 'release' && !r.prerelease) : [];
       const shipped = a.fixed_in ? (rel.length ? rel.find((r) => compareVersions(r.version, a.fixed_in) >= 0)?.version ?? null : a.fixed_in) : null;
-      out.push({ which, id: cve.id, severity: cve.severity, cvss: cve.cvss, title: cve.title, url: cve.url, fixedIn: shipped,
+      out.push({ which, id: cve.id, severity: cve.severity, cvss: cve.cvss, title: cve.title, url: cve.url, fixedIn: shipped, upstreamFix: a.fixed_in ?? null, distName: name,
         message: !a.fixed_in ? `${version} is affected and ${a.major} has no fixed release.`
           : shipped ? `${version} is affected, fixed in ${shipped}${shipped !== a.fixed_in ? ` (MongoDB ${a.fixed_in})` : ''}.`
           : `${version} is affected. MongoDB fixed it in ${a.fixed_in}, but no ${name} ${a.major} release includes the fix.` });
