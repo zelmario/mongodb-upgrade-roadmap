@@ -184,21 +184,27 @@ export function cveSummary(list, which) {
 }
 
 // Each CVE that affects the current version or the version the plan lands on.
-function cveFindings(input, path, kb, landing) {
+function cveFindings(input, path, kb, landing, distribution, targetDistribution) {
   const out = [];
-  const check = (version, which) => {
+  const check = (version, which, dist) => {
     if (!version) return;
+    const name = dist === "psmdb" ? "PSMDB" : (DISTRIBUTIONS[dist] ?? dist);
     for (const cve of kb.cves.cves ?? []) {
       const a = (cve.affected ?? []).find((x) => x.major === majorOf(version));
       if (!a) continue;
       if (a.fixed_in && compareVersions(version, a.fixed_in) >= 0) continue;
       if (out.some((o) => o.which === which && o.id === cve.id)) continue;
-      out.push({ which, id: cve.id, severity: cve.severity, cvss: cve.cvss, title: cve.title, url: cve.url, fixedIn: a.fixed_in ?? null,
-        message: a.fixed_in ? `${version} is affected, fixed in ${a.fixed_in}.` : `${version} is affected and ${a.major} has no fixed release.` });
+      // The upstream fix only helps if this distribution shipped a release of the series that includes it.
+      const rel = a.fixed_in ? releasesFor(kb, dist, a.major).filter((r) => (r.channel ?? 'release') === 'release' && !r.prerelease) : [];
+      const shipped = a.fixed_in ? (rel.length ? rel.find((r) => compareVersions(r.version, a.fixed_in) >= 0)?.version ?? null : a.fixed_in) : null;
+      out.push({ which, id: cve.id, severity: cve.severity, cvss: cve.cvss, title: cve.title, url: cve.url, fixedIn: shipped,
+        message: !a.fixed_in ? `${version} is affected and ${a.major} has no fixed release.`
+          : shipped ? `${version} is affected, fixed in ${shipped}${shipped !== a.fixed_in ? ` (MongoDB ${a.fixed_in})` : ''}.`
+          : `${version} is affected. MongoDB fixed it in ${a.fixed_in}, but no ${name} ${a.major} release includes the fix.` });
     }
   };
-  check(input.from, 'current');
-  check(landing, 'target');
+  check(input.from, 'current', distribution);
+  check(landing, 'target', targetDistribution ?? distribution);
   return out;
 }
 
@@ -1103,7 +1109,7 @@ export function buildRoadmap(input, kb) {
     path,
     blockers: [...new Set(blockers)],
     warnings: [...new Set(warnings)],
-    cves: cveFindings(input, path, kb, hops.at(-1)?.latestTo ?? input.toVersion),
+    cves: cveFindings(input, path, kb, hops.at(-1)?.latestTo ?? input.toVersion, distribution, targetDistribution),
     drivers: driverResults.summary,
     switch: sw,
     osPlan,

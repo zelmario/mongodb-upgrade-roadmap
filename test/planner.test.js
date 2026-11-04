@@ -516,3 +516,15 @@ test('lab test 4: Operator patches keep the image, quoted keyfile, yum tools', (
   assert.match(JSON.stringify(p), /percona-server-mongodb-7\.0\.45-24\$\(rpm -E %\{dist\}\) percona-server-mongodb-tools/);
   assert.match(renderMarkdown(op), /```yaml/);
 });
+
+test('CVE fixes point only at releases the distribution shipped', () => {
+  const r = buildRoadmap({ from: '4.4.29-28', to: '5.0', toVersion: '5.0.29-25' }, kb);
+  const t = r.cves.filter((c) => c.which === 'target');
+  assert.ok(t.length);
+  for (const c of t) {
+    assert.equal(c.fixedIn, null, c.id);
+    assert.match(c.message, /no PSMDB 5\.0 release includes the fix/);
+  }
+  const p = buildRoadmap({ from: '7.0.20-12', to: '8.0' }, kb).cves.filter((c) => c.which === 'current' && c.fixedIn);
+  assert.ok(p.every((c) => /-\d+$/.test(c.fixedIn)), 'PSMDB fixes name a PSMDB build');
+});
