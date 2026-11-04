@@ -63,6 +63,7 @@ function itemApplies(item, ctx) {
   if (w.distribution && !w.distribution.includes(ctx.distribution)) return false;
   if (w.platform && !w.platform.includes(ctx.platform)) return false;
   if (w.from && !w.from.includes(ctx.from)) return false;
+  if (w.first_hop && ctx.firstHop === false) return false;
   if (w.pm && ctx.pm && !w.pm.includes(ctx.pm)) return false;
   if (w.os && ctx.os && !w.os.includes(ctx.os)) return false;
   return true;
@@ -951,7 +952,7 @@ export function buildRoadmap(input, kb) {
     vars.image = fill('percona/percona-server-mongodb:{to_full}', vars);
     vars.rapid = isAtlasOnly(kb, hopDist, to);
     vars.from_nodot = from.replace('.', '');
-    const ctx = { from, to, topology, arch: input.arch, distribution: hopDist, platform, pm, os: input.os };
+    const ctx = { from, to, topology, arch: input.arch, distribution: hopDist, platform, pm, os: input.os, firstHop: n === 1 };
     const items = allItems.filter((i) => itemApplies(i, ctx)).map((i) => renderItem(i, vars));
 
     // Generated items: required minimum patch and patches to avoid on the target.

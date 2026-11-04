@@ -528,3 +528,11 @@ test('CVE fixes point only at releases the distribution shipped', () => {
   const p = buildRoadmap({ from: '7.0.20-12', to: '8.0' }, kb).cves.filter((c) => c.which === 'current' && c.fixedIn);
   assert.ok(p.every((c) => /-\d+$/.test(c.fixedIn)), 'PSMDB fixes name a PSMDB build');
 });
+
+test('zlib mitigation for CVE-2025-14847 shows once where no fix exists', () => {
+  const count = (c) => buildRoadmap(c, kb).hops.map((h) => h.preflight.filter((i) => i.id.startsWith('zlib-mongobleed')).length);
+  assert.deepEqual(count({ from: '4.4.29-28', to: '6.0' }), [1, 0]);
+  assert.deepEqual(count({ from: '6.0.20-17', to: '7.0' }), [0]);
+  assert.deepEqual(count({ from: '4.2.25', to: '4.4', distribution: 'mongodb-community' }), [1]);
+  assert.deepEqual(count({ from: '4.4.29', to: '5.0', distribution: 'mongodb-community' }), [0]);
+});

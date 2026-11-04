@@ -2,6 +2,13 @@
   "schema_version": 1,
   "patterns": [
     {
+      "id": "getcmdline-compression",
+      "match": "^db\\.adminCommand\\(\\{\\s*getCmdLineOpts:\\s*1\\s*\\}\\)\\.parsed\\.net\\.compression$",
+      "output": "{ compressors: 'snappy,zstd' }",
+      "note": "This is the output after the change. No output means the defaults (snappy, zstd, zlib on 4.2 and later), so zlib is still allowed.",
+      "source": "https://www.percona.com/blog/cve-2025-14847-mongobleed-a-high-severity-memory-leak-in-mongodb/"
+    },
+    {
       "id": "op-get-spec-image",
       "match": "^kubectl get psmdb (?:\\{cluster\\}|my-cluster-name) -n (?:\\{namespace\\}|<namespace>) -o jsonpath='\\{\\.spec\\.image\\}\\{\"\\\\n\"\\}\\{\\.spec\\.backup\\.image\\}\\{\"\\\\n\"\\}\\{\\.spec\\.pmm\\.image\\}\\{\"\\\\n\"\\}'$",
       "output": "percona/percona-server-mongodb:{to_full}\npercona/percona-backup-mongodb:2.15.0\npercona/pmm-client:2.44.1-1",

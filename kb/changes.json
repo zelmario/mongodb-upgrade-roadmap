@@ -2644,6 +2644,62 @@
       "tested": "Lab: 3-node PSMDB replica set, 4.4.29-28 to 5.0.29-25 to 6.0.29-23 on Rocky Linux 8 with yum. The 4.4 and 5.0 hosts had only /usr/bin/mongo, and the psmdb-44 repository has no percona-mongodb-mongosh. Every check and step worked with mongo.",
       "source_url": "https://github.com/mongodb/docs/blob/v6.0/source/release-notes/6.0-compatibility.txt",
       "run_on": "each mongod host, in the OS shell"
+    },
+    {
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Disable zlib network compression: CVE-2025-14847 has no fix for this version",
+      "check": "db.adminCommand({ getCmdLineOpts: 1 }).parsed.net.compression",
+      "fix": "net:\n  compression:\n    compressors: snappy,zstd",
+      "run_on": "each mongod and mongos",
+      "basis": "docs",
+      "verified": false,
+      "source_url": "https://www.percona.com/blog/cve-2025-14847-mongobleed-a-high-severity-memory-leak-in-mongodb/",
+      "quote": "Until patched versions are available, we strongly recommend disabling zlib network compression on all affected MongoDB servers.",
+      "note": "No output means the defaults, which allow zlib on 4.2 and later. 3.6 and 4.0 have no zstd: use compressors: snappy there. Restart each member in a rolling fashion after the change, and make sure clients do not request zlib.",
+      "id": "zlib-mongobleed-psmdb-eol",
+      "when": {
+        "distribution": [
+          "psmdb"
+        ],
+        "from": [
+          "3.6",
+          "4.0",
+          "4.2",
+          "4.4",
+          "5.0"
+        ],
+        "first_hop": true
+      },
+      "action": "MongoDB fixed CVE-2025-14847 (MongoBleed, CVSS 8.7) in 4.4.30 and 5.0.32, but no PSMDB 4.4 or 5.0 release includes the fix, and 3.6 to 4.2 have no fix at all. Until the cluster reaches a patched series (6.0.27-21, 7.0.28-15, 8.0.17-6 or later), remove zlib from net.compression.compressors on every member."
+    },
+    {
+      "hop_to": "*",
+      "section": "preflight",
+      "severity": "warning",
+      "title": "Disable zlib network compression: CVE-2025-14847 has no fix for this version",
+      "check": "db.adminCommand({ getCmdLineOpts: 1 }).parsed.net.compression",
+      "fix": "net:\n  compression:\n    compressors: snappy,zstd",
+      "run_on": "each mongod and mongos",
+      "basis": "docs",
+      "verified": false,
+      "source_url": "https://www.percona.com/blog/cve-2025-14847-mongobleed-a-high-severity-memory-leak-in-mongodb/",
+      "quote": "Until patched versions are available, we strongly recommend disabling zlib network compression on all affected MongoDB servers.",
+      "note": "No output means the defaults, which allow zlib on 4.2 and later. 3.6 and 4.0 have no zstd: use compressors: snappy there. Restart each member in a rolling fashion after the change, and make sure clients do not request zlib.",
+      "id": "zlib-mongobleed-ce-eol",
+      "when": {
+        "distribution": [
+          "mongodb-community"
+        ],
+        "from": [
+          "3.6",
+          "4.0",
+          "4.2"
+        ],
+        "first_hop": true
+      },
+      "action": "CVE-2025-14847 (MongoBleed, CVSS 8.7) has no fix for 3.6, 4.0 or 4.2. Until the cluster reaches a patched release (4.4.30, 5.0.32 or later), remove zlib from net.compression.compressors on every member."
     }
   ]
 }
