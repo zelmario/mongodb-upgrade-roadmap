@@ -1,5 +1,7 @@
 # MongoDB upgrade roadmap
 
+[![MongoDB upgrade roadmap: a PSMDB 6.0 to 8.3 plan with three hops](docs/screenshot.png)](https://zelmario.github.io/mongodb-upgrade-roadmap/)
+
 Upgrading MongoDB across several versions means reading a different upgrade page for every hop, plus the compatibility notes, the driver tables and the backup and monitoring tool requirements. Miss one and the upgrade stops halfway: FCV left on the old version, a backup agent that does not support the new server, a driver that still sends legacy opcodes.
 
 This page puts that documentation in one plan. You give it the current version, the target version and how the deployment runs, and it shows every hop with its prerequisites, the official steps, what changes, the rollback window and the post-upgrade checks. **It never connects to your cluster.**
