@@ -83,6 +83,7 @@ button.link { border: 0; background: none; color: var(--accent); padding: 7px 4p
 .tip b { font-weight: 600; }
 .tip code { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 12px; background: rgb(255 255 255 / 0.12); border-radius: 4px; padding: 5px 7px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .more { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 12px; }
+[hidden] { display: none !important; }
 .hint { font-size: 12.5px; color: var(--muted); }
 .mono { font-family: var(--font-mono); font-size: 12px; overflow-wrap: anywhere; }
 .driver-rows { display: grid; gap: 6px; }
@@ -254,8 +255,6 @@ footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--lin
       </div>
 
       <div class="more" id="more" hidden>
-        <div class="row">
-        </div>
         <div class="row">
           <div class="f" data-help="pbm"><label for="c-pbm">PBM</label><select id="c-pbm"></select></div>
           <div class="f" data-help="pmm"><label for="c-pmm">PMM</label><select id="c-pmm"></select></div>
